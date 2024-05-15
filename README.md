@@ -23,8 +23,8 @@ Serão todos os veículos que o cliente levou para oficina fazer um serviço
 
 ### Mecânico Responsável pelo serviço (Tabela de Mecânicos)
 Cada serviço terá também o ID do Mecânico
-Obs: Verificar se faz sentido ter uma lista no serviço para mais de um mecânico ou se apenas um mecânico basta
-Obs2: Verificar se faz sentido colocar uma especialização para o Mecânico (moto ou carro) e uma regra ao tentar cadastrar mecânicos em serviços que são de Carro, mas o mecânico tem apenas a especialização para carro. (Acho que não faz sentido agora)
+<br>Obs: Verificar se faz sentido ter uma lista no serviço para mais de um mecânico ou se apenas um mecânico basta
+<br>Obs2: Verificar se faz sentido colocar uma especialização para o Mecânico (moto ou carro) e uma regra ao tentar cadastrar mecânicos em serviços que são de Carro, mas o mecânico tem apenas a especialização para carro. (Acho que não faz sentido agora)
 
 ### Histórico de Serviços (possivelmente um Método)
 Método que irá filtrar todos os serviços por cliente ou por veículo. Ou pelos dois
