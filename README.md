@@ -40,10 +40,10 @@ Mas tem que ficar atento a regra, o cliente apenas pagará o valor na hora do co
 ### Histórico de Atualização dos valores 
 Criar uma tabela com o histórico de mudança dos valores
 
-### Diagnóestico do Veículo
+### Diagnóstico do Veículo
 Obs: Verificar se faz sentido para essa primeira versão
 
-Criar um PDF ou método mesmo
+Criar um PDF ou um método que passa o Id do serviço e taga todos os detalhes
 
 ### Valor total do Serviço (Exportar em PDF)
 
