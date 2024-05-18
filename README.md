@@ -1,7 +1,8 @@
 # AutomativeRepairAPI
-Projeto de uma API em NestJS que simula uma oficina mecânica 
+Projeto de uma API em NestJS que simula uma oficina mecânica
 
-# Funcionalidades
+# Brainstorm
+## Funcionalidades
 ### Agendamento de Serviços (Tabela de Agendamento)
 A secretária ou mecânico poderá cadastrar um agendamento de serviço, que poderá ser de dois (ou três) tipos:
 
@@ -46,17 +47,20 @@ Obs: Verificar se faz sentido para essa primeira versão
 Criar um PDF ou um método que passa o Id do serviço e taga todos os detalhes
 
 ### Valor total do Serviço (Exportar em PDF)
+Exportar em PDF os detalhes do serviço, discriminando as peças que foram utilizadas e o valor total do serviço
 
 ### Enviar email para o cliente quando o serviço for finalizado (método)
+Criar um agendamento de email para enviar para o cliente quando o serviço estiver finalizado
 
-## Para Depois
+## Para outra versão do sistema
+Acreedito que não dá tempo de fazer o que está logo abaixo, mas fica muito interessante para uma próxima versão da API
 
 ### Processo de Pagamentos (Microserviço)
-
- - Verificar se faz sentido colocar uma especialização para o Mecânico (moto ou carro) e uma regra ao tentar cadastrar mecânicos em serviços que são de Carro, mas o mecânico tem apenas a especialização para carro. (Acho que não faz sentido agora).
+Criar uma processamento de pagamentos em microservico e consequentemente mudar toda a arquitetura da aplicação para microserviço
 
 ### Culture para Tipo de Serviços
-
+Incorporar o uso de idiomas nos serviços
 
 
 # Arquitetura 
+Descrever aqui depois a arquitetura do código, frameworks, banco, etc
