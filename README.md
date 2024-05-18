@@ -53,10 +53,10 @@ Criar um PDF ou um método que passa o Id do serviço e taga todos os detalhes
 
 ### Processo de Pagamentos (Microserviço)
 
- - Verificar se faz sentido colocar uma especialização para o Mecânico (moto ou carro) e uma regra ao tentar cadastrar mecânicos em serviços que são de Carro, mas o mecânico tem apenas a especialização para carro. (Acho que não faz sentido agora)
+ - Verificar se faz sentido colocar uma especialização para o Mecânico (moto ou carro) e uma regra ao tentar cadastrar mecânicos em serviços que são de Carro, mas o mecânico tem apenas a especialização para carro. (Acho que não faz sentido agora).
 
 ### Culture para Tipo de Serviços
 
 
 
-# Arquitetura
+# Arquitetura 
