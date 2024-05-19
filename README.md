@@ -64,3 +64,13 @@ Incorporar o uso de idiomas nos serviços
 
 # Arquitetura 
 Descrever aqui depois a arquitetura do código, frameworks, banco, etc
+
+## Arquitetura de Código
+Clean code...
+
+## Bando de Dados
+Mysql...
+
+## ORM
+
+## Repository Pattern
