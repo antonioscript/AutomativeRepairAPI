@@ -74,3 +74,6 @@ Mysql...
 ## ORM
 
 ## Repository Pattern
+
+## Mapeamento de Entidades
+Para o mapeamento de entidades foi utilizado o AutoMapper
