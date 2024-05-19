@@ -68,7 +68,7 @@ Descrever aqui depois a arquitetura do código, frameworks, banco, etc
 ## Arquitetura de Código
 Clean code...
 
-## Bando de Dados
+## Banco de Dados
 Mysql...
 
 ## ORM
@@ -76,4 +76,4 @@ Mysql...
 ## Repository Pattern
 
 ## Mapeamento de Entidades
-Para o mapeamento de entidades foi utilizado o AutoMapper
+Mapper
