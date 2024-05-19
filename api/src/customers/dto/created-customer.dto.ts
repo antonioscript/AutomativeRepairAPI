@@ -1,5 +1,5 @@
-export class CreateCustomerDto {
-    id?: number
+export class CreatedCustomerDto {
+    id: number
     firstName: string
     lastName: string   
 }
