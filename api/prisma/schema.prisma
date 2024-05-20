@@ -9,6 +9,15 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Customer {
+   id    Int     @default(autoincrement()) @id
+   firstName String @db.VarChar(100)
+   lastName String @db.VarChar(100)
+  
+  @@map("customers")
+
 }
