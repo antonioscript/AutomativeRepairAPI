@@ -2,13 +2,14 @@ import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/
 import { CreateCustomerUseCase } from './create-customer.use-case';
 import { GetAllCustomersUseCase } from './get-all-customers.use-case';
 import { RequestCustomerDto } from './dto/request-customer.dto';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { GetOneCustomerUseCase } from './get-one-customer.use-case';
 
 @Controller('customers')
 export class CustomersController {
   constructor(
     private readonly createCustomerUseCase: CreateCustomerUseCase,
-    private readonly getAllCustomersUseCase: GetAllCustomersUseCase
+    private readonly getAllCustomersUseCase: GetAllCustomersUseCase,
+    private readonly getOneCustomerUseCase: GetOneCustomerUseCase
 
   ) {}
 
@@ -22,10 +23,10 @@ export class CustomersController {
     return this.getAllCustomersUseCase.execute();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.customersService.findOne(+id);
-  // }
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.getOneCustomerUseCase.execute(+id);
+  }
 
   // @Put(':id')
   // async update(@Param('id') id: number, @Body() updateCustomerDto: UpdateCustomerDto) {

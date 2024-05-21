@@ -16,7 +16,7 @@ export class CreateCustomerUseCase implements UseCase<ResponseCustomerDto> {
   }
 
   public async execute(customer: RequestCustomerDto): Promise<ResponseCustomerDto> {
-    const entity = this. requestCustomerMapper.mapFrom(customer)
+    const entity = this.requestCustomerMapper.mapFrom(customer)
     const responseCustomer = await this.repository.create(entity)
     return this.responseCustomerMapper.mapTo(responseCustomer)
   }
