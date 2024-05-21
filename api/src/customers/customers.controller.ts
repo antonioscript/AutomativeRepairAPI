@@ -5,6 +5,7 @@ import { RequestCustomerDto } from './dto/request-customer.dto';
 import { GetOneCustomerUseCase } from './get-one-customer.use-case';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { UpdateCustomerUseCase } from './update-customer.use-case';
+import { DeleteCustomerUseCase } from './delete-customer.use-case';
 
 @Controller('customers')
 export class CustomersController {
@@ -12,7 +13,8 @@ export class CustomersController {
     private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly updateCustomerUseCase: UpdateCustomerUseCase,
     private readonly getAllCustomersUseCase: GetAllCustomersUseCase,
-    private readonly getOneCustomerUseCase: GetOneCustomerUseCase
+    private readonly getOneCustomerUseCase: GetOneCustomerUseCase,
+    private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
 
   ) {}
 
@@ -37,14 +39,9 @@ export class CustomersController {
     return this.updateCustomerUseCase.execute(parsedNumberId, updateCustomerDto);
   }
 
-
-  // @Patch(':id')
-  // updatePacth(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-  //   return this.customersService.update(+id, updateCustomerDto);
-  // }
-
-  // @Delete(':id')
-  // async remove(@Param('id') id: string) {
-  //   return this.customersService.remove(+id);
-  // }
+  @Delete(':id')
+  async remove(@Param('id') id: number) {
+    const parsedNumberId = Number(id);
+    await this.deleteCustomerUseCase.execute(parsedNumberId)
+  }
 }
