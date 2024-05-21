@@ -1,10 +1,10 @@
-import { CreateCustomerDto } from "src/customers/dto/create-customer.dto"
+import { RequestCustomerDto } from "src/customers/dto/request-customer.dto"
 import { CustomerEntity } from "src/customers/entities/customer.entity"
 import { Mapper } from "./mapper"
 
 
-export class CreateCustomerMapper extends Mapper<CreateCustomerDto, CustomerEntity> {
-  public mapFrom(data: CreateCustomerDto): CustomerEntity {
+export class RequestCustomerMapper extends Mapper<RequestCustomerDto, CustomerEntity> {
+  public mapFrom(data: RequestCustomerDto): CustomerEntity {
     const customer = new CustomerEntity()
 
     customer.firstName = data.firstName
@@ -13,8 +13,8 @@ export class CreateCustomerMapper extends Mapper<CreateCustomerDto, CustomerEnti
     return customer
   }
 
-  public mapTo(data: CustomerEntity): CreateCustomerDto {
-    const customer = new CreateCustomerDto()
+  public mapTo(data: CustomerEntity): RequestCustomerDto {
+    const customer = new RequestCustomerDto()
 
     customer.id = data.id
     customer.firstName = data.firstName

@@ -1,23 +1,23 @@
-import { CreateCustomerDto } from './dto/create-customer.dto';
-import { CreatedCustomerDto } from './dto/created-customer.dto';
+import { RequestCustomerDto } from './dto/request-customer.dto';
+import { ResponseCustomerDto } from './dto/response-customer.dto';
 import { UseCase } from 'src/base/use-case';
-import { CreateCustomerMapper } from 'src/base/create-customer.mapper';
-import { CreatedCustomerMapper } from 'src/base/created-customer.mapper';
+import { ResponseCustomerMapper } from 'src/base/response-customer.mapper';
 import { CustomerRepository } from 'src/base/customer.repository';
+import { RequestCustomerMapper } from 'src/base/request-customer.mapper';
 
 
-export class CreateCustomerUseCase implements UseCase<CreatedCustomerDto> {
-  private CreateUserMapper: CreateCustomerMapper
-  private CreatedUserMapper: CreatedCustomerMapper
+export class CreateCustomerUseCase implements UseCase<ResponseCustomerDto> {
+  private requestCustomerMapper: RequestCustomerMapper
+  private responseCustomerMapper: ResponseCustomerMapper
 
   constructor(private readonly repository: CustomerRepository) {
-    this.CreateUserMapper = new CreateCustomerMapper()
-    this.CreatedUserMapper = new CreatedCustomerMapper()
+    this.requestCustomerMapper = new RequestCustomerMapper()
+    this.responseCustomerMapper = new ResponseCustomerMapper()
   }
 
-  public async execute(customer: CreateCustomerDto): Promise<CreatedCustomerDto> {
-    const entity = this. CreateUserMapper.mapFrom(customer)
-    const createdCustomer = await this.repository.create(entity)
-    return this.CreatedUserMapper.mapTo(createdCustomer)
+  public async execute(customer: RequestCustomerDto): Promise<ResponseCustomerDto> {
+    const entity = this. requestCustomerMapper.mapFrom(customer)
+    const responseCustomer = await this.repository.create(entity)
+    return this.responseCustomerMapper.mapTo(responseCustomer)
   }
 }

@@ -1,21 +1,26 @@
 import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/common';
 import { CreateCustomerUseCase } from './create-customer.use-case';
-import { CreateCustomerDto } from './dto/create-customer.dto';
+import { GetAllCustomersUseCase } from './get-all-customers.use-case';
+import { RequestCustomerDto } from './dto/request-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 
 @Controller('customers')
 export class CustomersController {
-  constructor(private readonly createCustomerUseCase: CreateCustomerUseCase) {}
+  constructor(
+    private readonly createCustomerUseCase: CreateCustomerUseCase,
+    private readonly getAllCustomersUseCase: GetAllCustomersUseCase
+
+  ) {}
 
   @Post()
-  async create(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.createCustomerUseCase.execute(createCustomerDto);
+  async create(@Body() RequestCustomerDto: RequestCustomerDto) {
+    return this.createCustomerUseCase.execute(RequestCustomerDto);
   }
 
-  // @Get()
-  // async findAll() {
-  //   return this.customersService.findAll();
-  // }
+  @Get()
+  async findAll() {
+    return this.getAllCustomersUseCase.execute();
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
