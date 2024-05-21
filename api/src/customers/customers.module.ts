@@ -6,6 +6,7 @@ import { CustomersPrismaRepository } from 'src/base/customers.prisma.repository'
 import { CreateCustomerUseCase } from './create-customer.use-case';
 import { GetAllCustomersUseCase } from './get-all-customers.use-case';
 import { GetOneCustomerUseCase } from './get-one-customer.use-case';
+import { UpdateCustomerUseCase } from './update-customer.use-case';
 
 @Module({
   controllers: [CustomersController],
@@ -19,6 +20,11 @@ import { GetOneCustomerUseCase } from './get-one-customer.use-case';
     {
       provide: CreateCustomerUseCase,
       useFactory: (repository: CustomerRepository) => new CreateCustomerUseCase(repository),
+      inject: [CustomerRepository]
+    },
+    {
+      provide: UpdateCustomerUseCase,
+      useFactory: (repository: CustomerRepository) => new UpdateCustomerUseCase(repository),
       inject: [CustomerRepository]
     },
     {
