@@ -8,10 +8,15 @@ import { UpdateCustomerUseCase } from 'src/application/use-cases/custumer/update
 import { DeleteCustomerUseCase } from 'src/application/use-cases/custumer/delete-customer.use-case';
 import { GetAllCustomersUseCase } from 'src/application/use-cases/custumer/get-all-customers.use-case';
 import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-one-customer.use-case';
+import { CqrsModule } from '@nestjs/cqrs';
+import { QueryHandlers } from 'src/application/use-cases/custumer/handlers';
+
 
 @Module({
+  imports: [CqrsModule],
   controllers: [CustomersController],
   providers: [
+    ...QueryHandlers,
     PrismaService,
     {
       provide: CustomerRepository,

@@ -6,6 +6,8 @@ import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-on
 import { DeleteCustomerUseCase } from 'src/application/use-cases/custumer/delete-customer.use-case';
 import { RequestCustomerDto } from 'src/application/dtos/customer/request-customer.dto';
 import { UpdateCustomerDto } from 'src/application/dtos/customer/update-customer.dto';
+import { QueryBus } from '@nestjs/cqrs';
+import { GetAllCustomersQuery } from 'src/application/use-cases/custumer/queries/get-all-customers2.use-case';
 
 @Controller('customers')
 export class CustomersController {
@@ -15,6 +17,7 @@ export class CustomersController {
     private readonly getAllCustomersUseCase: GetAllCustomersUseCase,
     private readonly getOneCustomerUseCase: GetOneCustomerUseCase,
     private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
+    private readonly queryBus: QueryBus
 
   ) {}
 
@@ -25,7 +28,9 @@ export class CustomersController {
 
   @Get()
   async findAll() {
-    return this.getAllCustomersUseCase.execute();
+    const query = new GetAllCustomersQuery();
+    const costumers = this.queryBus.execute(query);
+    return costumers;
   }
 
   @Get(':id')
