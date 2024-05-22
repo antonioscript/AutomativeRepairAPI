@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CreateCustomerUseCase } from './create-customer.use-case';
-import { GetAllCustomersUseCase } from './get-all-customers.use-case';
-import { RequestCustomerDto } from './dto/request-customer.dto';
-import { GetOneCustomerUseCase } from './get-one-customer.use-case';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { UpdateCustomerUseCase } from './update-customer.use-case';
-import { DeleteCustomerUseCase } from './delete-customer.use-case';
+import { CreateCustomerUseCase } from 'src/application/use-cases/custumer/create-customer.use-case';
+import { UpdateCustomerUseCase } from 'src/application/use-cases/custumer/update-customer.use-case';
+import { GetAllCustomersUseCase } from 'src/application/use-cases/custumer/get-all-customers.use-case';
+import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-one-customer.use-case';
+import { DeleteCustomerUseCase } from 'src/application/use-cases/custumer/delete-customer.use-case';
+import { RequestCustomerDto } from 'src/application/dtos/customer/request-customer.dto';
+import { UpdateCustomerDto } from 'src/application/dtos/customer/update-customer.dto';
 
 @Controller('customers')
 export class CustomersController {

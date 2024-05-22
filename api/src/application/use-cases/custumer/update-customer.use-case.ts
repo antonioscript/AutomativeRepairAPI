@@ -1,10 +1,9 @@
-import { RequestCustomerDto } from './dto/request-customer.dto';
-import { ResponseCustomerDto } from './dto/response-customer.dto';
-import { UseCase } from 'src/base/use-case';
-import { ResponseCustomerMapper } from 'src/base/response-customer.mapper';
-import { CustomerRepository } from 'src/base/customer.repository';
-import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { UpdateCustomerMapper } from 'src/base/update-customer.mapper';
+import { UseCase } from "../use-case"
+import { ResponseCustomerDto } from "src/application/dtos/customer/response-customer.dto"
+import { UpdateCustomerMapper } from "src/domain/mapping/customer/update-customer.mapper"
+import { ResponseCustomerMapper } from "src/domain/mapping/customer/response-customer.mapper"
+import { CustomerRepository } from "src/infrastructure/Repositories/customer.repository"
+import { UpdateCustomerDto } from "src/application/dtos/customer/update-customer.dto"
 
 
 export class UpdateCustomerUseCase implements UseCase<ResponseCustomerDto> {

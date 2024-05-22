@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { CustomersController } from './customers.controller';
-import { PrismaService } from 'src/database/prisma.service';
-import { CustomerRepository } from 'src/base/customer.repository';
-import { CustomersPrismaRepository } from 'src/base/customers.prisma.repository';
-import { CreateCustomerUseCase } from './create-customer.use-case';
-import { GetAllCustomersUseCase } from './get-all-customers.use-case';
-import { GetOneCustomerUseCase } from './get-one-customer.use-case';
-import { UpdateCustomerUseCase } from './update-customer.use-case';
-import { DeleteCustomerUseCase } from './delete-customer.use-case';
+import { CustomersController } from 'src/presentation/controllers/customers.controller';
+import { PrismaService } from '../database/prisma.service';
+import { CustomerRepository } from '../Repositories/customer.repository';
+import { CustomersPrismaRepository } from '../Repositories/customers.prisma.repository';
+import { CreateCustomerUseCase } from 'src/application/use-cases/custumer/create-customer.use-case';
+import { UpdateCustomerUseCase } from 'src/application/use-cases/custumer/update-customer.use-case';
+import { DeleteCustomerUseCase } from 'src/application/use-cases/custumer/delete-customer.use-case';
+import { GetAllCustomersUseCase } from 'src/application/use-cases/custumer/get-all-customers.use-case';
+import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-one-customer.use-case';
 
 @Module({
   controllers: [CustomersController],

@@ -1,4 +1,4 @@
-import { CustomerRepository } from 'src/base/customer.repository';
+import { CustomerRepository } from "src/infrastructure/Repositories/customer.repository";
 
 
 export class DeleteCustomerUseCase  {
