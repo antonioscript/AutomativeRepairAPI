@@ -3,21 +3,22 @@ import { ResponseCustomerDto } from './dto/response-customer.dto';
 import { UseCase } from 'src/base/use-case';
 import { ResponseCustomerMapper } from 'src/base/response-customer.mapper';
 import { CustomerRepository } from 'src/base/customer.repository';
-import { RequestCustomerMapper } from 'src/base/request-customer.mapper';
+import { UpdateCustomerDto } from './dto/update-customer.dto';
+import { UpdateCustomerMapper } from 'src/base/update-customer.mapper';
 
 
-export class CreateCustomerUseCase implements UseCase<ResponseCustomerDto> {
-  private requestCustomerMapper: RequestCustomerMapper
+export class UpdateCustomerUseCase implements UseCase<ResponseCustomerDto> {
+  private updateCustomerMapper: UpdateCustomerMapper
   private responseCustomerMapper: ResponseCustomerMapper
 
   constructor(private readonly repository: CustomerRepository) {
-    this.requestCustomerMapper = new RequestCustomerMapper()
+    this.updateCustomerMapper = new UpdateCustomerMapper()
     this.responseCustomerMapper = new ResponseCustomerMapper()
   }
 
-  public async execute(customer: RequestCustomerDto): Promise<ResponseCustomerDto> {
-    const entity = this.requestCustomerMapper.mapFrom(customer)
-    const responseCustomer = await this.repository.create(entity)
+  public async execute(id: number, customer: UpdateCustomerDto): Promise<ResponseCustomerDto> {
+    const entity = this.updateCustomerMapper.mapFrom(customer)
+    const responseCustomer = await this.repository.update(id, entity)
     return this.responseCustomerMapper.mapTo(responseCustomer)
   }
 }
