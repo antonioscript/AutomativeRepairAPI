@@ -1,6 +1,6 @@
-import { CustomerEntity } from "src/customers/entities/customer.entity"
-import { Mapper } from "./mapper"
-import { ResponseCustomerDto } from "src/customers/dto/response-customer.dto"
+import { CustomerEntity } from "src/domain/entities/customer.entity"
+import { Mapper } from "../mapper"
+import { ResponseCustomerDto } from "src/application/dtos/customer/response-customer.dto"
 
 
 export class ResponseCustomerMapper extends Mapper<ResponseCustomerDto, CustomerEntity> {

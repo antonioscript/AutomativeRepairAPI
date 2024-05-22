@@ -1,6 +1,6 @@
-import { CustomerEntity } from "src/customers/entities/customer.entity";
+import { CustomerEntity } from "src/domain/entities/customer.entity";
 import { IGenericRepository } from "./igeneric-repository";
-import { PrismaService } from "src/database/prisma.service";
+import { PrismaService } from "src/infrastructure/database/prisma.service";
 
 export class CustomersPrismaRepository extends IGenericRepository<CustomerEntity> {
 

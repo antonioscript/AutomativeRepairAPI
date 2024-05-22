@@ -1,8 +1,7 @@
-import { ResponseCustomerDto } from './dto/response-customer.dto';
-import { UseCase } from 'src/base/use-case';
-import { ResponseCustomerMapper } from 'src/base/response-customer.mapper';
-import { CustomerRepository } from 'src/base/customer.repository';
-
+import { UseCase } from "../use-case";
+import { ResponseCustomerDto } from "src/application/dtos/customer/response-customer.dto";
+import { ResponseCustomerMapper } from "src/domain/mapping/customer/response-customer.mapper";
+import { CustomerRepository } from "src/infrastructure/Repositories/customer.repository";
 
 export class GetOneCustomerUseCase implements UseCase<ResponseCustomerDto> {
   private responseCustomerMapper: ResponseCustomerMapper
