@@ -71,7 +71,9 @@ Para visualizar a API eu optei por utilizar o Swagger, ferramenta para documenta
 ## Abordagem Code First
 
 ## Arquitetura de Código
-Clean code...
+A arquiterua de código escolhida foi a arquitetura Clean Architecture
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/ed9be3ea-e49b-437b-af77-a6349de80ec0)
+
 
 ## Banco de Dados
 Mysql...
