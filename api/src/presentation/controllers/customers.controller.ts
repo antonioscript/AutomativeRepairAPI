@@ -1,27 +1,28 @@
 import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CreateCustomerUseCase } from 'src/application/use-cases/custumer/create-customer.use-case';
 import { UpdateCustomerUseCase } from 'src/application/use-cases/custumer/update-customer.use-case';
 import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-one-customer.use-case';
 import { DeleteCustomerUseCase } from 'src/application/use-cases/custumer/delete-customer.use-case';
 import { RequestCustomerDto } from 'src/application/dtos/customer/request-customer.dto';
 import { UpdateCustomerDto } from 'src/application/dtos/customer/update-customer.dto';
-import { QueryBus } from '@nestjs/cqrs';
-import { GetAllCustomersQuery } from 'src/application/use-cases/custumer/queries/get-all-customers2.use-case';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { GetAllCustomersQuery } from 'src/application/use-cases/custumer/queries/get-all-customers.use-case';
+import { CreateCustomerCommand } from 'src/application/use-cases/custumer/commands/create-customer.use-case';
 
 @Controller('customers')
 export class CustomersController {
   constructor(
-    private readonly createCustomerUseCase: CreateCustomerUseCase,
     private readonly updateCustomerUseCase: UpdateCustomerUseCase,
     private readonly getOneCustomerUseCase: GetOneCustomerUseCase,
     private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
-    private readonly queryBus: QueryBus
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus
 
   ) {}
 
   @Post()
-  async create(@Body() RequestCustomerDto: RequestCustomerDto) {
-    return this.createCustomerUseCase.execute(RequestCustomerDto);
+  async create(@Body() requestCustomerDto: RequestCustomerDto) {
+    const customer = await this.commandBus.execute(new CreateCustomerCommand(requestCustomerDto));
+    return customer;
   }
 
   @Get()
