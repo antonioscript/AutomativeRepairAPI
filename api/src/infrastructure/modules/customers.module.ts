@@ -3,7 +3,6 @@ import { CustomersController } from 'src/presentation/controllers/customers.cont
 import { PrismaService } from '../database/prisma.service';
 import { CustomerRepository } from '../Repositories/customer.repository';
 import { CustomersPrismaRepository } from '../Repositories/customers.prisma.repository';
-import { UpdateCustomerUseCase } from 'src/application/use-cases/custumer/update-customer.use-case';
 import { DeleteCustomerUseCase } from 'src/application/use-cases/custumer/delete-customer.use-case';
 import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-one-customer.use-case';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -22,11 +21,6 @@ import { QueryHandlers } from 'src/application/use-cases/query-handlers';
       provide: CustomerRepository,
       useFactory: (prisma: PrismaService) => new CustomersPrismaRepository(prisma),
       inject: [PrismaService]
-    },
-    {
-      provide: UpdateCustomerUseCase,
-      useFactory: (repository: CustomerRepository) => new UpdateCustomerUseCase(repository),
-      inject: [CustomerRepository]
     },
     {
       provide: DeleteCustomerUseCase,

@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UpdateCustomerUseCase } from 'src/application/use-cases/custumer/update-customer.use-case';
 import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-one-customer.use-case';
 import { DeleteCustomerUseCase } from 'src/application/use-cases/custumer/delete-customer.use-case';
 import { RequestCustomerDto } from 'src/application/dtos/customer/request-customer.dto';
@@ -7,11 +6,11 @@ import { UpdateCustomerDto } from 'src/application/dtos/customer/update-customer
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetAllCustomersQuery } from 'src/application/use-cases/custumer/queries/get-all-customers.use-case';
 import { CreateCustomerCommand } from 'src/application/use-cases/custumer/commands/create-customer.use-case';
+import { UpdateCustomerCommand } from 'src/application/use-cases/custumer/commands/update-customer.use-case';
 
 @Controller('customers')
 export class CustomersController {
   constructor(
-    private readonly updateCustomerUseCase: UpdateCustomerUseCase,
     private readonly getOneCustomerUseCase: GetOneCustomerUseCase,
     private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
     private readonly queryBus: QueryBus,
@@ -39,8 +38,9 @@ export class CustomersController {
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateCustomerDto: UpdateCustomerDto) {
-    const parsedNumberId = Number(id);
-    return this.updateCustomerUseCase.execute(parsedNumberId, updateCustomerDto);
+    const numberId = Number(id);
+    const customer = await this.commandBus.execute(new UpdateCustomerCommand(numberId, updateCustomerDto));
+    return customer;
   }
 
   @Delete(':id')
