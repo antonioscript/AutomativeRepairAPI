@@ -1,5 +1,8 @@
 # AutomativeRepairAPI
-Projeto de uma API em NestJS que simula uma oficina mecânica
+Desenvolvimento de uma API utilizando o framework NestJS para simular o sistema de gestão de uma oficina mecânica. A API será responsável por gerenciar clientes, funcionários, serviços oferecidos, agendamentos, estoque de peças e ferramentas, além de proporcionar funcionalidades de autenticação e autorização para diferentes tipos de usuários.
+
+Para acompanhar as features e o andamento do projeto clique [aqui](https://github.com/users/antonioscript/projects/11?pane=info).
+
 
 # Brainstorm
 ## Funcionalidades
@@ -81,6 +84,7 @@ Mysql...
 ## ORM
 
 ## Repository Pattern
+Optei por implementar o padrão Repository para separar as camadas de acesso aos dados e lógica de negócios. O padrão Repository proporciona uma abstração sobre a fonte de dados, permitindo que a lógica de negócios seja independente das outras camadas.
 
 ## Mapeamento de Entidades
 Mapper
