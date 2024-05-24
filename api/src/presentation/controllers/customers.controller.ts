@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/common';
-import { GetOneCustomerUseCase } from 'src/application/use-cases/custumer/get-one-customer.use-case';
 import { RequestCustomerDto } from 'src/application/dtos/customer/request-customer.dto';
 import { UpdateCustomerDto } from 'src/application/dtos/customer/update-customer.dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -12,7 +11,6 @@ import { GetOneCustomerQuery } from 'src/application/use-cases/custumer/queries/
 @Controller('customers')
 export class CustomersController {
   constructor(
-    private readonly getOneCustomerUseCase: GetOneCustomerUseCase,
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus
 
@@ -20,30 +18,24 @@ export class CustomersController {
 
   @Post()
   async create(@Body() requestCustomerDto: RequestCustomerDto) {
-    const customer = await this.commandBus.execute(new CreateCustomerCommand(requestCustomerDto));
-    return customer;
+    return await this.commandBus.execute(new CreateCustomerCommand(requestCustomerDto));
   }
 
   @Get()
   async findAll() {
-    const query = new GetAllCustomersQuery();
-    const costumers = this.queryBus.execute(query);
-    return costumers;
+    return this.queryBus.execute(new GetAllCustomersQuery());
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
     const numberId = Number(id);
-    const query = new GetOneCustomerQuery(numberId);
-    const costumer = this.queryBus.execute(query);
-    return costumer;
+    return this.queryBus.execute(new GetOneCustomerQuery(numberId));
   }
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateCustomerDto: UpdateCustomerDto) {
     const numberId = Number(id);
-    const customer = await this.commandBus.execute(new UpdateCustomerCommand(numberId, updateCustomerDto));
-    return customer;
+    return await this.commandBus.execute(new UpdateCustomerCommand(numberId, updateCustomerDto));
   }
 
   @Delete(':id')
