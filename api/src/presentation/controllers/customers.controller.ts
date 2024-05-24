@@ -7,6 +7,7 @@ import { GetAllCustomersQuery } from 'src/application/use-cases/custumer/queries
 import { CreateCustomerCommand } from 'src/application/use-cases/custumer/commands/create-customer.use-case';
 import { UpdateCustomerCommand } from 'src/application/use-cases/custumer/commands/update-customer.use-case';
 import { DeleteCustomerCommand } from 'src/application/use-cases/custumer/commands/delete-customer.use-case';
+import { GetOneCustomerQuery } from 'src/application/use-cases/custumer/queries/get-one-customers.query';
 
 @Controller('customers')
 export class CustomersController {
@@ -32,7 +33,10 @@ export class CustomersController {
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    return this.getOneCustomerUseCase.execute(+id);
+    const numberId = Number(id);
+    const query = new GetOneCustomerQuery(numberId);
+    const costumer = this.queryBus.execute(query);
+    return costumer;
   }
 
   @Put(':id')
