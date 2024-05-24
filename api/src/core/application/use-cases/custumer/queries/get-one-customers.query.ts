@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { ResponseCustomerDto } from "src/application/dtos/customer/response-customer.dto";
-import { ResponseCustomerMapper } from "src/domain/mapping/customer/response-customer.mapper";
-import { CustomerRepository } from "src/infrastructure/Repositories/customer.repository";
+import { ResponseCustomerDto } from "src/core/application/dtos/customer/response-customer.dto";
+import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper";
+import { CustomerRepository } from "src/core/infrastructure/Repositories/customer.repository";
 
 export class GetOneCustomerQuery {
   constructor(public readonly id: number) {}

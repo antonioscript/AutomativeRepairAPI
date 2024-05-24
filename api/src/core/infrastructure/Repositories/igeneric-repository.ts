@@ -1,4 +1,4 @@
-import { BaseEntity } from "src/domain/entities/base.entity";
+import { BaseEntity } from "src/core/domain/entities/base.entity";
 
 export abstract class IGenericRepository<T extends BaseEntity> {
 

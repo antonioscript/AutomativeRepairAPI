@@ -1,4 +1,4 @@
-import { CustomerRepository } from "src/infrastructure/Repositories/customer.repository"
+import { CustomerRepository } from "src/core/infrastructure/Repositories/customer.repository"
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 
 export class DeleteCustomerCommand {

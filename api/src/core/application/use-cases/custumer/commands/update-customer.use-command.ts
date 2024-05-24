@@ -1,9 +1,9 @@
-import { ResponseCustomerDto } from "src/application/dtos/customer/response-customer.dto"
-import { ResponseCustomerMapper } from "src/domain/mapping/customer/response-customer.mapper"
-import { CustomerRepository } from "src/infrastructure/Repositories/customer.repository"
+import { ResponseCustomerDto } from "src/core/application/dtos/customer/response-customer.dto"
+import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper"
+import { CustomerRepository } from "src/core/infrastructure/Repositories/customer.repository"
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
-import { UpdateCustomerDto } from "src/application/dtos/customer/update-customer.dto"
-import { UpdateCustomerMapper } from "src/domain/mapping/customer/update-customer.mapper"
+import { UpdateCustomerDto } from "src/core/application/dtos/customer/update-customer.dto"
+import { UpdateCustomerMapper } from "src/core/domain/mapping/customer/update-customer.mapper"
 
 export class UpdateCustomerCommand {
   constructor(

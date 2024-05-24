@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/common';
-import { RequestCustomerDto } from 'src/application/dtos/customer/request-customer.dto';
-import { UpdateCustomerDto } from 'src/application/dtos/customer/update-customer.dto';
+import { RequestCustomerDto } from 'src/core/application/dtos/customer/request-customer.dto';
+import { UpdateCustomerDto } from 'src/core/application/dtos/customer/update-customer.dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { GetAllCustomersQuery } from 'src/application/use-cases/custumer/queries/get-all-customers.use-case';
-import { CreateCustomerCommand } from 'src/application/use-cases/custumer/commands/create-customer.use-case';
-import { UpdateCustomerCommand } from 'src/application/use-cases/custumer/commands/update-customer.use-case';
-import { DeleteCustomerCommand } from 'src/application/use-cases/custumer/commands/delete-customer.use-case';
-import { GetOneCustomerQuery } from 'src/application/use-cases/custumer/queries/get-one-customers.query';
+import { CreateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/create-customer.command';
+import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/update-customer.use-command';
+import { GetOneCustomerQuery } from 'src/core/application/use-cases/custumer/queries/get-one-customers.query';
+import { GetAllCustomersQuery } from 'src/core/application/use-cases/custumer/queries/get-all-customers.query';
+import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.use-command';
 
 @Controller('customers')
 export class CustomersController {

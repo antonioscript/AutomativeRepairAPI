@@ -1,9 +1,8 @@
-import { UseCase } from "../../use-case"
-import { ResponseCustomerDto } from "src/application/dtos/customer/response-customer.dto"
-import { RequestCustomerDto } from "src/application/dtos/customer/request-customer.dto"
-import { RequestCustomerMapper } from "src/domain/mapping/customer/request-customer.mapper"
-import { ResponseCustomerMapper } from "src/domain/mapping/customer/response-customer.mapper"
-import { CustomerRepository } from "src/infrastructure/Repositories/customer.repository"
+import { ResponseCustomerDto } from "src/core/application/dtos/customer/response-customer.dto"
+import { RequestCustomerDto } from "src/core/application/dtos/customer/request-customer.dto"
+import { RequestCustomerMapper } from "src/core/domain/mapping/customer/request-customer.mapper"
+import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper"
+import { CustomerRepository } from "src/core/infrastructure/Repositories/customer.repository"
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 
 export class CreateCustomerCommand {
