@@ -7,8 +7,10 @@ import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/c
 import { GetOneCustomerQuery } from 'src/core/application/use-cases/custumer/queries/get-one-customers.query';
 import { GetAllCustomersQuery } from 'src/core/application/use-cases/custumer/queries/get-all-customers.query';
 import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.use-command';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('customers')
+@ApiTags('customers')
 export class CustomersController {
   constructor(
     private readonly queryBus: QueryBus,
