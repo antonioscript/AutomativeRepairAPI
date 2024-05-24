@@ -1,6 +1,6 @@
 import { Mapper } from "../mapper"
-import { UpdateCustomerDto } from "src/application/dtos/customer/update-customer.dto"
-import { CustomerEntity } from "src/domain/entities/customer.entity"
+import { UpdateCustomerDto } from "src/core/application/dtos/customer/update-customer.dto"
+import { CustomerEntity } from "src/core/domain/entities/customer.entity"
 
 export class UpdateCustomerMapper extends Mapper<UpdateCustomerDto, CustomerEntity> {
   public mapFrom(data: UpdateCustomerDto): CustomerEntity {

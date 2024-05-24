@@ -1,5 +1,5 @@
-import { RequestCustomerDto } from "src/application/dtos/customer/request-customer.dto"
-import { CustomerEntity } from "src/domain/entities/customer.entity"
+import { RequestCustomerDto } from "src/core/application/dtos/customer/request-customer.dto"
+import { CustomerEntity } from "src/core/domain/entities/customer.entity"
 import { Mapper } from "../mapper"
 
 export class RequestCustomerMapper extends Mapper<RequestCustomerDto, CustomerEntity> {
