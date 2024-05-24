@@ -33,11 +33,13 @@ export class CustomersPrismaRepository extends IGenericRepository<CustomerEntity
         return await this.prisma.customer.findMany()
       }
 
-      async delete(id: number): Promise<void> {
+      async delete(id: number): Promise<number> {
         await this.prisma.customer.delete({ 
             where: { 
                 id 
             } 
-        })
+        });
+        return id;
       }
+      
 }
