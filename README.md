@@ -93,7 +93,7 @@ Mapper
 # Como Executar a Aplicação
 
 ## Prisma
-No diretório do primsa, execute o seguinte código no terminal:
+No diretório do prisma, execute o seguinte código no terminal:
 
 ```bash
 $ AutomativeRepairAPI\api\src\core\infrastructure\prisma> npx prisma generate
