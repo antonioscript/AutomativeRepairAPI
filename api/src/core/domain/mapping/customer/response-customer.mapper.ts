@@ -10,6 +10,7 @@ export class ResponseCustomerMapper extends Mapper<ResponseCustomerDto, Customer
     customer.id = data.id
     customer.firstName = data.firstName
     customer.lastName = data.lastName
+    customer.cpf = data.cpf
 
     return customer
   }
@@ -20,7 +21,8 @@ export class ResponseCustomerMapper extends Mapper<ResponseCustomerDto, Customer
     customer.id = data.id
     customer.firstName = data.firstName
     customer.lastName = data.lastName
-
+    customer.cpf = data.cpf
+    
     return customer
   }
 }
