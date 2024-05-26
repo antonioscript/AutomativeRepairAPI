@@ -89,3 +89,12 @@ Optei por implementar o padrão Repository para separar as camadas de acesso aos
 
 ## Mapeamento de Entidades
 Mapper
+
+# Como Executar a Aplicação
+
+## Prisma
+No diretório do primsa, execute o seguinte código no terminal:
+
+```bash
+$ AutomativeRepairAPI\api\src\core\infrastructure\prisma> npx prisma generate
+
