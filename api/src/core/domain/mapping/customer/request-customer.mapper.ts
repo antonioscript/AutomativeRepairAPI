@@ -8,6 +8,7 @@ export class RequestCustomerMapper extends Mapper<RequestCustomerDto, CustomerEn
 
     customer.firstName = data.firstName
     customer.lastName = data.lastName
+    customer.cpf = data.cpf
 
     return customer
   }
@@ -15,9 +16,10 @@ export class RequestCustomerMapper extends Mapper<RequestCustomerDto, CustomerEn
   public mapTo(data: CustomerEntity): RequestCustomerDto {
     const customer = new RequestCustomerDto()
 
-    customer.id = data.id
+    //customer.id = data.id
     customer.firstName = data.firstName
     customer.lastName = data.lastName
+    customer.cpf = data.cpf
 
     return customer
   }

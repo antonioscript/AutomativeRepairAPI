@@ -17,6 +17,7 @@ model Customer {
    id    Int     @default(autoincrement()) @id
    firstName String @db.VarChar(100)
    lastName String @db.VarChar(100)
+   cpf String @db.VarChar(15) @unique
   
   @@map("customers")
 
