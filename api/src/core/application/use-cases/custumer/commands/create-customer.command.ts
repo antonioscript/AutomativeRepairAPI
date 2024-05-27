@@ -20,6 +20,17 @@ export class CreateCustomerHandler implements ICommandHandler<CreateCustomerComm
   }
 
   async execute(command: CreateCustomerCommand): Promise<ResponseCustomerDto> {
+
+    //Se o registro existe
+    const registerExists = await this.repository.getFirstByParameters({
+      firstName: command.requestCustomerDto.firstName,
+      lastName: command.requestCustomerDto.lastName,
+      cpf: command.requestCustomerDto.cpf
+    });
+
+    //if (registerExists)
+
+
     const entity = this.requestCustomerMapper.mapFrom(command.requestCustomerDto);
     const responseCustomer = await this.repository.create(entity);
     return this.responseCustomerMapper.mapTo(responseCustomer);
