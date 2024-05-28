@@ -43,6 +43,7 @@ export class CustomersPrismaRepository extends IGenericRepository<CustomerEntity
                 id 
             } 
         })
+        
       }
     
       async getAll(): Promise<CustomerEntity[]> {
