@@ -4,6 +4,7 @@ import { CustomerRepository } from "src/core/infrastructure/Repositories/custome
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { UpdateCustomerDto } from "src/core/application/dtos/customer/update-customer.dto"
 import { UpdateCustomerMapper } from "src/core/domain/mapping/customer/update-customer.mapper"
+import { Result, result } from "src/core/infrastructure/Shared/result.util"
 
 export class UpdateCustomerCommand {
   constructor(
@@ -13,7 +14,7 @@ export class UpdateCustomerCommand {
 }
 
 @CommandHandler(UpdateCustomerCommand)
-export class UpdateCustomerHandler implements ICommandHandler<UpdateCustomerCommand, ResponseCustomerDto> {
+export class UpdateCustomerHandler implements ICommandHandler<UpdateCustomerCommand, Result<ResponseCustomerDto>> {
   private updateCustomerMapper: UpdateCustomerMapper
   private responseCustomerMapper: ResponseCustomerMapper
 
@@ -22,9 +23,11 @@ export class UpdateCustomerHandler implements ICommandHandler<UpdateCustomerComm
     this.responseCustomerMapper = new ResponseCustomerMapper()
   }
 
-  async execute(command: UpdateCustomerCommand): Promise<ResponseCustomerDto> {
+  async execute(command: UpdateCustomerCommand): Promise<Result<ResponseCustomerDto>> {
     const entity = this.updateCustomerMapper.mapFrom(command.updateCustomerDto);
     const responseCustomer = await this.repository.update(command.id, entity)
-    return this.responseCustomerMapper.mapTo(responseCustomer)
+    const responseData =  this.responseCustomerMapper.mapTo(responseCustomer)
+
+    return result(responseData).Success();
   }
 }

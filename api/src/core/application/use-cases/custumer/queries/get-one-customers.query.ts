@@ -2,22 +2,25 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { ResponseCustomerDto } from "src/core/application/dtos/customer/response-customer.dto";
 import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper";
 import { CustomerRepository } from "src/core/infrastructure/Repositories/customer.repository";
+import { Result, result } from "src/core/infrastructure/Shared/result.util";
 
 export class GetOneCustomerQuery {
   constructor(public readonly id: number) {}
 }
 
 @QueryHandler(GetOneCustomerQuery)
-export class GetOneCustomersHandler implements IQueryHandler<GetOneCustomerQuery, ResponseCustomerDto> {
+export class GetOneCustomersHandler implements IQueryHandler<GetOneCustomerQuery, Result<ResponseCustomerDto>> {
   private responseCustomerMapper: ResponseCustomerMapper
   constructor ( private readonly repository: CustomerRepository) {
     this.responseCustomerMapper = new ResponseCustomerMapper()
   }
   
   
-  async execute(query: GetOneCustomerQuery): Promise<ResponseCustomerDto> {
+  async execute(query: GetOneCustomerQuery): Promise<Result<ResponseCustomerDto>> {
     const register = await this.repository.getById(query.id);
-    return this.responseCustomerMapper.mapTo(register);
+    const responseData = this.responseCustomerMapper.mapTo(register);
+
+    return result(responseData).Success();
   }
   
 }
