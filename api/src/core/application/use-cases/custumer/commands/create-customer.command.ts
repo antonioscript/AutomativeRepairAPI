@@ -6,6 +6,7 @@ import { CustomerRepository } from "src/core/infrastructure/Repositories/custome
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { BadRequestException, ConflictException } from "@nestjs/common"
 import { Result, result } from "src/core/infrastructure/Shared/result.util"
+import { messages } from "src/core/infrastructure/Shared/messages"
 
 export class CreateCustomerCommand {
   constructor(public readonly requestCustomerDto: RequestCustomerDto) {}
@@ -23,7 +24,6 @@ export class CreateCustomerHandler implements ICommandHandler<CreateCustomerComm
 
   async execute(command: CreateCustomerCommand): Promise<Result<ResponseCustomerDto>> {
 
-    //Se o registro existe
     const registerExists = await this.repository.getFirstByParameters({
       firstName: command.requestCustomerDto.firstName,
       lastName: command.requestCustomerDto.lastName,
@@ -31,7 +31,7 @@ export class CreateCustomerHandler implements ICommandHandler<CreateCustomerComm
     });
 
     if (registerExists)
-      throw new BadRequestException("Já existe um cliente com esses dados");
+      throw new BadRequestException(messages.CUSTOMER_ALREADY_EXISTS(command.requestCustomerDto.firstName,command.requestCustomerDto.lastName,command.requestCustomerDto.cpf));
 
     const entity = this.requestCustomerMapper.mapFrom(command.requestCustomerDto);
     const responseCustomer = await this.repository.create(entity);
