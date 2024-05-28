@@ -7,4 +7,7 @@ export abstract class IGenericRepository<T extends BaseEntity> {
     abstract create(data: T): Promise<T>;
     abstract update(id: number, data: T): Promise<T>
     abstract delete(id: number): Promise<number>
+
+    abstract getFirstByParameters(...parameters: any[]): Promise<T | null>
+    abstract getAllByParameters(...parameters: any[]): Promise<T[]>
 }

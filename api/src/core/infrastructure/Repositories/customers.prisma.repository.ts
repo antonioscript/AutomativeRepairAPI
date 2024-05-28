@@ -3,6 +3,22 @@ import { IGenericRepository } from "./igeneric-repository";
 import { PrismaService } from "src/core/infrastructure/database/prisma.service";
 
 export class CustomersPrismaRepository extends IGenericRepository<CustomerEntity> {
+  
+  async getFirstByParameters(...parameters: any[]): Promise<CustomerEntity> {
+    return await this.prisma.customer.findFirst({ 
+      where: {
+          AND: parameters
+      } 
+    });
+  }
+
+  async getAllByParameters(...parameters: any[]): Promise<CustomerEntity[]> {
+    return await this.prisma.customer.findMany({ 
+      where: {
+          AND: parameters
+      } 
+    });
+  }
 
     constructor(private readonly prisma: PrismaService) {
         super()
@@ -27,6 +43,7 @@ export class CustomersPrismaRepository extends IGenericRepository<CustomerEntity
                 id 
             } 
         })
+        
       }
     
       async getAll(): Promise<CustomerEntity[]> {
@@ -41,5 +58,7 @@ export class CustomersPrismaRepository extends IGenericRepository<CustomerEntity
         });
         return id;
       }
+
+      
       
 }

@@ -4,13 +4,16 @@ import { RequestCustomerMapper } from "src/core/domain/mapping/customer/request-
 import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper"
 import { CustomerRepository } from "src/core/infrastructure/Repositories/customer.repository"
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
+import { BadRequestException, ConflictException } from "@nestjs/common"
+import { Result, result } from "src/core/infrastructure/Shared/result.util"
+import { messages } from "src/core/infrastructure/Shared/messages"
 
 export class CreateCustomerCommand {
   constructor(public readonly requestCustomerDto: RequestCustomerDto) {}
 }
 
 @CommandHandler(CreateCustomerCommand)
-export class CreateCustomerHandler implements ICommandHandler<CreateCustomerCommand, ResponseCustomerDto> {
+export class CreateCustomerHandler implements ICommandHandler<CreateCustomerCommand, Result<ResponseCustomerDto>> {
   private requestCustomerMapper: RequestCustomerMapper
   private responseCustomerMapper: ResponseCustomerMapper
 
@@ -19,9 +22,21 @@ export class CreateCustomerHandler implements ICommandHandler<CreateCustomerComm
     this.responseCustomerMapper = new ResponseCustomerMapper()
   }
 
-  async execute(command: CreateCustomerCommand): Promise<ResponseCustomerDto> {
+  async execute(command: CreateCustomerCommand): Promise<Result<ResponseCustomerDto>> {
+
+    const registerExists = await this.repository.getFirstByParameters({
+      firstName: command.requestCustomerDto.firstName,
+      lastName: command.requestCustomerDto.lastName,
+      cpf: command.requestCustomerDto.cpf
+    });
+
+    if (registerExists)
+      throw new BadRequestException(messages.CUSTOMER_ALREADY_EXISTS(command.requestCustomerDto.firstName,command.requestCustomerDto.lastName,command.requestCustomerDto.cpf));
+
     const entity = this.requestCustomerMapper.mapFrom(command.requestCustomerDto);
     const responseCustomer = await this.repository.create(entity);
-    return this.responseCustomerMapper.mapTo(responseCustomer);
+    const responseData = this.responseCustomerMapper.mapTo(responseCustomer);
+    
+    return result(responseData).Success();
   }
 }
