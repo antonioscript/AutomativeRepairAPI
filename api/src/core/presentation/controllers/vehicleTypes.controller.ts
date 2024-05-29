@@ -32,14 +32,14 @@ export class VehicleTypesController {
 
   
   @Post()
-  async create(@Body() requestVehicleTypeDto: RequestVehicleTypeDto) {
-    return await this.commandBus.execute(new CreateVehicleTypeCommand(requestVehicleTypeDto));
+  async create(@Body() request: RequestVehicleTypeDto) {
+    return await this.commandBus.execute(new CreateVehicleTypeCommand(request));
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() updateVehicleTypeDto: UpdateVehicleTypeDto) {
+  async update(@Param('id') id: number, @Body() request: UpdateVehicleTypeDto) {
     const numberId = Number(id);
-    return await this.commandBus.execute(new UpdateVehicleTypeCommand(numberId, updateVehicleTypeDto));
+    return await this.commandBus.execute(new UpdateVehicleTypeCommand(numberId, request));
   }
 
   @Delete(':id')

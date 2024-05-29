@@ -12,9 +12,9 @@ export class GetOneVehicleTypeQuery {
 
 @QueryHandler(GetOneVehicleTypeQuery)
 export class GetOneVehicleTypeHandler implements IQueryHandler<GetOneVehicleTypeQuery, Result<ResponseVehicleTypeDto>> {
-  private responseVehicleTypeMapper: ResponseVehicleTypeMapper
+  private responseMapper: ResponseVehicleTypeMapper
   constructor ( private readonly repository: VehicleTypeRepository) {
-    this.responseVehicleTypeMapper = new ResponseVehicleTypeMapper()
+    this.responseMapper = new ResponseVehicleTypeMapper()
   }
   
   
@@ -24,7 +24,7 @@ export class GetOneVehicleTypeHandler implements IQueryHandler<GetOneVehicleType
     if (!register)
       throw new NotFoundException(messages.VEHICLE_TYPE_NOT_FOUND(query.id))
 
-    const responseData = this.responseVehicleTypeMapper.mapTo(register);
+    const responseData = this.responseMapper.mapTo(register);
 
     return result(responseData).Success();
   }

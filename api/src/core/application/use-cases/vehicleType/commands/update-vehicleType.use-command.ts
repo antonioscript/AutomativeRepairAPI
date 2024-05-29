@@ -11,23 +11,23 @@ import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehi
 export class UpdateVehicleTypeCommand {
   constructor(
     public readonly id: number,
-    public readonly updateVehicleTypeDto: UpdateVehicleTypeDto
+    public readonly request: UpdateVehicleTypeDto
   ) {}
 }
 
 @CommandHandler(UpdateVehicleTypeCommand)
 export class UpdateVehicleTypeHandler implements ICommandHandler<UpdateVehicleTypeCommand, Result<ResponseVehicleTypeDto>> {
-  private updateVehicleTypeMapper: UpdateVehicleTypeMapper
-  private responseVehicleTypeMapper: ResponseVehicleTypeMapper
+  private updateMapper: UpdateVehicleTypeMapper
+  private responseMapper: ResponseVehicleTypeMapper
 
   constructor(private readonly repository: VehicleTypeRepository) {
-    this.updateVehicleTypeMapper = new UpdateVehicleTypeMapper()
-    this.responseVehicleTypeMapper = new ResponseVehicleTypeMapper()
+    this.updateMapper = new UpdateVehicleTypeMapper()
+    this.responseMapper = new ResponseVehicleTypeMapper()
   }
 
   async execute(command: UpdateVehicleTypeCommand): Promise<Result<ResponseVehicleTypeDto>> {
 
-    if (command.id != command.updateVehicleTypeDto.id)
+    if (command.id != command.request.id)
       throw new BadRequestException(messages.DEFAULT_UPDATE_BAD_REQUEST);
 
     const register  = await this.repository.getById(command.id);
@@ -36,9 +36,9 @@ export class UpdateVehicleTypeHandler implements ICommandHandler<UpdateVehicleTy
 
     } else {
 
-      const entity = this.updateVehicleTypeMapper.mapFrom(command.updateVehicleTypeDto);
+      const entity = this.updateMapper.mapFrom(command.request);
       const responseVehicleType = await this.repository.update(command.id, entity)
-      const responseData =  this.responseVehicleTypeMapper.mapTo(responseVehicleType)
+      const responseData =  this.responseMapper.mapTo(responseVehicleType)
 
       return result(responseData).Success();
     }

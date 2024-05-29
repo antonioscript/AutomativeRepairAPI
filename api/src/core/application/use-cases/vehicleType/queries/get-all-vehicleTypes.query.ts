@@ -10,15 +10,15 @@ export class GetAllVehicleTypesQuery {
 
 @QueryHandler(GetAllVehicleTypesQuery)
 export class GetAllVehicleTypesHandler implements IQueryHandler<GetAllVehicleTypesQuery, Result<ResponseVehicleTypeDto[]>> {
-  private responseVehicleTypeMapper: ResponseVehicleTypeMapper
+  private responseMapper: ResponseVehicleTypeMapper
   constructor ( private readonly repository: VehicleTypeRepository) {
-    this.responseVehicleTypeMapper = new ResponseVehicleTypeMapper()
+    this.responseMapper = new ResponseVehicleTypeMapper()
   }
   
   
   async execute(query: GetAllVehicleTypesQuery): Promise<Result<ResponseVehicleTypeDto[]>> {
     const registers = await this.repository.getAll();
-    const responseData =  registers.map(VehicleType => this.responseVehicleTypeMapper.mapTo(VehicleType))
+    const responseData =  registers.map(VehicleType => this.responseMapper.mapTo(VehicleType))
 
     return result(responseData).Success();
   }

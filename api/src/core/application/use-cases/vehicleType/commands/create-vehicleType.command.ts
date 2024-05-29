@@ -9,31 +9,31 @@ import { ResponseVehicleTypeDto } from "src/core/application/dtos/vehicleType/re
 import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType.repository"
 
 export class CreateVehicleTypeCommand {
-  constructor(public readonly requestVehicleTypeDto: RequestVehicleTypeDto) {}
+  constructor(public readonly request: RequestVehicleTypeDto) {}
 }
 
 @CommandHandler(CreateVehicleTypeCommand)
 export class CreateVehicleTypeHandler implements ICommandHandler<CreateVehicleTypeCommand, Result<ResponseVehicleTypeDto>> {
-  private requestVehicleTypeMapper: RequestVehicleTypeMapper
-  private responseVehicleTypeMapper: ResponseVehicleTypeMapper
+  private requestMapper: RequestVehicleTypeMapper
+  private responseMapper: ResponseVehicleTypeMapper
 
   constructor(private readonly repository: VehicleTypeRepository) {
-    this.requestVehicleTypeMapper = new RequestVehicleTypeMapper()
-    this.responseVehicleTypeMapper = new ResponseVehicleTypeMapper()
+    this.requestMapper = new RequestVehicleTypeMapper()
+    this.responseMapper = new ResponseVehicleTypeMapper()
   }
 
   async execute(command: CreateVehicleTypeCommand): Promise<Result<ResponseVehicleTypeDto>> {
 
     const registerExists = await this.repository.getFirstByParameters({
-      name: command.requestVehicleTypeDto.name
+      name: command.request.name
     });
 
     if (registerExists)
-      throw new BadRequestException(messages.VEHICLE_TYPE_ALREADY_EXISTS(command.requestVehicleTypeDto.name));
+      throw new BadRequestException(messages.VEHICLE_TYPE_ALREADY_EXISTS(command.request.name));
 
-    const entity = this.requestVehicleTypeMapper.mapFrom(command.requestVehicleTypeDto);
+    const entity = this.requestMapper.mapFrom(command.request);
     const responseVehicleType = await this.repository.create(entity);
-    const responseData = this.responseVehicleTypeMapper.mapTo(responseVehicleType);
+    const responseData = this.responseMapper.mapTo(responseVehicleType);
     
     return result(responseData).Success();
   }
