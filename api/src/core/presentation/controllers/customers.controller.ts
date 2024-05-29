@@ -17,12 +17,7 @@ export class CustomersController {
     private readonly commandBus: CommandBus
 
   ) {}
-
-  @Post()
-  async create(@Body() requestCustomerDto: RequestCustomerDto) {
-    return await this.commandBus.execute(new CreateCustomerCommand(requestCustomerDto));
-  }
-
+  
   @Get()
   async findAll() {
     return this.queryBus.execute(new GetAllCustomersQuery());
@@ -33,6 +28,12 @@ export class CustomersController {
     const numberId = Number(id);
     return this.queryBus.execute(new GetOneCustomerQuery(numberId));
   }
+
+  @Post()
+  async create(@Body() requestCustomerDto: RequestCustomerDto) {
+    return await this.commandBus.execute(new CreateCustomerCommand(requestCustomerDto));
+  }
+
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateCustomerDto: UpdateCustomerDto) {

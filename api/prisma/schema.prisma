@@ -14,11 +14,38 @@ datasource db {
 }
 
 model Customer {
-   id    Int     @default(autoincrement()) @id
-   firstName String @db.VarChar(100)
-   lastName String @db.VarChar(100)
-   cpf String @db.VarChar(15) @unique
+   id             Int     @default(autoincrement()) @id
+   firstName      String @db.VarChar(100)
+   lastName       String @db.VarChar(100)
+   cpf            String @db.VarChar(15) @unique
+
+   vehicles Vehicle[]
   
   @@map("customers")
+}
 
+model VehicleType {
+  id    Int    @default(autoincrement()) @id
+  name  String @db.VarChar(50) @unique
+
+  vehicles Vehicle[]
+
+  @@map("vehicle_types")
+}
+
+model Vehicle {
+  id                Int      @default(autoincrement()) @id
+
+  customerId        Int      
+  customer          Customer @relation(fields: [customerId], references: [id])
+
+  vehicleTypeId     Int
+  vehicleType       VehicleType @relation(fields: [vehicleTypeId], references: [id])
+
+  plate             String   @db.VarChar(15) @unique
+  brand             String?   @db.VarChar(100)
+  model             String?   @db.VarChar(100)
+  year              Int?
+  
+  @@map("vehicles")
 }
