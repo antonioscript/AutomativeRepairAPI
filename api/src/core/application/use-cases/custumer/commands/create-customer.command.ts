@@ -2,40 +2,40 @@ import { ResponseCustomerDto } from "src/core/application/dtos/customer/response
 import { RequestCustomerDto } from "src/core/application/dtos/customer/request-customer.dto"
 import { RequestCustomerMapper } from "src/core/domain/mapping/customer/request-customer.mapper"
 import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper"
-import { CustomerRepository } from "src/core/infrastructure/Repositories/customer.repository"
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
-import { BadRequestException, ConflictException } from "@nestjs/common"
+import { BadRequestException } from "@nestjs/common"
 import { Result, result } from "src/core/infrastructure/Shared/result.util"
 import { messages } from "src/core/infrastructure/Shared/messages"
+import { CustomerRepository } from "src/core/infrastructure/Repositories/customer/customer.repository"
 
 export class CreateCustomerCommand {
-  constructor(public readonly requestCustomerDto: RequestCustomerDto) {}
+  constructor(public readonly request: RequestCustomerDto) {}
 }
 
 @CommandHandler(CreateCustomerCommand)
 export class CreateCustomerHandler implements ICommandHandler<CreateCustomerCommand, Result<ResponseCustomerDto>> {
-  private requestCustomerMapper: RequestCustomerMapper
-  private responseCustomerMapper: ResponseCustomerMapper
+  private requestMapper: RequestCustomerMapper
+  private responseMapper: ResponseCustomerMapper
 
   constructor(private readonly repository: CustomerRepository) {
-    this.requestCustomerMapper = new RequestCustomerMapper()
-    this.responseCustomerMapper = new ResponseCustomerMapper()
+    this.requestMapper = new RequestCustomerMapper()
+    this.responseMapper = new ResponseCustomerMapper()
   }
 
   async execute(command: CreateCustomerCommand): Promise<Result<ResponseCustomerDto>> {
 
     const registerExists = await this.repository.getFirstByParameters({
-      firstName: command.requestCustomerDto.firstName,
-      lastName: command.requestCustomerDto.lastName,
-      cpf: command.requestCustomerDto.cpf
+      firstName: command.request.firstName,
+      lastName: command.request.lastName,
+      cpf: command.request.cpf
     });
 
     if (registerExists)
-      throw new BadRequestException(messages.CUSTOMER_ALREADY_EXISTS(command.requestCustomerDto.firstName,command.requestCustomerDto.lastName,command.requestCustomerDto.cpf));
+      throw new BadRequestException(messages.CUSTOMER_ALREADY_EXISTS(command.request.firstName,command.request.lastName,command.request.cpf));
 
-    const entity = this.requestCustomerMapper.mapFrom(command.requestCustomerDto);
-    const responseCustomer = await this.repository.create(entity);
-    const responseData = this.responseCustomerMapper.mapTo(responseCustomer);
+    const entity = this.requestMapper.mapFrom(command.request);
+    const responseEntity = await this.repository.create(entity);
+    const responseData = this.responseMapper.mapTo(responseEntity);
     
     return result(responseData).Success();
   }

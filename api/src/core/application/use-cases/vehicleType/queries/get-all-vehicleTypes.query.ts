@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { ResponseVehicleTypeDto } from "src/core/application/dtos/vehicleType/response-vehicleType.dto";
 import { ResponseVehicleTypeMapper } from "src/core/domain/mapping/vehicleType/response-vehicleType.mapper";
-import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType.repository";
+import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType/vehicleType.repository";
 import { Result, result } from "src/core/infrastructure/Shared/result.util";
 
 export class GetAllVehicleTypesQuery {

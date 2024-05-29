@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CommandHandlers } from 'src/core/application/use-cases/command-handlers';
-import { VehicleTypeRepository } from '../Repositories/vehicleType.repository';
-import { VehicleTypesPrismaRepository } from '../Repositories/vehicleTypes.prisma.repository';
 import { VehicleTypesController } from 'src/core/presentation/controllers/vehicleTypes.controller';
-import { QueryVehicleTypeHandlers } from 'src/core/application/handlers/vehicleTpe/query-vehicleType.handlers';
-import { CommandVehicleTypeHandlers } from 'src/core/application/handlers/vehicleTpe/command-VehicleType.handlers';
+import { CommandVehicleTypeHandlers, QueryVehicleTypeHandlers } from 'src/core/application/handlers/vehicleType.handlers';
+import { VehicleTypePrismaRepository } from '../Repositories/vehicleType/vehicleType.prisma.repository';
+import { VehicleTypeRepository } from '../Repositories/vehicleType/vehicleType.repository';
 
 
 @Module({
@@ -18,7 +16,7 @@ import { CommandVehicleTypeHandlers } from 'src/core/application/handlers/vehicl
     PrismaService,
     {
       provide: VehicleTypeRepository,
-      useFactory: (prisma: PrismaService) => new VehicleTypesPrismaRepository(prisma),
+      useFactory: (prisma: PrismaService) => new VehicleTypePrismaRepository(prisma),
       inject: [PrismaService]
     },
   ],

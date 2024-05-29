@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { Result, result } from "src/core/infrastructure/Shared/result.util";
 import { messages } from "src/core/infrastructure/Shared/messages";
 import { NotFoundException } from "@nestjs/common";
-import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType.repository";
+import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType/vehicleType.repository";
 
 export class DeleteVehicleTypeCommand {
   constructor(public readonly id: number) {}

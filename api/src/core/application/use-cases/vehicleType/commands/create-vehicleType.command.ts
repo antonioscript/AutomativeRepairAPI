@@ -6,7 +6,7 @@ import { RequestVehicleTypeDto } from "src/core/application/dtos/vehicleType/req
 import { ResponseVehicleTypeMapper } from "src/core/domain/mapping/vehicleType/response-vehicleType.mapper"
 import { RequestVehicleTypeMapper } from "src/core/domain/mapping/vehicleType/request-vehicleType.mapper"
 import { ResponseVehicleTypeDto } from "src/core/application/dtos/vehicleType/response-vehicleType.dto"
-import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType.repository"
+import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType/vehicleType.repository"
 
 export class CreateVehicleTypeCommand {
   constructor(public readonly request: RequestVehicleTypeDto) {}
@@ -32,8 +32,8 @@ export class CreateVehicleTypeHandler implements ICommandHandler<CreateVehicleTy
       throw new BadRequestException(messages.VEHICLE_TYPE_ALREADY_EXISTS(command.request.name));
 
     const entity = this.requestMapper.mapFrom(command.request);
-    const responseVehicleType = await this.repository.create(entity);
-    const responseData = this.responseMapper.mapTo(responseVehicleType);
+    const responseEntity = await this.repository.create(entity);
+    const responseData = this.responseMapper.mapTo(responseEntity);
     
     return result(responseData).Success();
   }

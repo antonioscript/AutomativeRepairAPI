@@ -6,7 +6,7 @@ import { UpdateVehicleTypeDto } from "src/core/application/dtos/vehicleType/upda
 import { ResponseVehicleTypeDto } from "src/core/application/dtos/vehicleType/response-vehicleType.dto"
 import { UpdateVehicleTypeMapper } from "src/core/domain/mapping/vehicleType/update-vehicleType.mapper"
 import { ResponseVehicleTypeMapper } from "src/core/domain/mapping/vehicleType/response-vehicleType.mapper"
-import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType.repository"
+import { VehicleTypeRepository } from "src/core/infrastructure/Repositories/vehicleType/vehicleType.repository"
 
 export class UpdateVehicleTypeCommand {
   constructor(
@@ -37,8 +37,8 @@ export class UpdateVehicleTypeHandler implements ICommandHandler<UpdateVehicleTy
     } else {
 
       const entity = this.updateMapper.mapFrom(command.request);
-      const responseVehicleType = await this.repository.update(command.id, entity)
-      const responseData =  this.responseMapper.mapTo(responseVehicleType)
+      const responseEntity = await this.repository.update(command.id, entity)
+      const responseData =  this.responseMapper.mapTo(responseEntity)
 
       return result(responseData).Success();
     }

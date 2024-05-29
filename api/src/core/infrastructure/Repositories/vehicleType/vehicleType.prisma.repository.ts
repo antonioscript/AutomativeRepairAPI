@@ -1,8 +1,8 @@
 import { VehicleTypeEntity } from "src/core/domain/entities/vehicleType.entity";
-import { IGenericRepository } from "./igeneric-repository";
 import { PrismaService } from "src/core/infrastructure/database/prisma.service";
+import { IGenericRepository } from "../igeneric-repository";
 
-export class VehicleTypesPrismaRepository extends IGenericRepository<VehicleTypeEntity> {
+export class VehicleTypePrismaRepository extends IGenericRepository<VehicleTypeEntity> {
   
   async getFirstByParameters(...parameters: any[]): Promise<VehicleTypeEntity> {
     return await this.prisma.vehicleType.findFirst({ 
