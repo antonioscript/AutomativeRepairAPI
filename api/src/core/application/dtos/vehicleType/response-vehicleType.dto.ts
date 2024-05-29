@@ -1,4 +1,4 @@
 export class ResponseVehicleTypeDto {
-    id: number
+    id?: number
     name: string
 }

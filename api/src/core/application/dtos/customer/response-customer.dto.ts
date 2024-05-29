@@ -1,5 +1,5 @@
 export class ResponseCustomerDto {
-    id: number
+    id?: number
     firstName: string
     lastName: string 
     cpf: string  

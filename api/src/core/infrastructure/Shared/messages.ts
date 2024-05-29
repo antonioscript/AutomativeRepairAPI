@@ -6,5 +6,8 @@ export const messages= {
 
   VEHICLE_TYPE_ALREADY_EXISTS: (name: string) => `Já existe um Tipo de Veículo cadastrado com o nome: '${name}'`,
   VEHICLE_TYPE_NOT_FOUND: (id: number) => `Tipo de Veículo de ID '${id}' não encontrado`,
+
+  VEHICLE_ALREADY_EXISTS: (plate: string) => `Já existe um Veículo cadastrado com a placa: '${plate}'`,
+  VEHICLE_NOT_FOUND: (id: number) => `Veículo de ID '${id}' não encontrado`,
   };
   
