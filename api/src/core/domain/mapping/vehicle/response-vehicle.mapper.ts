@@ -12,7 +12,7 @@ export class ResponseVehicleMapper extends Mapper<ResponseVehicleDto, VehicleEnt
     vehicle.plate = data.plate
 
     vehicle.customerId = data.customerId
-    //vehicle.customer = data.customer
+    vehicle.customer = data.customer
 
     vehicle.vehicleTypeId = data.vehicleTypeId
     //vehicle.vehicleType = data.vehicleType
@@ -31,7 +31,7 @@ export class ResponseVehicleMapper extends Mapper<ResponseVehicleDto, VehicleEnt
     vehicle.plate = data.plate
 
     vehicle.customerId = data.customerId
-    //vehicle.customer = data.customer
+    vehicle.customer = data.customer
 
     vehicle.vehicleTypeId = data.vehicleTypeId
     //vehicle.vehicleType = data.vehicleType

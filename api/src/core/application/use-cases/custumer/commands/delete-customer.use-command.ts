@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { Result, result } from "src/core/infrastructure/Shared/result.util";
 import { messages } from "src/core/infrastructure/Shared/messages";
-import { BadRequestException, NotFoundException } from "@nestjs/common";
+import { NotFoundException } from "@nestjs/common";
 import { CustomerRepository } from "src/core/infrastructure/Repositories/customer/customer.repository";
 
 export class DeleteCustomerCommand {

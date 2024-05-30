@@ -32,9 +32,8 @@ export class CreateVehicleHandler implements ICommandHandler<CreateVehicleComman
     if (registerExists)
       throw new BadRequestException(messages.VEHICLE_ALREADY_EXISTS(command.request.plate));
 
-    const entity = this.requestMapper.mapFrom(command.request);
-    const responseEntity = await this.repository.create(entity);
-    const responseData = this.responseMapper.mapTo(responseEntity);
+    const entity = await this.repository.create(command.request);
+    const responseData = this.responseMapper.mapTo(entity);
     
     return result(responseData).Success();
   }

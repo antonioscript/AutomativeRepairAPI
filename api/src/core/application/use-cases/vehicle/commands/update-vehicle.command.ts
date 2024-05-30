@@ -36,9 +36,8 @@ export class UpdateVehicleHandler implements ICommandHandler<UpdateVehicleComman
 
     } else {
 
-      const entity = this.updateMapper.mapFrom(command.request);
-      const responseEntity = await this.repository.update(command.id, entity)
-      const responseData =  this.responseMapper.mapTo(responseEntity)
+      const entity = await this.repository.update(command.id, command.request)
+      const responseData =  this.responseMapper.mapTo(entity)
 
       return result(responseData).Success();
     }

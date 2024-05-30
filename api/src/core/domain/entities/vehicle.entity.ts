@@ -6,7 +6,7 @@ export class VehicleEntity extends BaseEntity {
     plate: string
 
     customerId: number
-    //customer: CustomerEntity
+    customer?: CustomerEntity
 
     vehicleTypeId: number;
     //vehicleType: VehicleTypeEntity;
