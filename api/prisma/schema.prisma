@@ -13,6 +13,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int       @id @default(autoincrement()) //@db.UnsignedInt
+  name      String    @db.VarChar(100)
+  email     String    @db.VarChar(100)
+  password  String    @db.VarChar(20)
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
+  updatetAd DateTime  @default(now()) @db.Timestamp(0)
+
+  @@map("users")
+}
+
+
+
 model Customer {
    id             Int     @default(autoincrement()) @id
    firstName      String @db.VarChar(100)
