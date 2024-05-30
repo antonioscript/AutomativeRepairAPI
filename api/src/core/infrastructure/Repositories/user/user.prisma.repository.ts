@@ -1,6 +1,7 @@
 import { UserEntity } from "src/core/domain/entities/user.entity";
 import { IGenericRepository } from "../igeneric-repository";
 import { PrismaService } from "../../database/prisma.service";
+import { UnauthorizedException } from "@nestjs/common";
 
 
 export class UserPrismaRepository extends IGenericRepository<UserEntity> {
@@ -60,6 +61,49 @@ export class UserPrismaRepository extends IGenericRepository<UserEntity> {
         return id;
       }
 
-      
-      
+      async login(email: string, password: string) {
+        const user = await this.prisma.user.findFirst({
+          where: {
+            email,
+            password
+          },
+        });
+    
+        if (!user) {
+          throw new UnauthorizedException("Usuário não autorizado");
+        }
+
+        return user;
+      }
+
+      async forget(email: string) {
+        const user = await this.prisma.user.findFirst({
+          where: {
+            email
+          },
+        });
+    
+        
+
+        return user;
+      }
+
+      async reset(password: string, token: string) {
+        
+        //TODO: Validar o Token
+        
+        const id = 0;
+
+        await this.prisma.user.update({
+          where: {
+            id, 
+          },
+          data : {
+            password,
+          }
+        });
+
+        return true;
+
+      }
 }
