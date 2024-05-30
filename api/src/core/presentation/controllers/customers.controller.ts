@@ -3,11 +3,11 @@ import { RequestCustomerDto } from 'src/core/application/dtos/customer/request-c
 import { UpdateCustomerDto } from 'src/core/application/dtos/customer/update-customer.dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { CreateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/create-customer.command';
-import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/update-customer.use-command';
 import { GetOneCustomerQuery } from 'src/core/application/use-cases/custumer/queries/get-one-customer.query';
 import { GetAllCustomersQuery } from 'src/core/application/use-cases/custumer/queries/get-all-customers.query';
-import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.use-command';
 import { ApiTags } from '@nestjs/swagger';
+import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/update-customer.command';
+import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.command';
 
 @Controller('customers')
 @ApiTags('customers')
