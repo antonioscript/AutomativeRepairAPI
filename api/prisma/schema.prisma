@@ -18,6 +18,7 @@ model User {
   name      String    @db.VarChar(100)
   email     String    @db.VarChar(100)
   password  String    @db.VarChar(20)
+  role      Int       @default(2) 
   createdAt DateTime  @default(now()) @db.Timestamp(0)
   updatetAd DateTime  @default(now()) @db.Timestamp(0)
 
