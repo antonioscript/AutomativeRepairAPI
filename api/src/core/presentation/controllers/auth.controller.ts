@@ -20,32 +20,32 @@ import { RoleGuard } from 'src/core/infrastructure/Shared/guards/role.guard';
 import { Role } from 'src/core/infrastructure/enums/role.enum';
 
 
-@UseGuards(AuthGuard, RoleGuard)
+
 @Controller('authentication')
 @ApiTags('authentication')
 export class AuthController {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
-    private readonly authService: AuthService
 
   ) {}
 
-  
+  @UseGuards(AuthGuard, RoleGuard)
   @Roles(Role.Admin)
   @Get('users')
   async findAll() {
     return this.queryBus.execute(new GetAllUsersQuery());
   }
 
-  //@Roles(Role.Admin)
+  @UseGuards(AuthGuard, RoleGuard)
+  @Roles(Role.Admin)
   @Get('user/:id')
   async findOne(@Param('id') id: number) {
     const numberId = Number(id);
     return this.queryBus.execute(new GetOneUserQuery(numberId));
   }
 
-
+  @UseGuards(AuthGuard, RoleGuard)
   @Roles(Role.Admin)
   @Put('user/:id')
   async update(@Param('id') id: number, @Body() request: UpdateUserDto) {
@@ -53,6 +53,7 @@ export class AuthController {
     return await this.commandBus.execute(new UpdateUserCommand(numberId, request));
   }
 
+  @UseGuards(AuthGuard, RoleGuard)
   @Roles(Role.Admin)
   @Delete('user/:id')
   async remove(@Param('id') id: number) {
@@ -60,7 +61,7 @@ export class AuthController {
     return await this.commandBus.execute(new DeleteUserCommand(numberId))
   }
 
-  @Roles(Role.Admin)
+  
   @Post('register')
   async create(@Body() request: RequestUserDto) {
     return await this.commandBus.execute(new RegisterUserCommand(request));
@@ -72,21 +73,10 @@ export class AuthController {
     return await this.commandBus.execute(new LoginCommand(request));
   }
 
+  @UseGuards(AuthGuard, RoleGuard)
   @Roles(Role.Admin)
   @Post('forget')
   async forgetPassword(@Body() request: AuthForgetDto) {
     return await this.commandBus.execute(new ForgetPasswordCommand(request));
-  }
-
-  // @Post('me')
-  // async me(@Headers() request: AuthTokenDto ) {
-  //   return await this.commandBus.execute(new AuthorizationCommand(request));
-  // }
-
-  //@Roles(Role.Admin)
-  @UseGuards(AuthGuard)
-  @Post('me')
-  async me(@User() user) {
-    return {user};
   }
 }
