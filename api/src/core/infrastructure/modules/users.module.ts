@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { CqrsModule } from '@nestjs/cqrs';
-import { AuthController } from 'src/core/presentation/controllers/users.controller';
 import { CommandUserHandlers, QueryUserHandlers } from 'src/core/application/handlers/user.handlers';
 import { UserRepository } from '../Repositories/user/user.repository';
 import { UserPrismaRepository } from '../Repositories/user/user.prisma.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from '../Shared/auth.service';
+import { AuthController } from 'src/core/presentation/controllers/auth.controller';
 
 
 @Module({

@@ -1,7 +1,6 @@
 import { BadRequestException } from "@nestjs/common";
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { RequestUserDto } from "src/core/application/dtos/user/request-user.dto";
-import { ResponseUserDto } from "src/core/application/dtos/user/response-user.dto";
 import { UserLoginResponseDto } from "src/core/application/dtos/user/response.login.user.dto";
 import { RequestUserMapper } from "src/core/domain/mapping/user/request-user.mapper";
 import { ResponseUserMapper } from "src/core/domain/mapping/user/response-user.mapper";
