@@ -20,7 +20,7 @@ import { RoleGuard } from 'src/core/infrastructure/Shared/guards/role.guard';
 import { Role } from 'src/core/infrastructure/enums/role.enum';
 
 
-@UseGuards(RoleGuard)
+@UseGuards(AuthGuard, RoleGuard)
 @Controller('authentication')
 @ApiTags('authentication')
 export class AuthController {
@@ -31,14 +31,14 @@ export class AuthController {
 
   ) {}
 
-  @UseGuards(AuthGuard)
+  
   @Roles(Role.Admin)
   @Get('users')
   async findAll() {
     return this.queryBus.execute(new GetAllUsersQuery());
   }
 
-  @Roles(Role.Admin)
+  //@Roles(Role.Admin)
   @Get('user/:id')
   async findOne(@Param('id') id: number) {
     const numberId = Number(id);
@@ -66,7 +66,7 @@ export class AuthController {
     return await this.commandBus.execute(new RegisterUserCommand(request));
   }
 
-  @Roles(Role.Admin)
+  //@Roles(Role.Admin)
   @Post('login')
   async login(@Body() request: AuthLoginDto) {
     return await this.commandBus.execute(new LoginCommand(request));
@@ -83,7 +83,7 @@ export class AuthController {
   //   return await this.commandBus.execute(new AuthorizationCommand(request));
   // }
 
-  @Roles(Role.Admin)
+  //@Roles(Role.Admin)
   @UseGuards(AuthGuard)
   @Post('me')
   async me(@User() user) {
