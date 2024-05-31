@@ -6,9 +6,11 @@ import { VehicleTypesModule } from './core/infrastructure/modules/vehicleTypes.m
 import { VehiclesModule } from './core/infrastructure/modules/vehicles.module';
 import { UsersModule } from './core/infrastructure/modules/users.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     ThrottlerModule.forRoot([{
       ttl: 60000,
       limit: 10,

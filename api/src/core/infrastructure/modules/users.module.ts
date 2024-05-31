@@ -13,7 +13,7 @@ import { AuthController } from 'src/core/presentation/controllers/auth.controlle
   imports: [
     CqrsModule,
     JwtModule.register({
-      secret: "rLtGWPE27rM0qbGc5fWNMHhA93738KQa"
+      secret: process.env.JWT_SECRET
   }),
   ],
   controllers: [AuthController],
