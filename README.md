@@ -128,6 +128,36 @@ Para ocultar a senha no banco de dados, foi utilizado a biblioteca node chamada 
 ### CORS (Cross-origin Resource Sharing)
 Foi utilizado o conceito de CORS para aumentar a segurança da aplicação utilizando dependências nativas do Nest.JS
 
+### Limitação de Taxa 
+Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a biblioteca 'throttler' 
+<code>
+
+@Module({
+  imports: [
+    ThrottlerModule.forRoot([
+      <mark>
+      {
+        ttl: 60000,
+        limit: 10,
+      }
+      </mark>
+    ]),
+    CustomersModule, 
+    VehicleTypesModule, 
+    VehiclesModule, 
+    UsersModule
+  ],
+  controllers: [AppController],
+  providers: [AppService],
+})
+export class AppModule {}
+
+</code>
+
+No projeto em questão foi utilizado a configuração padrão que permite uma quantidade máxiama de 10 solicitações em 60000 milissegundos
+
+
+
 # Como Executar a Aplicação
 
 ## Prisma
