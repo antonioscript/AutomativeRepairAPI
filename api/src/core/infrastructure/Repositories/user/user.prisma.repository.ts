@@ -2,7 +2,9 @@ import { UserEntity } from "src/core/domain/entities/user.entity";
 import { IGenericRepository } from "../igeneric-repository";
 import { PrismaService } from "../../database/prisma.service";
 import { UnauthorizedException } from "@nestjs/common";
-
+import * as bcrypt from "bcrypt";
+import { MESSAGES } from "@nestjs/core/constants";
+import { messages } from "../../Shared/messages";
 
 export class UserPrismaRepository extends IGenericRepository<UserEntity> {
   
@@ -27,12 +29,17 @@ export class UserPrismaRepository extends IGenericRepository<UserEntity> {
       }
     
       async create(data: UserEntity): Promise<UserEntity> {
+        data.password = await bcrypt.hash(data.password, await bcrypt.genSalt());
+
         return await this.prisma.user.create({ 
             data 
         })
       }
     
       async update(id: number, data: UserEntity): Promise<UserEntity> {
+
+        data.password = await bcrypt.hash(data.password, await bcrypt.genSalt());        
+
         return await this.prisma.user.update({
           where: { id },
           data
@@ -64,13 +71,16 @@ export class UserPrismaRepository extends IGenericRepository<UserEntity> {
       async login(email: string, password: string) {
         const user = await this.prisma.user.findFirst({
           where: {
-            email,
-            password
+            email
           },
         });
     
         if (!user) {
-          throw new UnauthorizedException("Usuário não autorizado");
+          throw new UnauthorizedException(messages.USER_UNAUTHORIZED);
+        }
+
+        if (!await bcrypt.compare(password, user.password)) {
+          throw new UnauthorizedException(messages.USER_UNAUTHORIZED);
         }
 
         return user;
