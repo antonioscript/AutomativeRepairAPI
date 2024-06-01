@@ -19,7 +19,8 @@ export class CustomersController {
   
   @Get()
   async findAll() {
-    return this.queryBus.execute(new GetAllCustomersQuery());
+    //return this.queryBus.execute(new GetAllCustomersQuery());
+    return "";
   }
 
   @Get('paginated')

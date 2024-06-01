@@ -7,8 +7,8 @@ import { Result, result } from "src/core/infrastructure/Shared/result.util";
 
 export class GetAllCustomersQuery {
   constructor(
-    public readonly page: number = constants.PAGE_DEFAULT,
-    public readonly pageSize: number = constants.PAGE_SIZE_DEFAULT
+    public readonly page: number,
+    public readonly pageSize: number
   ) {}
 }
 
@@ -21,7 +21,16 @@ export class GetAllCustomersHandler implements IQueryHandler<GetAllCustomersQuer
   }
 
   async execute(query: GetAllCustomersQuery): Promise<Result<ResponseCustomerDto[]>> {
-    const { page, pageSize } = query;
+    
+    let { page, pageSize } = query;
+    
+    if (isNaN(page)) {
+      page = constants.PAGE_DEFAULT;
+    }
+    if (isNaN(pageSize)) {
+      pageSize = constants.PAGE_SIZE_DEFAULT;
+    }
+
     const { data, total, lastPage, currentPage, perPage, prev, next } = await this.repository.getPaginated(page, pageSize);
   
     const responseData = data.map(customer => this.responseMapper.mapTo(customer));
