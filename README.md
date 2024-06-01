@@ -134,7 +134,9 @@ Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a 
 
 No projeto em questão foi utilizado a configuração padrão que permite uma quantidade máxiama de 10 solicitações em 60000 milissegundos
 
-
+## Serviço de Email
+Para a biblioteca padrão para o envio de email foi pensado no Mailer, uma biblioteca que não é própria do Nest.JS, mas é bastante utilizada pela comunidade
+[nestjs-modules/mailer](https://www.npmjs.com/package/@nestjs-modules/mailer)
 
 # Como Executar a Aplicação
 

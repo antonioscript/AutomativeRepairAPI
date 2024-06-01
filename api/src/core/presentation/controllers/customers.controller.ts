@@ -8,13 +8,16 @@ import { GetAllCustomersQuery } from 'src/core/application/use-cases/custumer/qu
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/update-customer.command';
 import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.command';
+import { MailerService } from '@nestjs-modules/mailer';
+
 
 @Controller('customers')
 @ApiTags('customers')
 export class CustomersController {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly mailer: MailerService
 
   ) {}
   
@@ -45,5 +48,25 @@ export class CustomersController {
   async remove(@Param('id') id: number) {
     const numberId = Number(id);
     return await this.commandBus.execute(new DeleteCustomerCommand(numberId))
+  }
+
+  @Post('sendEmail')
+  async send() {
+    try {
+      await this.mailer.sendMail({
+        subject: 'Recuperaçã de senha',
+        to: 'antoniojunior159@gmail.com',
+        template: 'forget',
+        context: {
+          name: 'Antônio Rocha',
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsIm5hbWUiOiJTYXRvcm8iLCJlbWFpbCI6InNhdG9yb0BnbWFpbC5jb20iLCJpYXQiOjE3MTcxOTI1NTUsImV4cCI6MTcxNzc5NzM1NSwiYXVkIjoidXNlcnMiLCJpc3MiOiJsb2dpbiIsInN1YiI6IjEyIn0.Apx8Qrc92jW9GhvAbB2c2TDyaTMKvA3V7HK4HHF1x3Q'
+        }
+      });
+
+      return "Email Enviado com Sucesso";
+
+    } catch (ex) {
+      return ex;
+    }
   }
 }
