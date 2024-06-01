@@ -26,13 +26,26 @@ export class CustomersController {
     return this.queryBus.execute(new GetAllCustomersQuery());
   }
 
-  @Get('Pagination')
-async findAllPage(
-  @Query('page') page: number = 1,
-  @Query('pageSize') pageSize: number = 10,
-) {
-  return this.paginationService.findPaginatedData(Number(page), Number(pageSize));
-}
+  @Get('pagination')
+  async findAll2(@Query('page') page: number = 1, @Query('pageSize') pageSize: number = 10) {
+    const result = await this.queryBus.execute(new GetAllCustomersQuery(Number(page), Number(pageSize)));
+    
+    // Aqui estamos verificando se o resultado foi bem sucedido e então retornando os dados e as informações de paginação
+    if (!result.failed) {
+      return {
+        data: result.data,
+        total: result.total,
+        lastPage: result.lastPage,
+        currentPage: result.currentPage,
+        perPage: result.perPage,
+        prev: result.prev,
+        next: result.next
+      };
+    } else {
+      // Se falhou, você pode lidar com o erro de alguma forma
+      throw new Error(result.error || 'Unknown error');
+    }
+  }
 
 
   @Get(':id')
