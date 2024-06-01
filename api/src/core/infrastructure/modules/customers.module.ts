@@ -5,7 +5,6 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { CommandCustomerHandlers, QueryCustomerHandlers } from 'src/core/application/handlers/customer.handlers';
 import { CustomerRepository } from '../Repositories/customer/customer.repository';
 import { CustomerPrismaRepository } from '../Repositories/customer/customer.prisma.repository';
-import { PaginationService } from 'src/pagination/pagination.service';
 
 
 @Module({
@@ -20,7 +19,7 @@ import { PaginationService } from 'src/pagination/pagination.service';
       useFactory: (prisma: PrismaService) => new CustomerPrismaRepository(prisma),
       inject: [PrismaService]
     },
-    PaginationService
+    //PaginationService
   ],
 })
 export class CustomersModule {}

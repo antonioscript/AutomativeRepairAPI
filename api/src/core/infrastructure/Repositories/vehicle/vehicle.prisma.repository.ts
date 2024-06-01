@@ -72,7 +72,7 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
         });
     }
 
-    async getPagination(page: number = 1, pageSize: number = 10): Promise<{ data: VehicleEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
+    async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: VehicleEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
       const offset = (page - 1) * pageSize;
   
       return 

@@ -50,7 +50,7 @@ export class VehicleTypePrismaRepository extends IGenericRepository<VehicleTypeE
         return await this.prisma.vehicleType.findMany()
       }
 
-      async getPagination(page: number = 1, pageSize: number = 10): Promise<{ data: VehicleTypeEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
+      async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: VehicleTypeEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
         const offset = (page - 1) * pageSize;
     
         return 

@@ -13,7 +13,7 @@ export class PaginationService {
         take: pageSize,
         skip: offset,
         orderBy: {
-          // Adicione seus critérios de ordenação aqui, se necessário
+          //TO DO
         },
       }),
     ]);

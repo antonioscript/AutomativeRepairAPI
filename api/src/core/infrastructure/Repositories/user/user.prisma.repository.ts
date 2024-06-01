@@ -59,7 +59,7 @@ export class UserPrismaRepository extends IGenericRepository<UserEntity> {
         return await this.prisma.user.findMany()
       }
 
-      async getPagination(page: number = 1, pageSize: number = 10): Promise<{ data: UserEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
+      async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: UserEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
         const offset = (page - 1) * pageSize;
     
         return 

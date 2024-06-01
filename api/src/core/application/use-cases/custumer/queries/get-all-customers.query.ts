@@ -2,12 +2,13 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { ResponseCustomerDto } from "src/core/application/dtos/customer/response-customer.dto";
 import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper";
 import { CustomerRepository } from "src/core/infrastructure/Repositories/customer/customer.repository";
+import { constants } from "src/core/infrastructure/Shared/constants";
 import { Result, result } from "src/core/infrastructure/Shared/result.util";
 
 export class GetAllCustomersQuery {
   constructor(
-    public readonly page: number = 1,
-    public readonly pageSize: number = 10
+    public readonly page: number = constants.PAGE_DEFAULT,
+    public readonly pageSize: number = constants.PAGE_SIZE_DEFAULT
   ) {}
 }
 
@@ -21,7 +22,7 @@ export class GetAllCustomersHandler implements IQueryHandler<GetAllCustomersQuer
 
   async execute(query: GetAllCustomersQuery): Promise<Result<ResponseCustomerDto[]>> {
     const { page, pageSize } = query;
-    const { data, total, lastPage, currentPage, perPage, prev, next } = await this.repository.getPagination(page, pageSize);
+    const { data, total, lastPage, currentPage, perPage, prev, next } = await this.repository.getPaginated(page, pageSize);
   
     const responseData = data.map(customer => this.responseMapper.mapTo(customer));
   
@@ -34,10 +35,7 @@ export class GetAllCustomersHandler implements IQueryHandler<GetAllCustomersQuer
       next,
     };
   
-    return result(responseData).PaginationSuccess(pagination); // Usando PaginationSuccess para incluir as informações de paginação
+    return result(responseData).PaginationSuccess(pagination); 
   }
-  
-  
-  
   
 }

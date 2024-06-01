@@ -8,17 +8,13 @@ import { GetAllCustomersQuery } from 'src/core/application/use-cases/custumer/qu
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/update-customer.command';
 import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.command';
-import { PrismaService } from 'src/core/infrastructure/database/prisma.service';
-import { PaginationService } from 'src/pagination/pagination.service';
 
 @Controller('customers')
 @ApiTags('customers')
 export class CustomersController {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-    private readonly paginationService: PaginationService
-
+    private readonly commandBus: CommandBus
   ) {}
   
   @Get()
@@ -26,25 +22,9 @@ export class CustomersController {
     return this.queryBus.execute(new GetAllCustomersQuery());
   }
 
-  @Get('pagination')
-  async findAll2(@Query('page') page: number = 1, @Query('pageSize') pageSize: number = 10) {
-    const result = await this.queryBus.execute(new GetAllCustomersQuery(Number(page), Number(pageSize)));
-    
-    // Aqui estamos verificando se o resultado foi bem sucedido e então retornando os dados e as informações de paginação
-    if (!result.failed) {
-      return {
-        data: result.data,
-        total: result.total,
-        lastPage: result.lastPage,
-        currentPage: result.currentPage,
-        perPage: result.perPage,
-        prev: result.prev,
-        next: result.next
-      };
-    } else {
-      // Se falhou, você pode lidar com o erro de alguma forma
-      throw new Error(result.error || 'Unknown error');
-    }
+  @Get('paginated')
+  async findPaginated(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+    return await this.queryBus.execute(new GetAllCustomersQuery(Number(page), Number(pageSize)));
   }
 
 

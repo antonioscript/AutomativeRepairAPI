@@ -3,16 +3,6 @@ import { PrismaService } from "src/core/infrastructure/database/prisma.service";
 import { IGenericRepository } from "../igeneric-repository";
 
 
-interface PaginatedData<T> {
-  data: T[];
-  total: number;
-  lastPage: number;
-  currentPage: number;
-  perPage: number;
-  prev: number | null;
-  next: number | null;
-}
-
 export class CustomerPrismaRepository extends IGenericRepository<CustomerEntity> {
   
   async getFirstByParameters(...parameters: any[]): Promise<CustomerEntity> {
@@ -61,7 +51,7 @@ export class CustomerPrismaRepository extends IGenericRepository<CustomerEntity>
         return await this.prisma.customer.findMany()
       }
 
-      async getPagination(page: number = 1, pageSize: number = 10): Promise<{ data: CustomerEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
+      async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: CustomerEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
         const offset = (page - 1) * pageSize;
     
         const [data, total] = await Promise.all([
@@ -96,7 +86,4 @@ export class CustomerPrismaRepository extends IGenericRepository<CustomerEntity>
         });
         return id;
       }
-
-      
-      
 }

@@ -11,6 +11,6 @@ export abstract class IGenericRepository<T extends BaseEntity> {
     abstract getFirstByParameters(...parameters: any[]): Promise<T | null>
     abstract getAllByParameters(...parameters: any[]): Promise<T[]>
 
-    // Adicione o método getAll com os parâmetros de paginação
-    abstract getPagination(page: number, pageSize: number): Promise<{ data: T[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }>;
+
+    abstract getPaginated(page: number, pageSize: number): Promise<{ data: T[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }>;
 }
