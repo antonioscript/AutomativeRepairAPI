@@ -8,6 +8,7 @@ import { GetAllCustomersQuery } from 'src/core/application/use-cases/custumer/qu
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/update-customer.command';
 import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.command';
+import { ApiPaginatedQuery } from 'src/core/infrastructure/Shared/decorators/api.paginated.decorator';
 
 @Controller('customers')
 @ApiTags('customers')
@@ -24,6 +25,7 @@ export class CustomersController {
   }
 
   @Get('paginated')
+  @ApiPaginatedQuery()
   async findPaginated(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
     return await this.queryBus.execute(new GetAllCustomersQuery(Number(page), Number(pageSize)));
   }
