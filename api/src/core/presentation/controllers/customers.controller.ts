@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { RequestCustomerDto } from 'src/core/application/dtos/customer/request-customer.dto';
 import { UpdateCustomerDto } from 'src/core/application/dtos/customer/update-customer.dto';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
@@ -8,13 +8,16 @@ import { GetAllCustomersQuery } from 'src/core/application/use-cases/custumer/qu
 import { ApiTags } from '@nestjs/swagger';
 import { UpdateCustomerCommand } from 'src/core/application/use-cases/custumer/commands/update-customer.command';
 import { DeleteCustomerCommand } from 'src/core/application/use-cases/custumer/commands/delete-customer.command';
+import { PrismaService } from 'src/core/infrastructure/database/prisma.service';
+import { PaginationService } from 'src/pagination/pagination.service';
 
 @Controller('customers')
 @ApiTags('customers')
 export class CustomersController {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly paginationService: PaginationService
 
   ) {}
   
@@ -22,6 +25,15 @@ export class CustomersController {
   async findAll() {
     return this.queryBus.execute(new GetAllCustomersQuery());
   }
+
+  @Get('Pagination')
+async findAllPage(
+  @Query('page') page: number = 1,
+  @Query('pageSize') pageSize: number = 10,
+) {
+  return this.paginationService.findPaginatedData(Number(page), Number(pageSize));
+}
+
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
