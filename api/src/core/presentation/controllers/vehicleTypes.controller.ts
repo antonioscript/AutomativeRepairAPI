@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Param, Delete, Query } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { RequestVehicleTypeDto } from 'src/core/application/dtos/vehicleType/request-vehicleType.dto';
@@ -8,6 +8,8 @@ import { DeleteVehicleTypeCommand } from 'src/core/application/use-cases/vehicle
 import { UpdateVehicleTypeCommand } from 'src/core/application/use-cases/vehicleType/commands/update-vehicleType.use-command';
 import { GetAllVehicleTypesQuery } from 'src/core/application/use-cases/vehicleType/queries/get-all-vehicleTypes.query';
 import { GetOneVehicleTypeQuery } from 'src/core/application/use-cases/vehicleType/queries/get-one-vehicleType.query';
+import { GetPagedVehicleTypesQuery } from 'src/core/application/use-cases/vehicleType/queries/get-paged-vehicleTypes.query';
+import { ApiPaginatedQuery } from 'src/core/infrastructure/Shared/decorators/api.paginated.decorator';
 
 @Controller('vehicleTypes')
 @ApiTags('vehicleTypes')
@@ -18,6 +20,11 @@ export class VehicleTypesController {
 
   ) {}
 
+  @Get('paginated')
+  @ApiPaginatedQuery()
+  async findPaginated(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+    return await this.queryBus.execute(new GetPagedVehicleTypesQuery(Number(page), Number(pageSize)));
+  }
 
   @Get()
   async findAll() {
@@ -29,7 +36,6 @@ export class VehicleTypesController {
     const numberId = Number(id);
     return this.queryBus.execute(new GetOneVehicleTypeQuery(numberId));
   }
-
   
   @Post()
   async create(@Body() request: RequestVehicleTypeDto) {

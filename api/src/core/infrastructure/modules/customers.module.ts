@@ -19,6 +19,7 @@ import { CustomerPrismaRepository } from '../Repositories/customer/customer.pris
       useFactory: (prisma: PrismaService) => new CustomerPrismaRepository(prisma),
       inject: [PrismaService]
     },
+    //PaginationService
   ],
 })
 export class CustomersModule {}
