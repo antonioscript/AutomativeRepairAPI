@@ -8,7 +8,7 @@ import { Result, result } from "src/core/infrastructure/Shared/result.util";
 export class GetAllCustomersQuery {
   constructor(
     public readonly page: number,
-    public readonly pageSize: number
+    public readonly pageSize
   ) {}
 }
 
