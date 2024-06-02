@@ -6,7 +6,8 @@ import { RegisterUserHandler } from "../use-cases/user/commands/register-user.co
 import { UpdateUserHandler } from "../use-cases/user/commands/update-user.command";
 import { GetAllUsersHandler } from "../use-cases/user/queries/get-all-users.query";
 import { GetOneUserHandler } from "../use-cases/user/queries/get-one-user.query";
+import { GetPagedUsersHandler } from "../use-cases/user/queries/get-paged-users.query";
 
 
 export const CommandUserHandlers = [RegisterUserHandler, UpdateUserHandler, DeleteUserHandler, ForgetPasswordHandler, LoginHandler, AuthorizationHandler];
-export const QueryUserHandlers = [GetAllUsersHandler, GetOneUserHandler];
+export const QueryUserHandlers = [GetAllUsersHandler, GetPagedUsersHandler, GetOneUserHandler];

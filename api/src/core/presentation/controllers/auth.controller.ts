@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Body, Param, Delete, Headers, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Put, Body, Param, Delete, Headers, UseGuards, Req, Query } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthForgetDto } from 'src/core/application/dtos/authentication/auth.forget.dto';
@@ -12,9 +12,9 @@ import { RegisterUserCommand } from 'src/core/application/use-cases/user/command
 import { UpdateUserCommand } from 'src/core/application/use-cases/user/commands/update-user.command';
 import { GetAllUsersQuery } from 'src/core/application/use-cases/user/queries/get-all-users.query';
 import { GetOneUserQuery } from 'src/core/application/use-cases/user/queries/get-one-user.query';
-import { AuthService } from 'src/core/infrastructure/Shared/auth.service';
+import { GetPagedUsersQuery } from 'src/core/application/use-cases/user/queries/get-paged-users.query';
+import { ApiPaginatedQuery } from 'src/core/infrastructure/Shared/decorators/api.paginated.decorator';
 import { Roles } from 'src/core/infrastructure/Shared/decorators/roles.decorator';
-import { User } from 'src/core/infrastructure/Shared/decorators/user.decorator';
 import { AuthGuard } from 'src/core/infrastructure/Shared/guards/auth.guards';
 import { RoleGuard } from 'src/core/infrastructure/Shared/guards/role.guard';
 import { Role } from 'src/core/infrastructure/enums/role.enum';
@@ -35,6 +35,14 @@ export class AuthController {
   @Get('users')
   async findAll() {
     return this.queryBus.execute(new GetAllUsersQuery());
+  }
+
+  @UseGuards(AuthGuard, RoleGuard)
+  @Get('paginated')
+  @Roles(Role.Admin)
+  @ApiPaginatedQuery()
+  async findPaginated(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+    return await this.queryBus.execute(new GetPagedUsersQuery(Number(page), Number(pageSize)));
   }
 
   @UseGuards(AuthGuard, RoleGuard)

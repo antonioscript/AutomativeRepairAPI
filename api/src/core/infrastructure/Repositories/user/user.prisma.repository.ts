@@ -8,6 +8,10 @@ import { messages } from "../../Shared/messages";
 
 export class UserPrismaRepository extends IGenericRepository<UserEntity> {
   
+  constructor(private readonly prisma: PrismaService) {
+    super()
+  }
+  
   async getFirstByParameters(...parameters: any[]): Promise<UserEntity> {
     return await this.prisma.user.findFirst({ 
       where: {
@@ -24,9 +28,6 @@ export class UserPrismaRepository extends IGenericRepository<UserEntity> {
     });
   }
 
-    constructor(private readonly prisma: PrismaService) {
-        super()
-      }
     
       async create(data: UserEntity): Promise<UserEntity> {
         data.password = await bcrypt.hash(data.password, await bcrypt.genSalt());
@@ -62,7 +63,27 @@ export class UserPrismaRepository extends IGenericRepository<UserEntity> {
       async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: UserEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
         const offset = (page - 1) * pageSize;
     
-        return 
+        const [data, total] = await Promise.all([
+          this.prisma.user.findMany({
+            take: pageSize,
+            skip: offset
+          }),
+          this.prisma.user.count()
+        ]);
+    
+        const lastPage = Math.ceil(total / pageSize);
+        const prev = page > 1 ? page - 1 : null;
+        const next = page < lastPage ? page + 1 : null;
+    
+        return {
+          data,
+          total,
+          lastPage,
+          currentPage: page,
+          perPage: pageSize,
+          prev,
+          next
+        };
       }
 
       async delete(id: number): Promise<number> {

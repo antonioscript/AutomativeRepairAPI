@@ -3,7 +3,8 @@ import { DeleteVehicleTypeHandler } from "../use-cases/vehicleType/commands/dele
 import { UpdateVehicleTypeHandler } from "../use-cases/vehicleType/commands/update-vehicleType.use-command";
 import { GetAllVehicleTypesHandler } from "../use-cases/vehicleType/queries/get-all-vehicleTypes.query";
 import { GetOneVehicleTypeHandler } from "../use-cases/vehicleType/queries/get-one-vehicleType.query";
+import { GetPagedVehicleTypesHandler } from "../use-cases/vehicleType/queries/get-paged-vehicleTypes.query";
 
 
 export const QueryVehicleTypeHandlers = [GetAllVehicleTypesHandler, GetOneVehicleTypeHandler ];
-export const CommandVehicleTypeHandlers = [CreateVehicleTypeHandler, UpdateVehicleTypeHandler, DeleteVehicleTypeHandler];
+export const CommandVehicleTypeHandlers = [CreateVehicleTypeHandler, GetPagedVehicleTypesHandler, UpdateVehicleTypeHandler, DeleteVehicleTypeHandler];
