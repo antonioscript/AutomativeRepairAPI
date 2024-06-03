@@ -20,11 +20,6 @@ export class VehicleTypesController {
 
   ) {}
 
-  @Get('paginated')
-  @ApiPaginatedQuery()
-  async findPaginated(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
-    return await this.queryBus.execute(new GetPagedVehicleTypesQuery(Number(page), Number(pageSize)));
-  }
 
   @Get()
   async findAll() {
@@ -35,6 +30,12 @@ export class VehicleTypesController {
   async findOne(@Param('id') id: number) {
     const numberId = Number(id);
     return this.queryBus.execute(new GetOneVehicleTypeQuery(numberId));
+  }
+
+  @Get('paginated')
+  @ApiPaginatedQuery()
+  async findPaginated(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+    return await this.queryBus.execute(new GetPagedVehicleTypesQuery(Number(page), Number(pageSize)));
   }
   
   @Post()
