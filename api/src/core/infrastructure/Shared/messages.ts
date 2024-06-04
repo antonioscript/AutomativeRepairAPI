@@ -15,5 +15,10 @@ export const messages= {
 
   VEHICLE_ALREADY_EXISTS: (plate: string) => `Já existe um Veículo cadastrado com a placa: '${plate}.'`,
   VEHICLE_NOT_FOUND: (id: number) => `Veículo de ID '${id}' não encontrado.`,
+
+  APPOINTMENT_NOT_FOUND: (id: number) => `Agendamento de ID '${id}' não encontrado.`,
+
+  APPOINTMENT_STATUS_ALREADY_EXISTS: (name: string) => `Já existe um status de agendamento cadastrado com o nome: '${name}'`,
+  APPOINTMENT_STATUS_NOT_FOUND: (id: number) => `Status de Agendamento de ID '${id}' não encontrado.`,
   };
   

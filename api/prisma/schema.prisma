@@ -34,6 +34,7 @@ model Customer {
    cpf            String @db.VarChar(15) @unique
 
    vehicles Vehicle[]
+   appointment Appointment[]
   
   @@map("customers")
 }
@@ -62,4 +63,27 @@ model Vehicle {
   year              Int?
   
   @@map("vehicles")
+}
+
+model Appointment {
+  id                Int      @default(autoincrement()) @id
+
+  customerId        Int      
+  customer          Customer @relation(fields: [customerId], references: [id])
+  
+  statusId          Int
+  status            AppointmentStatus? @relation(fields: [statusId], references: [id])
+  
+  inspectionDate    DateTime 
+  observation       String?
+
+  @@map("appointments")
+}
+
+model AppointmentStatus {
+  id     Int      @default(autoincrement()) @id
+  name   String
+  appointments Appointment[]
+  
+  @@map("appointment_status")
 }

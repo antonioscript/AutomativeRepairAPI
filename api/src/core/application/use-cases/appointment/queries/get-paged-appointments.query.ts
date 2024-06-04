@@ -1,11 +1,11 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
-import { ResponseCustomerDto } from "src/core/application/dtos/customer/response-customer.dto";
-import { ResponseCustomerMapper } from "src/core/domain/mapping/customer/response-customer.mapper";
-import { CustomerRepository } from "src/core/infrastructure/Repositories/customer/customer.repository";
+import { ResponseAppointmentDto } from "src/core/application/dtos/appointment/response-appointment.dto";
+import { ResponseAppointmentMapper } from "src/core/domain/mapping/appointment/response-appointment.mapper";
+import { AppointmentRepository } from "src/core/infrastructure/Repositories/appointment/appointment.repository";
 import { constants } from "src/core/infrastructure/Shared/constants";
 import { Result, result } from "src/core/infrastructure/Shared/result.util";
 
-export class GetPagedCustomersQuery {
+export class GetPagedAppointmentsQuery {
   constructor(
     public readonly page: number,
     public readonly pageSize: number
@@ -13,14 +13,14 @@ export class GetPagedCustomersQuery {
 }
 
 
-@QueryHandler(GetPagedCustomersQuery)
-export class GetPagedCustomersHandler implements IQueryHandler<GetPagedCustomersQuery, Result<ResponseCustomerDto[]>> {
-  private responseMapper: ResponseCustomerMapper;
-  constructor(private readonly repository: CustomerRepository) {
-    this.responseMapper = new ResponseCustomerMapper();
+@QueryHandler(GetPagedAppointmentsQuery)
+export class GetPagedAppointmentsHandler implements IQueryHandler<GetPagedAppointmentsQuery, Result<ResponseAppointmentDto[]>> {
+  private responseMapper: ResponseAppointmentMapper;
+  constructor(private readonly repository: AppointmentRepository) {
+    this.responseMapper = new ResponseAppointmentMapper();
   }
 
-  async execute(query: GetPagedCustomersQuery): Promise<Result<ResponseCustomerDto[]>> {
+  async execute(query: GetPagedAppointmentsQuery): Promise<Result<ResponseAppointmentDto[]>> {
     
     let { page, pageSize } = query;
     
