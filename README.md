@@ -1,10 +1,10 @@
 # AutomativeRepairAPI
 Desenvolvimento de uma API utilizando o framework Nest.JS para simular o sistema de gestão de uma oficina mecânica. A API será responsável por gerenciar clientes, funcionários, serviços oferecidos, agendamentos, estoque de peças e ferramentas, além de proporcionar funcionalidades de autenticação e autorização para diferentes tipos de usuários.
 
-Para acompanhar as features e o andamento do projeto clique [aqui](https://github.com/users/antonioscript/projects/11?pane=info). </br>
+Para acompanhar as features e o andamento do projeto clique [aqui](https://github.com/users/antonioscript/projects/11?pane=info). <br>
 
 
-<p align="center">
+</br></br><p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
@@ -26,16 +26,13 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
 
-
-# Brainstorm
-## Funcionalidades
-### Agendamento
-O começo de todo serviço dentro do sistema é criar primeiramente um agendamento. A Assistência Mecânica não pode iniciar qualquer tipo de atendimento sem um agendamento
-A secretária ou mecânico poderá cadastrar um agendamento de serviço, que poderá ser de dois (ou três) tipos:
-
-- Prospecção/Orçamento (descobrir nome melhor pra isso depois)
-- Revisão 
-- Reparos
+# Funcionalidades
+## Agendamento
+O começo de todo serviço dentro da aplicação é criar primeiramente um agendamento. A Assistência Mecânica não pode iniciar qualquer tipo de atendimento sem um agendamento, que pode se encaixar am algum desses status:
+- Agendado
+- Confirmado
+- Cancelado
+- Concluído
 
 Regras:
 - Não pode cadastrar um serviço quando um mecânico já está alocado para um outro serviço
@@ -128,10 +125,19 @@ Para ocultar a senha no banco de dados, foi utilizado a biblioteca node chamada 
 Foi utilizado o conceito de CORS para aumentar a segurança da aplicação utilizando dependências nativas do Nest.JS
 
 ### Limitação de Taxa 
-Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a biblioteca 'throttler' 
-![alt text](image.png)
+Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a biblioteca 'throttler'.
+``` typescript
+@Module({
+  imports: [
+    ConfigModule.forRoot(),
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 10,
+    }]),
+```
 
-No projeto em questão foi utilizado a configuração padrão que permite uma quantidade máxiama de 10 solicitações em 60000 milissegundos
+
+No projeto em questão foi utilizado a configuração padrão que permite uma quantidade máxima de 10 solicitações em 60000 milissegundos
 
 
 
