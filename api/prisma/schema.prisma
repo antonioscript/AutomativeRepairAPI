@@ -57,7 +57,7 @@ model Vehicle {
   vehicleTypeId     Int
   vehicleType       VehicleType @relation(fields: [vehicleTypeId], references: [id])
 
-  plate             String   @db.VarChar(15) @unique
+  plate             String    @db.VarChar(15) @unique
   brand             String?   @db.VarChar(100)
   model             String?   @db.VarChar(100)
   year              Int?
@@ -81,9 +81,23 @@ model Appointment {
 }
 
 model AppointmentStatus {
-  id     Int      @default(autoincrement()) @id
-  name   String
-  appointments Appointment[]
+  id            Int      @default(autoincrement()) @id
+  name          String
+  appointments  Appointment[]
   
   @@map("appointment_status")
+}
+
+
+model Part {
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(255) @unique
+  supplier      String?  @db.VarChar(255)
+  manufacturer  String?  @db.VarChar(255)
+  barcode       String?  @db.VarChar(255)
+  observation   String?  @db.VarChar(255)
+  quantity      Int
+  value         Float
+
+  @@map("parts")
 }

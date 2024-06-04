@@ -9,6 +9,7 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule } from '@nestjs/config';
 import { AppointmentsModule } from './core/infrastructure/modules/appointments.module';
 import { AppointmentsStatusModule } from './core/infrastructure/modules/appointmentsStatus.module';
+import { PartsModule } from './core/infrastructure/modules/parts.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { AppointmentsStatusModule } from './core/infrastructure/modules/appointm
     VehiclesModule, 
     UsersModule,
     AppointmentsModule,
-    AppointmentsStatusModule
+    AppointmentsStatusModule,
+    PartsModule
   ],
   controllers: [AppController],
   providers: [AppService],
