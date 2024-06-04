@@ -17,7 +17,8 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
           AND: parameters
       },
       include: {
-          customer: true
+          customer: true,
+          vehicleType: true
       }
     });
   }
@@ -28,7 +29,8 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
           AND: parameters
       },
       include: {
-          customer: true
+          customer: true,
+          vehicleType: true
       }
     });
   }
@@ -37,7 +39,8 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
         return await this.prisma.vehicle.create({ 
             data,
             include: {
-                customer: true
+                customer: true,
+                vehicleType: true
             }
         }) 
       }
@@ -47,7 +50,8 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
           where: { id },
           data,
           include: {
-              customer: true
+              customer: true,
+              vehicleType: true
           }
         })
       }
@@ -58,7 +62,8 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
                 id 
             },
             include: {
-                customer: true
+                customer: true,
+                vehicleType: true
             }
         })
         
@@ -67,7 +72,8 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
       async getAll(): Promise<VehicleEntity[]> {
         return await this.prisma.vehicle.findMany({
             include: {
-                customer: true
+                customer: true,
+                vehicleType: true
             }
         });
     }
@@ -78,7 +84,11 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
       const [data, total] = await Promise.all([
         this.prisma.vehicle.findMany({
           take: pageSize,
-          skip: offset
+          skip: offset,
+          include: {
+            customer: true,
+            vehicleType: true
+          }
         }),
         this.prisma.vehicle.count()
       ]);
