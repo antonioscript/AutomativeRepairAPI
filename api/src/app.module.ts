@@ -7,6 +7,8 @@ import { VehiclesModule } from './core/infrastructure/modules/vehicles.module';
 import { UsersModule } from './core/infrastructure/modules/users.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule } from '@nestjs/config';
+import { AppointmentsModule } from './core/infrastructure/modules/appointments.module';
+import { AppointmentsStatusModule } from './core/infrastructure/modules/appointmentsStatus.module';
 
 @Module({
   imports: [
@@ -18,7 +20,9 @@ import { ConfigModule } from '@nestjs/config';
     CustomersModule, 
     VehicleTypesModule, 
     VehiclesModule, 
-    UsersModule
+    UsersModule,
+    AppointmentsModule,
+    AppointmentsStatusModule
   ],
   controllers: [AppController],
   providers: [AppService],

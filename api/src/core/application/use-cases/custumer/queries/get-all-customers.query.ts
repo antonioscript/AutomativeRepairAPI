@@ -18,7 +18,7 @@ export class GetAllCustomersHandler implements IQueryHandler<GetAllCustomersQuer
   
   async execute(query: GetAllCustomersQuery): Promise<Result<ResponseCustomerDto[]>> {
     const registers = await this.repository.getAll();
-    const responseData =  registers.map(customer => this.responseMapper.mapTo(customer))
+    const responseData =  registers.map(entity => this.responseMapper.mapTo(entity))
 
     return result(responseData).Success();
   }

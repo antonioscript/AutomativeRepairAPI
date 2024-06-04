@@ -9,7 +9,7 @@ export class VehicleEntity extends BaseEntity {
     customer?: CustomerEntity
 
     vehicleTypeId: number;
-    //vehicleType: VehicleTypeEntity;
+    vehicleType?: VehicleTypeEntity;
 
     brand?: string
     model?: string
