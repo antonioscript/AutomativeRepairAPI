@@ -34,17 +34,47 @@ O começo de todo serviço dentro da aplicação é criar primeiramente um agend
 - Cancelado
 - Concluído
 
-Regras:
-- Não pode cadastrar um serviço quando um mecânico já está alocado para um outro serviço
+## Vistoria
+Após o agendamento acontece a vistoria, onde será informado o diagnóstico geral do veículo, o principal problema e os serviços que devem ser feitos, bem como o valor total do serviço. Caso o cliente esteja de acordo, então é gerado a ordem de serviço. 
+Obs: Dentro de Vistoria acontece outros passos.
 
-### Tipo de Serviço
-Todo serviço deverá ter um tipo de serviço pré-cadastrado, como troca de óleo, troca de pneu, conserto de para-brisa, etc
+Regra: Toda Vistoria só deve ter no máximo 7 dias para o cliente dar resposta, caso contrário, deverá ser criada outra com atualização dos novos valores. 
 
-### Clientes Cadastrados (Tabela de Clientes)
-Para cada serviço é obrgitatório ter um cliente que deve ser cadastrado na base de dados. E cada cliente deve ter veículos cadastrados em seu nome
+## Ordem de Serviço 
+A ordem de serviço gerada já será pré-preenchida com os serviços definidos na Vistoria. Caso precise de algo adicional além do orçado com o cliente (e que não foi capaz de enxergar na vistoria), é preciso gerar obrigatoriamente um aditivo (com a permissão do cliente).
+
+## Aditivo de Serviço 
+O Atitivo será apenas a inclusão de mais serviços, além do previsto junto com o cliente
+
+## Sub-processos dentro de Vistoria
+
+### Tipos de Serviços
+A mecânica só realizará serviços que estão cadastrados de acordo com a capacidade da mecânica: Troca de Óleo, balanceamento, conserto de motor, troca de pneu etc. E na maioria dos serviços existe peças que serão utilizadas para esses tipos de serviços. Conserto de motor, por exemplo, precisa de bomba de água, correia dentada, vela de ingnição, etc.
+Então para isso, existe também um cadastro de Tipo de Peças.
+
+### Tipo de Peças
+O cadastro de peças é simples, contendo informações do nome da peça, modelo, código do fornecedor,  e valor de cada peça para o cliente, etc. Para essa tabela, existe outra tabela que conterá a quantidade de peças para cada tipo de peças, entre outras informações.
+Nesse cadastro o funcionário atualiza os valores das peças que serão cobradas pelo cliente
+
+Regra: Se uma peça foi cobrada no momento do orçamento por 100 reais para um cliente específico e depois ela foi atualizada para um valor de 140 reais, por exemplo, o cliente deve pagar o valor que foi estabelecido no momento da vistoria e não o valor da peça atualizada. 
+
+Regra: Para cada valor atualizado, deve-se criar uma tabela com as alterações, que seria o histórico de valores cadastrados e o tempo que esse valor foi utilizado. 
+
+### Peças
+Supondo que exista um tipo de peça que foi cadastrado como "Pneu Aro 15". Então na tabela de Peças deverá conter a quantidade de Peças com o tipo de Pneu Aro 15. Onde pode existir, por exemplo, 20 itens do tipo "Penu Aro 15" e cada item será cadastrado com as iformações de código de barras, código do fornecedor, etc. 
+
+### Regra Vistoria
+Tendo esse conceito, no momento de cadatrar a vistoria, irá puxar todas as peças disponíveis e verificar se existem essas peças. Caso não exista essas peças, ainda assim pode-se gerar um pedido de ordem de serviço, mas a ordem de serviço só deve ser iniciada quando chegar o abastecimento das peças. 
+
+No momento que uma vistoria é criada, deve-se fazer a subtração das peças no banco de dados, bem como a quantidade disponível, controle de saldo, valor, etc. Caso uma vistoria não venha a se tornar uma ordem de serviço, as peças alocadas para a vistoria devem ficar disponíveis novamente no banco. 
+
+# Outros Cadastros
 
 ### Veículos (Tabela de Veículos)
-Serão todos os veículos que o cliente levou para oficina fazer um serviço
+Serão todos os veículos que o cliente levou para oficina fazer um serviço. Um cliente pode ter vários veículos
+
+### Clientes Cadastrados (Tabela de Clientes)
+Para cada veículo cadastrado é obrgitatório ter um cliente que deve ser cadastrado na base de dados. E cada cliente deve ter veículos cadastrados em seu nome
 
 ### Mecânico Responsável pelo serviço (Tabela de Mecânicos)
 Cada serviço terá também o ID do Mecânico
@@ -53,10 +83,6 @@ Cada serviço terá também o ID do Mecânico
 
 ### Histórico de Serviços (possivelmente um Método)
 Método que irá filtrar todos os serviços por cliente ou por veículo. Ou pelos dois
-
-### Gestão de Estoque (Tabela de Estoque)
-Para cada serviço deve-se fazer um controle de saldo da quantidade de peças. 
-Também deve ter um método para incluir a quantidade de peças e o valor comprado
 
 ### Atualização dos valores das peças (método)
 Como no final de tudo terá um PDF que irá exportar o total do serviço, deve-se também ter um método para atulizar o valor das peças utilizas em serviço. 
