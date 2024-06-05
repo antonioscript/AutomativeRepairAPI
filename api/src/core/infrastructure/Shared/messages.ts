@@ -23,5 +23,8 @@ export const messages= {
 
   PART_ALREADY_EXISTS: (name: string) => `Já existe uma peça cadastrada com o nome: '${name}'.`,
   PART_NOT_FOUND: (id: number) => `Peça de ID '${id}' não encontrada.`,
+
+  SERVICE_ALREADY_EXISTS: (name: string) => `Já existe um serviço cadastrado com o nome: '${name}'.`,
+  SERVICE_NOT_FOUND: (id: number) => `Serviço de ID '${id}' não encontrado.`,
   };
   
