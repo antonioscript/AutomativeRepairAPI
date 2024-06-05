@@ -13,11 +13,12 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   // Swagger
-  const config = new DocumentBuilder()
+const config = new DocumentBuilder()
     .setTitle('AutomativeRepairAPI')
-    .setDescription('Documentação da API construída em Nest.JS que simula operações de uma assistência mecânica')
+    .setDescription('Documentação da API construída em Nest.JS que simula operações de uma assistência mecânica. </br>[github.com/antonioscript/AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI)')
     .setVersion('0.1')
     .build();
+
 
   const document = SwaggerModule.createDocument(app, config);
 

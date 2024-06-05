@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AppointmentsModule } from './core/infrastructure/modules/appointments.module';
 import { AppointmentsStatusModule } from './core/infrastructure/modules/appointmentsStatus.module';
 import { PartsModule } from './core/infrastructure/modules/parts.module';
+import { ServicesModule } from './core/infrastructure/modules/services.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { PartsModule } from './core/infrastructure/modules/parts.module';
     UsersModule,
     AppointmentsModule,
     AppointmentsStatusModule,
-    PartsModule
+    PartsModule,
+    ServicesModule
   ],
   controllers: [AppController],
   providers: [AppService],
