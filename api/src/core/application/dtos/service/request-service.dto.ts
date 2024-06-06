@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, IsNumber } from 'class-validator';
+import { RequestPartDto } from '../part/request-part.dto';
 export class RequestServiceDto {
   
   @ApiProperty()
@@ -14,4 +15,6 @@ export class RequestServiceDto {
   @IsOptional()
   @IsString()
   observation?: string;
+
+  //parts?: RequestPartDto[];
 }

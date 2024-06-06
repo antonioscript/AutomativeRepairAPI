@@ -11,7 +11,10 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
     return await this.prisma.service.findFirst({ 
       where: {
           AND: parameters
-      } 
+      },
+      include: {
+        parts: true
+      }
     });
   }
 
@@ -19,7 +22,10 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
     return await this.prisma.service.findMany({ 
       where: {
           AND: parameters
-      } 
+      },
+      include: {
+        parts: true
+      }
     });
   }
 
@@ -29,7 +35,7 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
     
       async create(data: RequestServiceDto): Promise<ResponseServiceDto> {
         return await this.prisma.service.create({ 
-            data 
+            data
         })
       }
     
@@ -44,6 +50,9 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
         return await this.prisma.service.findUnique({ 
             where: { 
                 id 
+            },
+            include: {
+              parts: true
             } 
         })
         
@@ -63,7 +72,10 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
         const [data, total] = await Promise.all([
           this.prisma.service.findMany({
             take: pageSize,
-            skip: offset
+            skip: offset,
+            include: {
+              parts: true
+            }
           }),
           this.prisma.service.count()
         ]);
