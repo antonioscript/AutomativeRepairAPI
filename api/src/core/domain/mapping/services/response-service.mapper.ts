@@ -11,6 +11,8 @@ export class ResponseServiceMapper extends Mapper<ResponseServiceDto, ServiceEnt
     service.value = data.value;
     service.observation = data.observation;
 
+    service.parts = data.parts;
+
     return service;
   }
 
@@ -21,6 +23,8 @@ export class ResponseServiceMapper extends Mapper<ResponseServiceDto, ServiceEnt
     service.name = data.name;
     service.value = data.value;
     service.observation = data.observation;
+
+    service.parts = data.parts;
     
     return service
   }
