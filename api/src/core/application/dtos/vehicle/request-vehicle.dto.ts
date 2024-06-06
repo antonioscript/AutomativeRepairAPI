@@ -5,12 +5,12 @@ export class RequestVehicleDto {
     id?: number
 
     @ApiProperty()
-    @IsString()
-    plate: string
-
-    @ApiProperty()
     @IsInt()
     customerId: number
+
+    @ApiProperty()
+    @IsString()
+    plate: string
 
     @ApiProperty()
     @IsInt()
