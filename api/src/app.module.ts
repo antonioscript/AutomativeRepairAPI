@@ -11,6 +11,7 @@ import { AppointmentsModule } from './core/infrastructure/modules/appointments.m
 import { AppointmentsStatusModule } from './core/infrastructure/modules/appointmentsStatus.module';
 import { PartsModule } from './core/infrastructure/modules/parts.module';
 import { ServicesModule } from './core/infrastructure/modules/services.module';
+import { InspectionsModule } from './core/infrastructure/modules/inspections.module';
 
 @Module({
   imports: [
@@ -26,7 +27,8 @@ import { ServicesModule } from './core/infrastructure/modules/services.module';
     AppointmentsModule,
     AppointmentsStatusModule,
     PartsModule,
-    ServicesModule
+    ServicesModule,
+    InspectionsModule
   ],
   controllers: [AppController],
   providers: [AppService],

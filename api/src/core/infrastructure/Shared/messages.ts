@@ -26,5 +26,8 @@ export const messages= {
 
   SERVICE_ALREADY_EXISTS: (name: string) => `Já existe um serviço cadastrado com o nome: '${name}'.`,
   SERVICE_NOT_FOUND: (id: number) => `Serviço de ID '${id}' não encontrado.`,
+
+  INSPECTION_ALREADY_EXISTS: (appointmentId: number) => `Já existe uma Vistoria cadastrada com o agendamento de ID: '${appointmentId}'.`,
+  INSPECTION_NOT_FOUND: (id: number) => `Vistoria de ID '${id}' não encontrada.`,
   };
   

@@ -61,6 +61,8 @@ model Vehicle {
   brand             String?   @db.VarChar(100)
   model             String?   @db.VarChar(100)
   year              Int?
+
+  inspections       Inspection[]
   
   @@map("vehicles")
 }
@@ -77,6 +79,8 @@ model Appointment {
   inspectionDate    DateTime 
   observation       String?
 
+  inspection        Inspection[]
+
   @@map("appointments")
 }
 
@@ -87,6 +91,23 @@ model AppointmentStatus {
   
   @@map("appointment_status")
 }
+
+model Inspection {
+  id              Int      @default(autoincrement()) @id
+
+  appointmentId   Int
+  appointment     Appointment @relation(fields: [appointmentId], references: [id])
+
+  vehicleId       Int
+  vehicle         Vehicle @relation(fields: [vehicleId], references: [id])
+
+  inspectionDate   DateTime @default(now())
+  hasServiceOrder Boolean  @default(false)
+  
+  @@map("inspections")
+}
+
+
 
 model Service {
   id            Int       @id @default(autoincrement())
