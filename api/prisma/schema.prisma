@@ -88,9 +88,23 @@ model AppointmentStatus {
   @@map("appointment_status")
 }
 
+model Service {
+  id            Int       @id @default(autoincrement())
+  name          String    @db.VarChar(255) @unique
+  value         Float
+  observation   String?   @db.VarChar(255)
+
+  parts         Part[]        
+
+  @@map("services")
+}
 
 model Part {
   id            Int      @id @default(autoincrement())
+
+  serviceId     Int
+  service       Service @relation(fields: [serviceId], references: [id])
+
   name          String   @db.VarChar(255) @unique
   supplier      String?  @db.VarChar(255)
   manufacturer  String?  @db.VarChar(255)
@@ -99,18 +113,7 @@ model Part {
   quantity      Int
   value         Float
 
-  //services  Service[] @relation("ServiceParts")
-
   @@map("parts")
 }
 
-model Service {
-  id            Int       @id @default(autoincrement())
-  name          String    @db.VarChar(255) @unique
-  value         Float
-  observation   String?   @db.VarChar(255)
 
-  //parts         Part[]        @relation("ServiceParts")
-
-  @@map("services")
-}

@@ -1,11 +1,13 @@
 import { PrismaService } from "src/core/infrastructure/database/prisma.service";
 import { IGenericRepository } from "../igeneric-repository";
 import { ServiceEntity } from "src/core/domain/entities/service.entity";
+import { ResponseServiceDto } from "src/core/application/dtos/service/response-service.dto";
+import { RequestServiceDto } from "src/core/application/dtos/service/request-service.dto";
 
 
-export class ServicePrismaRepository extends IGenericRepository<ServiceEntity> {
+export class ServicePrismaRepository extends IGenericRepository<ResponseServiceDto> {
   
-  async getFirstByParameters(...parameters: any[]): Promise<ServiceEntity> {
+  async getFirstByParameters(...parameters: any[]): Promise<ResponseServiceDto> {
     return await this.prisma.service.findFirst({ 
       where: {
           AND: parameters
@@ -13,7 +15,7 @@ export class ServicePrismaRepository extends IGenericRepository<ServiceEntity> {
     });
   }
 
-  async getAllByParameters(...parameters: any[]): Promise<ServiceEntity[]> {
+  async getAllByParameters(...parameters: any[]): Promise<ResponseServiceDto[]> {
     return await this.prisma.service.findMany({ 
       where: {
           AND: parameters
@@ -25,20 +27,20 @@ export class ServicePrismaRepository extends IGenericRepository<ServiceEntity> {
         super()
       }
     
-      async create(data: ServiceEntity): Promise<ServiceEntity> {
+      async create(data: RequestServiceDto): Promise<ResponseServiceDto> {
         return await this.prisma.service.create({ 
             data 
         })
       }
     
-      async update(id: number, data: ServiceEntity): Promise<ServiceEntity> {
+      async update(id: number, data: RequestServiceDto): Promise<ResponseServiceDto> {
         return await this.prisma.service.update({
           where: { id },
           data
         })
       }
       
-      async getById(id: number): Promise<ServiceEntity> {
+      async getById(id: number): Promise<ResponseServiceDto> {
         return await this.prisma.service.findUnique({ 
             where: { 
                 id 
@@ -47,11 +49,15 @@ export class ServicePrismaRepository extends IGenericRepository<ServiceEntity> {
         
       }
     
-      async getAll(): Promise<ServiceEntity[]> {
-        return await this.prisma.service.findMany()
+      async getAll(): Promise<ResponseServiceDto[]> {
+        return await this.prisma.service.findMany({
+          include: {
+            parts: true
+          }
+        })
       }
 
-      async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: ServiceEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
+      async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: RequestServiceDto[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
         const offset = (page - 1) * pageSize;
     
         const [data, total] = await Promise.all([

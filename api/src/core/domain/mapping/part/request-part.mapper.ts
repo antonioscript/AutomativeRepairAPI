@@ -6,6 +6,7 @@ export class RequestPartMapper extends Mapper<RequestPartDto, PartEntity> {
   public mapFrom(data: RequestPartDto): PartEntity {
     const part = new PartEntity()
 
+    part.serviceId = data.serviceId
     part.name = data.name;
     part.supplier = data.supplier;
     part.manufacturer = data.manufacturer;
@@ -20,6 +21,7 @@ export class RequestPartMapper extends Mapper<RequestPartDto, PartEntity> {
   public mapTo(data: PartEntity): RequestPartDto {
     const part = new RequestPartDto()
 
+    part.serviceId = data.serviceId
     part.name = data.name;
     part.supplier = data.supplier;
     part.manufacturer = data.manufacturer;

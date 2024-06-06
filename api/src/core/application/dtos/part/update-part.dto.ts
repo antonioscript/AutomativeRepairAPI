@@ -7,6 +7,10 @@ export class UpdatePartDto{
     id: number;
 
     @ApiProperty()
+    @IsInt()
+    serviceId: number;
+
+    @ApiProperty()
     @IsString()
     name: string;
   
