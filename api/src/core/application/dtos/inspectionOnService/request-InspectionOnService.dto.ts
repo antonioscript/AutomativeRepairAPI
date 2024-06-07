@@ -5,7 +5,6 @@ export class RequestInspectionOnServiceDto {
 
     id: number;
 
-    @ApiProperty()
     @IsInt()
     inspectionId: number
 
