@@ -1,6 +1,8 @@
 import { PrismaService } from "src/core/infrastructure/database/prisma.service";
 import { IGenericRepository } from "../igeneric-repository";
 import { InspectionEntity } from "src/core/domain/entities/inspection.entity";
+import { RequestInspectionDto } from "src/core/application/dtos/inspection/request-inspection.dto";
+import { UpdateInspectionDto } from "src/core/application/dtos/inspection/update-inspection.dto";
 
 export class InspectionPrismaRepository extends IGenericRepository<InspectionEntity> {
   
@@ -8,6 +10,9 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
     return await this.prisma.inspection.findFirst({ 
       where: {
           AND: parameters
+      },
+      include: {
+        services: true
       } 
     });
   }
@@ -16,7 +21,10 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
     return await this.prisma.inspection.findMany({ 
       where: {
           AND: parameters
-      } 
+      },
+      include: {
+        services: true
+      }  
     });
   }
 
@@ -24,13 +32,13 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
         super()
       }
     
-      async create(data: InspectionEntity): Promise<InspectionEntity> {
+      async create(data: RequestInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.create({ 
             data 
         })
       }
     
-      async update(id: number, data: InspectionEntity): Promise<InspectionEntity> {
+      async update(id: number, data: UpdateInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.update({
           where: { id },
           data
@@ -41,13 +49,20 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
         return await this.prisma.inspection.findUnique({ 
             where: { 
                 id 
-            } 
+            },
+            include: {
+              services: true
+            }  
         })
         
       }
     
       async getAll(): Promise<InspectionEntity[]> {
-        return await this.prisma.inspection.findMany()
+        return await this.prisma.inspection.findMany({
+          include: {
+            services: true
+          } 
+        })
       }
 
       async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: InspectionEntity[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
@@ -56,7 +71,10 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
         const [data, total] = await Promise.all([
           this.prisma.inspection.findMany({
             take: pageSize,
-            skip: offset
+            skip: offset,
+            include: {
+              services: true
+            } 
           }),
           this.prisma.inspection.count()
         ]);

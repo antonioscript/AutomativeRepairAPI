@@ -1,6 +1,6 @@
 
 export class ResponseInspectionOnServiceDto {
-    id?: number;
+    id: number;
     inspectionId: number
     serviceId: number
   }

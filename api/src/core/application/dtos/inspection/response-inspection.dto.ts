@@ -1,3 +1,5 @@
+import { ResponseInspectionOnServiceDto } from "../inspectionOnService/response-InspectionOnService.dto";
+
 export class ResponseInspectionDto {
     id?: number;
     appointmentId: number
@@ -7,4 +9,6 @@ export class ResponseInspectionDto {
 
     inspectionDate: Date;
     hasServiceOrder: boolean;
+
+    services?: ResponseInspectionOnServiceDto[]
   }
