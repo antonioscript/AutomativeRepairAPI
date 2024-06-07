@@ -103,10 +103,23 @@ model Inspection {
 
   inspectionDate   DateTime @default(now())
   hasServiceOrder Boolean  @default(false)
+
+  services        InspectionOnService[]
   
   @@map("inspections")
 }
 
+model InspectionOnService {
+  id              Int      @default(autoincrement()) @id
+
+  inspectionId    Int
+  inspection      Inspection @relation(fields: [inspectionId], references: [id])
+
+  serviceId       Int
+  service         Service @relation(fields: [serviceId], references: [id])
+  
+  @@map("inspection_On_Services")
+}
 
 
 model Service {
@@ -115,7 +128,9 @@ model Service {
   value         Float
   observation   String?   @db.VarChar(255)
 
-  parts         Part[]        
+  parts         Part[] 
+
+  inpections    InspectionOnService[]       
 
   @@map("services")
 }

@@ -13,6 +13,8 @@ export class ResponseInspectionMapper extends Mapper<ResponseInspectionDto, Insp
     inspection.inspectionDate = data.inspectionDate;
     inspection.hasServiceOrder = data.hasServiceOrder;
 
+    inspection.services = data.services;
+    
     return inspection;
   }
 
@@ -24,6 +26,8 @@ export class ResponseInspectionMapper extends Mapper<ResponseInspectionDto, Insp
     inspection.vehicleId = data.vehicleId;
     inspection.inspectionDate = data.inspectionDate;
     inspection.hasServiceOrder = data.hasServiceOrder;
+
+    inspection.services = data.services;
     
     return inspection
   }
