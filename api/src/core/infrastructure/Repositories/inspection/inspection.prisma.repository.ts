@@ -34,9 +34,23 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
     
       async create(data: RequestInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.create({ 
-            data 
-        })
+          data: {
+            appointmentId: data.appointmentId,
+            vehicleId: data.vehicleId,
+            services: {
+              create: data.services?.map(service => ({
+                service: {
+                  connect: { id: service.serviceId }
+                }
+              })) || [],
+            }
+          },
+          include: {
+            services: true, // Inclui os serviços relacionados na resposta
+          },
+        });
       }
+      
     
       async update(id: number, data: UpdateInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.update({
