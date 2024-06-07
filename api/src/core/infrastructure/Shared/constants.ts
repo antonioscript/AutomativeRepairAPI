@@ -1,5 +1,6 @@
 export const constants = {
   PAGE_DEFAULT:  1,
-  PAGE_SIZE_DEFAULT: 10
+  PAGE_SIZE_DEFAULT: 10,
+  APPOINTMENT_STATUS_DEFAULT: 1
   };
   

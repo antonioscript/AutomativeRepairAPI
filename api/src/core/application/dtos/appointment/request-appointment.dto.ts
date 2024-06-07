@@ -5,8 +5,6 @@ export class RequestAppointmentDto {
     @IsInt()
     customerId: number;
 
-    @ApiProperty()
-    @IsInt()
     statusId: number;
 
     @ApiProperty()
