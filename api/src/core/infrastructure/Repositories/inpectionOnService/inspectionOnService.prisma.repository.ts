@@ -1,6 +1,7 @@
 import { PrismaService } from "src/core/infrastructure/database/prisma.service";
 import { IGenericRepository } from "../igeneric-repository";
 import { InspectionOnServiceEntity } from "src/core/domain/entities/inspectionOnService.entity";
+import { RequestInspectionOnServiceDto } from "src/core/application/dtos/inspectionOnService/request-InspectionOnService.dto";
 
 export class InspectionOnServicePrismaRepository extends IGenericRepository<InspectionOnServiceEntity> {
   
@@ -24,13 +25,13 @@ export class InspectionOnServicePrismaRepository extends IGenericRepository<Insp
         super()
       }
     
-      async create(data: InspectionOnServiceEntity): Promise<InspectionOnServiceEntity> {
+      async create(data: RequestInspectionOnServiceDto): Promise<InspectionOnServiceEntity> {
         return await this.prisma.inspectionOnService.create({ 
             data 
         })
       }
     
-      async update(id: number, data: InspectionOnServiceEntity): Promise<InspectionOnServiceEntity> {
+      async update(id: number, data: RequestInspectionOnServiceDto): Promise<InspectionOnServiceEntity> {
         return await this.prisma.inspectionOnService.update({
           where: { id },
           data

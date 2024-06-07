@@ -5,4 +5,5 @@ export class InspectionOnServiceEntity extends BaseEntity {
     
     inspectionId: number
     serviceId: number
+    service?: ServiceEntity
 }

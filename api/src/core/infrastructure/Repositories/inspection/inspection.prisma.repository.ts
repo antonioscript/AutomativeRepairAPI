@@ -51,7 +51,11 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
                 id 
             },
             include: {
-              services: true
+              services: {
+                include: {
+                  service: true
+                }
+              }
             }  
         })
         
@@ -60,7 +64,11 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
       async getAll(): Promise<InspectionEntity[]> {
         return await this.prisma.inspection.findMany({
           include: {
-            services: true
+            services: {
+              include: {
+                service: true
+              }
+            }
           } 
         })
       }
@@ -73,8 +81,12 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
             take: pageSize,
             skip: offset,
             include: {
-              services: true
-            } 
+              services: {
+                include: {
+                  service: true
+                }
+              }
+            }   
           }),
           this.prisma.inspection.count()
         ]);

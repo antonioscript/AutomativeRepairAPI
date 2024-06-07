@@ -92,6 +92,10 @@ model AppointmentStatus {
   @@map("appointment_status")
 }
 
+
+
+
+
 model Inspection {
   id              Int      @default(autoincrement()) @id
 
