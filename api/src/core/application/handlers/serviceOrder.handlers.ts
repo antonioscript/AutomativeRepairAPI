@@ -3,7 +3,8 @@ import { CreateServiceOrderHandler } from "../use-cases/serviceOrder/commands/cr
 import { GetAllServiceOrdersHandler } from "../use-cases/serviceOrder/queries/get-all-serviceOrders.query";
 import { GetOneServiceOrderHandler, GetOneServiceOrderQuery } from "../use-cases/serviceOrder/queries/get-one-serviceOrders.query";
 import { GetPagedServiceOrdersHandler } from "../use-cases/serviceOrder/queries/get-paged-serviceOrders.query";
+import { GetPagedServiceOrdersClosedHandler } from "../use-cases/serviceOrder/queries/get-paged-serviceOrdersClosed.query";
 
 
 export const CommandServiceOrderHandlers = [ CreateServiceOrderHandler, CloseServiceOrderHandler];
-export const QueryServiceOrderHandlers = [GetAllServiceOrdersHandler, GetOneServiceOrderHandler, GetPagedServiceOrdersHandler];
+export const QueryServiceOrderHandlers = [GetAllServiceOrdersHandler, GetOneServiceOrderHandler, GetPagedServiceOrdersClosedHandler, GetPagedServiceOrdersHandler];

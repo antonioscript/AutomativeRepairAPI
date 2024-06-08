@@ -19,7 +19,7 @@ export class GetAllServiceOrdersHandler implements IQueryHandler<GetAllServiceOr
   async execute(query: GetAllServiceOrdersQuery): Promise<Result<ResponseInspectionDto[]>> {
     const registers = await this.repository.getAll();
 
-    const onlyRegisterInspection = registers.filter(e => e.isServiceOrder);
+    const onlyRegisterInspection = registers.filter(e => e.isServiceOrder && !e.isClosed);
     
     const responseData = onlyRegisterInspection.map(entity => this.responseMapper.mapTo(entity));
 

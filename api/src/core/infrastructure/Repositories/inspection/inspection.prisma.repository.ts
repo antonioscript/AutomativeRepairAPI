@@ -50,7 +50,11 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
           },
           include: {
             vehicle: true,
-            services: true, 
+            services: {
+              include: {
+                service: true
+              }
+            }
           },
         });
       }
@@ -59,7 +63,15 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
       async update(id: number, data: UpdateInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.update({
           where: { id },
-          data
+          data,
+          include: {
+            vehicle: true,
+            services: {
+              include: {
+                service: true
+              }
+            }
+          }
         })
       }
       
