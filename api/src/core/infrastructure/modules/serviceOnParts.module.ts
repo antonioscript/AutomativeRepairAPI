@@ -9,7 +9,7 @@ import { ServiceOnPartPrismaRepository } from '../Repositories/serviceOnPart/ser
 
 @Module({
   imports: [CqrsModule],
-  controllers: [ServiceOnPartsController],
+  //controllers: [ServiceOnPartsController],
   providers: [
     ...QueryServiceOnPartHandlers,
     ...CommandServiceOnPartHandlers,
