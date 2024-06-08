@@ -9,5 +9,8 @@ export class InspectionEntity extends BaseEntity {
     inspectionDate: Date;
     hasServiceOrder: boolean;
 
+    description: string
+
+    value: number;
     services?: InspectionOnService[] 
 }

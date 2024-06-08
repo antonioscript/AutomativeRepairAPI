@@ -5,10 +5,11 @@ import { InspectionsController } from 'src/core/presentation/controllers/inspect
 import { CommandInspectionHandlers, QueryInspectionHandlers } from 'src/core/application/handlers/inspection.handlers';
 import { InspectionRepository } from '../Repositories/inspection/inspection.repository';
 import { InspectionPrismaRepository } from '../Repositories/inspection/inspection.prisma.repository';
+import { ServicesModule } from './services.module';
 
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, ServicesModule],
   controllers: [InspectionsController],
   providers: [
     ...QueryInspectionHandlers,

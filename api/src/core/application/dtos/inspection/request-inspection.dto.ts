@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt } from 'class-validator';
+import { IsInt, IsString } from 'class-validator';
 import { RequestInspectionOnServiceDto } from '../inspectionOnService/request-InspectionOnService.dto';
 export class RequestInspectionDto {
 
@@ -10,6 +10,12 @@ export class RequestInspectionDto {
     @ApiProperty()
     @IsInt()
     vehicleId: number;
+
+    @ApiProperty()
+    @IsString()
+    description: string;
+
+    value: number;
 
     @ApiProperty({isArray: true,  type: RequestInspectionOnServiceDto})
     services?: RequestInspectionOnServiceDto[]

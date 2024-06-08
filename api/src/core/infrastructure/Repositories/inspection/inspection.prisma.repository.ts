@@ -37,6 +37,8 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
           data: {
             appointmentId: data.appointmentId,
             vehicleId: data.vehicleId,
+            description: data.description,
+            value: data.value,
             services: {
               create: data.services?.map(service => ({
                 service: {

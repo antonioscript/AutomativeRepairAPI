@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsDateString, IsInt } from 'class-validator';
+import { IsBoolean, IsDateString, IsInt, IsString } from 'class-validator';
 
 export class UpdateInspectionDto{
     @ApiProperty()
@@ -13,12 +13,18 @@ export class UpdateInspectionDto{
     @ApiProperty()
     @IsInt()
     vehicleId: number;
+
+    @ApiProperty()
+    @IsString()
+    description: string;
   
     @ApiProperty()
     @IsDateString()
     inspectionDate: Date;
-  
+    
     @ApiProperty()
     @IsBoolean()
     hasServiceOrder: boolean;
+
+    value: number;
 }
