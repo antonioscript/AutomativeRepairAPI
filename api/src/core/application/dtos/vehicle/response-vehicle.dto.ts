@@ -2,14 +2,14 @@ import { ResponseCustomerDto } from "../customer/response-customer.dto";
 import { ResponseVehicleTypeDto } from "../vehicleType/response-vehicleType.dto";
 
 export class ResponseVehicleDto {
-    id: number;
+    id?: number;
     plate: string
 
     customerId: number
-    customer: ResponseCustomerDto
+    customer?: ResponseCustomerDto
 
     vehicleTypeId: number;
-    vehicleType: ResponseVehicleTypeDto;
+    vehicleType?: ResponseVehicleTypeDto;
 
     brand?: string
     model?: string

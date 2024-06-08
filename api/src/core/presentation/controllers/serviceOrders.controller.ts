@@ -25,6 +25,12 @@ export class ServiceOrdersController {
     return await this.queryBus.execute(new GetPagedServiceOrdersQuery(Number(page), Number(pageSize)));
   }
 
+  @Get('paginated/serviceOrders/Closed')
+  @ApiPaginatedQuery()
+  async findPaginatedClosed(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+    return await this.queryBus.execute(new GetPagedServiceOrdersQuery(Number(page), Number(pageSize)));
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: number) {
     const numberId = Number(id);

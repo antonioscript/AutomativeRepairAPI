@@ -32,5 +32,7 @@ export const messages= {
 
   INSPECTION_ON_SERVICE_ALREADY_EXISTS: (inspectionId: number, serviceId: number) => `Já existe um relacionamento com o ID da Vistoria '${inspectionId}' e com o ID do Serviço '${serviceId}'.`,
   INSPECTION_ON_SERVICE_NOT_FOUND: (id: number) => `Relação entre Vistoria e Serviço de ID '${id}' não encontrada.`,
+
+  SERVICE_ORDER_NOT_FOUND: (id: number) => `Ordem de Serviço de ID '${id}' não encontrada.`,
   };
   

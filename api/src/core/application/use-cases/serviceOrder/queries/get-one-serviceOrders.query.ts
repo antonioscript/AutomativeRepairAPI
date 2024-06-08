@@ -24,8 +24,8 @@ export class GetOneServiceOrderHandler implements IQueryHandler<GetOneServiceOrd
     if (!register)
       throw new NotFoundException(messages.INSPECTION_NOT_FOUND(query.id))
 
-    if (!register.isServiceOrder)
-      throw new NotFoundException(messages.INSPECTION_NOT_FOUND(query.id))
+    if (!register.isServiceOrder || !register.isClosed)
+      throw new NotFoundException(messages.SERVICE_ORDER_NOT_FOUND(query.id))
 
 
     const responseData = this.responseMapper.mapTo(register);

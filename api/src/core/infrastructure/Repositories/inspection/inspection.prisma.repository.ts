@@ -6,6 +6,10 @@ import { UpdateInspectionDto } from "src/core/application/dtos/inspection/update
 
 export class InspectionPrismaRepository extends IGenericRepository<InspectionEntity> {
   
+  constructor(private readonly prisma: PrismaService) {
+    super()
+  }
+
   async getFirstByParameters(...parameters: any[]): Promise<InspectionEntity> {
     return await this.prisma.inspection.findFirst({ 
       where: {
@@ -28,9 +32,6 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
     });
   }
 
-    constructor(private readonly prisma: PrismaService) {
-        super()
-      }
     
       async create(data: RequestInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.create({ 
@@ -48,7 +49,12 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
             }
           },
           include: {
-            services: true, // Inclui os serviços relacionados na resposta
+            vehicle: true,
+            services: {
+              include: {
+                service: true
+              }
+            }
           },
         });
       }
@@ -57,7 +63,15 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
       async update(id: number, data: UpdateInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.update({
           where: { id },
-          data
+          data,
+          include: {
+            vehicle: true,
+            services: {
+              include: {
+                service: true
+              }
+            }
+          }
         })
       }
       
@@ -67,6 +81,7 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
                 id 
             },
             include: {
+              vehicle: true,
               services: {
                 include: {
                   service: true
@@ -80,6 +95,7 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
       async getAll(): Promise<InspectionEntity[]> {
         return await this.prisma.inspection.findMany({
           include: {
+            vehicle: true,
             services: {
               include: {
                 service: true
@@ -97,6 +113,7 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
             take: pageSize,
             skip: offset,
             include: {
+              vehicle: true,
               services: {
                 include: {
                   service: true
