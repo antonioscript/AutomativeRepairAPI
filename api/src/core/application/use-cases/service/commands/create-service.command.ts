@@ -8,6 +8,7 @@ import { RequestServiceMapper } from "src/core/domain/mapping/services/request-s
 import { ResponseServiceDto } from "src/core/application/dtos/service/response-service.dto"
 import { ServiceRepository } from "src/core/infrastructure/Repositories/service/service.repository"
 import { ResponseServiceMapper } from "src/core/domain/mapping/services/response-service.mapper"
+import { PartRepository } from "src/core/infrastructure/Repositories/part/part.repository"
 
 export class CreateServiceCommand {
   constructor(public readonly request: RequestServiceDto) {}
@@ -18,7 +19,7 @@ export class CreateServiceHandler implements ICommandHandler<CreateServiceComman
   private requestMapper: RequestServiceMapper
   private responseMapper: ResponseServiceMapper
 
-  constructor(private readonly repository: ServiceRepository) {
+  constructor(private readonly repository: ServiceRepository, private readonly partRepository: PartRepository) {
     this.requestMapper = new RequestServiceMapper()
     this.responseMapper = new ResponseServiceMapper()
   }
@@ -32,7 +33,19 @@ export class CreateServiceHandler implements ICommandHandler<CreateServiceComman
     if (registerExists)
       throw new BadRequestException(messages.SERVICE_ALREADY_EXISTS(command.request.name));
 
+    
+
+    const arrayPartsId = command.request.parts?.map(p => p.partId);
+    
+    let totalValue = 0;
+    for (const partId of arrayPartsId){
+      const partValue = (await this.partRepository.getById(partId)).value;
+      totalValue += partValue;
+    }
+
     const entity = this.requestMapper.mapFrom(command.request);
+    entity.value = totalValue;
+
     const responseEntity = await this.repository.create(entity);
     const responseData = this.responseMapper.mapTo(responseEntity);
     

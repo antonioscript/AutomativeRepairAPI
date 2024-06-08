@@ -38,6 +38,7 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
           data: {
             name: data.name,
             value: data.value,
+            observation: data.observation,
             parts: {
               create: data.parts?.map(part => ({
                 part: {

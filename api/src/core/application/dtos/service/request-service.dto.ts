@@ -7,8 +7,6 @@ export class RequestServiceDto {
   @IsString()
   name: string;
 
-  @ApiProperty()
-  @IsNumber()
   value: number;
 
   @ApiProperty({ required: false })
