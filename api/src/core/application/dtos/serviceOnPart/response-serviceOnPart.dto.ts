@@ -1,6 +1,9 @@
+import { ResponsePartDto } from "../part/response-part.dto";
 
 export class ResponseServiceOnPartDto {
-    id?: number;
+    id: number;
     serviceId: number;
+
     partId: number;
+    part?: ResponsePartDto
   }

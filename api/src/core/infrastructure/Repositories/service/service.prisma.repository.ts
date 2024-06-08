@@ -12,9 +12,9 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
       where: {
           AND: parameters
       },
-      // include: {
-      //   parts: true
-      // }
+      include: {
+        parts: true
+      }
     });
   }
 
@@ -23,9 +23,9 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
       where: {
           AND: parameters
       },
-      // include: {
-      //   parts: true
-      // }
+      include: {
+        parts: true
+      }
     });
   }
 
@@ -51,18 +51,26 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
             where: { 
                 id 
             },
-            // include: {
-            //   parts: true
-            // } 
+            include: {
+              parts: {
+                include: {
+                  part: true
+                }
+              }
+            } 
         })
         
       }
     
       async getAll(): Promise<ResponseServiceDto[]> {
         return await this.prisma.service.findMany({
-          // include: {
-          //   parts: true
-          // }
+          include: {
+            parts: {
+              include: {
+                part: true
+              }
+            }
+          }
         })
       }
 
@@ -73,9 +81,13 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
           this.prisma.service.findMany({
             take: pageSize,
             skip: offset,
-            // include: {
-            //   parts: true
-            // }
+            include: {
+              parts: {
+                include: {
+                  part: true
+                }
+              }
+            }
           }),
           this.prisma.service.count()
         ]);

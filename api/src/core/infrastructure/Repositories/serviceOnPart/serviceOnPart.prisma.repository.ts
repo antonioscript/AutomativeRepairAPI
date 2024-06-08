@@ -5,6 +5,7 @@ import { RequestServiceOnPartDto } from "src/core/application/dtos/serviceOnPart
 
 export class ServiceOnPartPrismaRepository extends IGenericRepository<ResponseServiceOnPartDto> {
   
+  
   constructor(private readonly prisma: PrismaService) {
     super()
   }
@@ -51,32 +52,10 @@ export class ServiceOnPartPrismaRepository extends IGenericRepository<ResponseSe
         return await this.prisma.serviceOnPart.findMany()
       }
 
-      async getPaginated(page: number = 1, pageSize: number = 10): Promise<{ data: RequestServiceOnPartDto[], total: number, lastPage: number, currentPage: number, perPage: number, prev: number | null, next: number | null }> {
-        const offset = (page - 1) * pageSize;
-    
-        const [data, total] = await Promise.all([
-          this.prisma.serviceOnPart.findMany({
-            take: pageSize,
-            skip: offset
-          }),
-          this.prisma.serviceOnPart.count()
-        ]);
-    
-        const lastPage = Math.ceil(total / pageSize);
-        const prev = page > 1 ? page - 1 : null;
-        const next = page < lastPage ? page + 1 : null;
-    
-        return {
-          data,
-          total,
-          lastPage,
-          currentPage: page,
-          perPage: pageSize,
-          prev,
-          next
-        };
+      
+      getPaginated(page: number, pageSize: number): Promise<{ data: ResponseServiceOnPartDto[]; total: number; lastPage: number; currentPage: number; perPage: number; prev: number; next: number; }> {
+        throw new Error("Method not implemented.");
       }
-    
 
       async delete(id: number): Promise<number> {
         await this.prisma.serviceOnPart.delete({ 
