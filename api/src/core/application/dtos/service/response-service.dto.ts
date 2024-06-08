@@ -6,5 +6,5 @@ export class ResponseServiceDto {
     value: number;
     observation?: string;
 
-    parts?: ResponsePartDto[];
+    //parts?: ResponsePartDto[];
   }

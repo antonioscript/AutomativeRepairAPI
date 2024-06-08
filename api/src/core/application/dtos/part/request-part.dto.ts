@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsInt, IsDateString, IsOptional, IsNumber } from 'class-validator';
 export class RequestPartDto {
-    @ApiProperty()
-    @IsInt()
-    serviceId: number;
+    // @ApiProperty()
+    // @IsInt()
+    // serviceId: number;
   
     @ApiProperty()
     @IsString()

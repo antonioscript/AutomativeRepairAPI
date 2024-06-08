@@ -135,7 +135,7 @@ model Service {
   value         Float
   observation   String?   @db.VarChar(255)
 
-  parts         Part[] 
+  //parts         Part[] 
 
   inpections    InspectionOnService[]       
 
@@ -145,8 +145,8 @@ model Service {
 model Part {
   id            Int      @id @default(autoincrement())
 
-  serviceId     Int
-  service       Service @relation(fields: [serviceId], references: [id])
+  // serviceId     Int
+  // service       Service @relation(fields: [serviceId], references: [id])
 
   name          String   @db.VarChar(255) @unique
   supplier      String?  @db.VarChar(255)

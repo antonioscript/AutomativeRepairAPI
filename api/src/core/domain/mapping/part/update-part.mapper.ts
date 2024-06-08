@@ -24,7 +24,7 @@ export class UpdatePartMapper extends Mapper<UpdatePartDto, PartEntity> {
     const part = new UpdatePartDto()
 
     part.id = data.id
-    part.serviceId = data.serviceId;
+    //part.serviceId = data.serviceId;
     part.name = data.name;
     part.supplier = data.supplier;
     part.manufacturer = data.manufacturer;

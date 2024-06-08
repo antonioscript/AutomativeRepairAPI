@@ -6,9 +6,9 @@ export class UpdatePartDto{
     @IsInt()
     id: number;
 
-    @ApiProperty()
-    @IsInt()
-    serviceId: number;
+    // @ApiProperty()
+    // @IsInt()
+    // serviceId: number;
 
     @ApiProperty()
     @IsString()
