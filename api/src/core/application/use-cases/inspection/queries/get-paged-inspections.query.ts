@@ -32,8 +32,10 @@ export class GetPagedInspectionsHandler implements IQueryHandler<GetPagedInspect
     }
 
     const { data, total, lastPage, currentPage, perPage, prev, next } = await this.repository.getPaginated(page, pageSize);
-  
-    const responseData = data.map(entity => this.responseMapper.mapTo(entity));
+
+    const filteredData = data.filter(entity => !entity.isServiceOrder);
+
+    const responseData = filteredData.map(entity => this.responseMapper.mapTo(entity));
   
     const pagination = {
       total,

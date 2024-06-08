@@ -18,7 +18,10 @@ export class GetAllInspectionsHandler implements IQueryHandler<GetAllInspections
   
   async execute(query: GetAllInspectionsQuery): Promise<Result<ResponseInspectionDto[]>> {
     const registers = await this.repository.getAll();
-    const responseData =  registers.map(entity => this.responseMapper.mapTo(entity))
+
+    const onlyRegisterInspection = registers.filter(e => !e.isServiceOrder);
+    
+    const responseData = onlyRegisterInspection.map(entity => this.responseMapper.mapTo(entity));
 
     return result(responseData).Success();
   }
