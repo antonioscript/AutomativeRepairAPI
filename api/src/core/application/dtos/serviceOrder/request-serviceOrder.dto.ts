@@ -26,6 +26,7 @@ export class RequestServiceOrderDto{
     hasServiceOrder: boolean;
 
     isServiceOrder: boolean
+    isClosed: boolean;
 
     value: number;
 }

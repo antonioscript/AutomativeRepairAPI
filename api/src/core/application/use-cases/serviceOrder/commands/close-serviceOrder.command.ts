@@ -7,14 +7,14 @@ import { InspectionRepository } from "src/core/infrastructure/Repositories/inspe
 import { RequestServiceOrderDto } from "src/core/application/dtos/serviceOrder/request-serviceOrder.dto"
 
 
-export class CreateServiceOrderCommand {
+export class CloseServiceOrderCommand {
   constructor(
     public readonly request: RequestServiceOrderDto
   ) {}
 }
 
-@CommandHandler(CreateServiceOrderCommand)
-export class CreateServiceOrderHandler implements ICommandHandler<CreateServiceOrderCommand, Result<ResponseInspectionDto>> {
+@CommandHandler(CloseServiceOrderCommand)
+export class CloseServiceOrderHandler implements ICommandHandler<CloseServiceOrderCommand, Result<ResponseInspectionDto>> {
   private updateMapper: UpdateInspectionMapper
   private responseMapper: ResponseInspectionMapper
 
@@ -23,7 +23,7 @@ export class CreateServiceOrderHandler implements ICommandHandler<CreateServiceO
     this.responseMapper = new ResponseInspectionMapper()
   }
 
-  async execute(command: CreateServiceOrderCommand): Promise<Result<ResponseInspectionDto>> {
+  async execute(command: CloseServiceOrderCommand): Promise<Result<ResponseInspectionDto>> {
       const id = command.request.inspectionId;
       const data = await this.repository.getById(id);
 
@@ -33,8 +33,9 @@ export class CreateServiceOrderHandler implements ICommandHandler<CreateServiceO
       entity.vehicleId  = data.vehicleId;
       entity.inspectionDate = data.inspectionDate;
       entity.hasServiceOrder = true;
-
       entity.isServiceOrder = true;
+
+      entity.isClosed = true;
 
       const responseInspection = await this.repository.update(id, entity)
       const responseData =  this.responseMapper.mapTo(responseInspection)

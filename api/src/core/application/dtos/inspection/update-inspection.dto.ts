@@ -4,7 +4,7 @@ import { IsBoolean, IsDateString, IsInt, IsString } from 'class-validator';
 export class UpdateInspectionDto{
     @ApiProperty()
     @IsInt()
-    id: number;
+    id?: number;
 
     @ApiProperty()
     @IsInt()
