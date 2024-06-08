@@ -2,7 +2,7 @@ import { BaseEntity } from "./base.entity"
 import { ServiceEntity } from "./service.entity";
 
 export class PartEntity extends BaseEntity {
-    serviceId: number
+    //serviceId: number
     //service?: ServiceEntity
 
     name: string;

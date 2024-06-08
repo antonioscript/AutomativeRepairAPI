@@ -6,10 +6,6 @@ import { UpdateInspectionDto } from "src/core/application/dtos/inspection/update
 
 export class InspectionPrismaRepository extends IGenericRepository<InspectionEntity> {
   
-  constructor(private readonly prisma: PrismaService) {
-    super()
-  }
-
   async getFirstByParameters(...parameters: any[]): Promise<InspectionEntity> {
     return await this.prisma.inspection.findFirst({ 
       where: {
@@ -32,6 +28,9 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
     });
   }
 
+    constructor(private readonly prisma: PrismaService) {
+        super()
+      }
     
       async create(data: RequestInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.create({ 
@@ -52,9 +51,17 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
             vehicle: true,
             services: {
               include: {
-                service: true
+                service: {
+                  include: {
+                    parts: {
+                      include: {
+                        part: true
+                      }
+                    }
+                  }
+                }
               }
-            }
+            }, 
           },
         });
       }
@@ -63,15 +70,7 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
       async update(id: number, data: UpdateInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.update({
           where: { id },
-          data,
-          include: {
-            vehicle: true,
-            services: {
-              include: {
-                service: true
-              }
-            }
-          }
+          data
         })
       }
       
@@ -84,7 +83,15 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
               vehicle: true,
               services: {
                 include: {
-                  service: true
+                  service: {
+                    include: {
+                      parts: {
+                        include: {
+                          part: true
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }  
@@ -98,7 +105,15 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
             vehicle: true,
             services: {
               include: {
-                service: true
+                service: {
+                  include: {
+                    parts: {
+                      include: {
+                        part: true
+                      }
+                    }
+                  }
+                }
               }
             }
           } 
@@ -116,7 +131,11 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
               vehicle: true,
               services: {
                 include: {
-                  service: true
+                  service: {
+                    include: {
+                      parts: true
+                    }
+                  }
                 }
               }
             }   

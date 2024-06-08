@@ -35,14 +35,49 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
     
       async create(data: RequestServiceDto): Promise<ResponseServiceDto> {
         return await this.prisma.service.create({ 
-            data
+          data: {
+            name: data.name,
+            value: data.value,
+            observation: data.observation,
+            parts: {
+              create: data.parts?.map(part => ({
+                part: {
+                  connect: {id: part.partId}
+                }
+              })) || [],
+            }
+          },
+          include: {
+            parts: {
+              include: {
+                part: true
+              }
+            }
+          } 
         })
       }
     
       async update(id: number, data: RequestServiceDto): Promise<ResponseServiceDto> {
         return await this.prisma.service.update({
           where: { id },
-          data
+          data: {
+            name: data.name,
+            value: data.value,
+            parts: {
+              create: data.parts?.map(part => ({
+                part: {
+                  connect: {id: part.id}
+                }
+              })) || [],
+            }
+          },
+          include: {
+            parts: {
+              include: {
+                part: true
+              }
+            }
+          } 
         })
       }
       
@@ -52,7 +87,11 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
                 id 
             },
             include: {
-              parts: true
+              parts: {
+                include: {
+                  part: true
+                }
+              }
             } 
         })
         
@@ -61,7 +100,11 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
       async getAll(): Promise<ResponseServiceDto[]> {
         return await this.prisma.service.findMany({
           include: {
-            parts: true
+            parts: {
+              include: {
+                part: true
+              }
+            }
           }
         })
       }
@@ -74,7 +117,11 @@ export class ServicePrismaRepository extends IGenericRepository<ResponseServiceD
             take: pageSize,
             skip: offset,
             include: {
-              parts: true
+              parts: {
+                include: {
+                  part: true
+                }
+              }
             }
           }),
           this.prisma.service.count()

@@ -129,13 +129,26 @@ model InspectionOnService {
 }
 
 
+model ServiceOnPart {
+  id           Int      @default(autoincrement()) @id
+
+  serviceId    Int
+  service      Service @relation(fields: [serviceId], references: [id])
+
+  partId       Int
+  part         Part @relation(fields: [partId], references: [id])
+  
+  @@map("service_on_parts")
+}
+
+
 model Service {
   id            Int       @id @default(autoincrement())
   name          String    @db.VarChar(255) @unique
   value         Float
   observation   String?   @db.VarChar(255)
 
-  parts         Part[] 
+  parts         ServiceOnPart[] 
 
   inpections    InspectionOnService[]       
 
@@ -145,9 +158,6 @@ model Service {
 model Part {
   id            Int      @id @default(autoincrement())
 
-  serviceId     Int
-  service       Service @relation(fields: [serviceId], references: [id])
-
   name          String   @db.VarChar(255) @unique
   supplier      String?  @db.VarChar(255)
   manufacturer  String?  @db.VarChar(255)
@@ -155,6 +165,8 @@ model Part {
   observation   String?  @db.VarChar(255)
   quantity      Int
   value         Float
+
+  services      ServiceOnPart[]
 
   @@map("parts")
 }

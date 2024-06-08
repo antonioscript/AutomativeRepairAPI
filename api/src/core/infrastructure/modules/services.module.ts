@@ -5,9 +5,10 @@ import { ServicesController } from 'src/core/presentation/controllers/services.c
 import { CommandServiceHandlers, QueryServiceHandlers } from 'src/core/application/handlers/service.handlers';
 import { ServiceRepository } from '../Repositories/service/service.repository';
 import { ServicePrismaRepository } from '../Repositories/service/service.prisma.repository';
+import { PartsModule } from './parts.module';
 
 @Module({
-  imports: [CqrsModule],
+  imports: [CqrsModule, PartsModule],
   controllers: [ServicesController],
   providers: [
     ...QueryServiceHandlers,

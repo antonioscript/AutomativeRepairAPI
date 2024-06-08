@@ -14,6 +14,7 @@ import { ServicesModule } from './core/infrastructure/modules/services.module';
 import { InspectionsModule } from './core/infrastructure/modules/inspections.module';
 import { InspectionOnServicesModule } from './core/infrastructure/modules/inspectionOnServices.module';
 import { ServiceOrdesModule } from './core/infrastructure/modules/serviceOrders.module';
+import { ServiceOnPartsModule } from './core/infrastructure/modules/serviceOnParts.module';
 
 @Module({
   imports: [
@@ -32,7 +33,8 @@ import { ServiceOrdesModule } from './core/infrastructure/modules/serviceOrders.
     ServicesModule,
     InspectionsModule,
     InspectionOnServicesModule,
-    ServiceOrdesModule
+    ServiceOrdesModule,
+    ServiceOnPartsModule
   ],
   controllers: [AppController],
   providers: [AppService],

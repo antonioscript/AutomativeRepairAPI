@@ -20,5 +20,6 @@ import { PartPrismaRepository } from '../Repositories/part/part.prisma.repositor
       inject: [PrismaService]
     }
   ],
+  exports:[PartRepository]
 })
 export class PartsModule {}

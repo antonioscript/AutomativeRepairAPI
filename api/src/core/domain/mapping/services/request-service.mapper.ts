@@ -10,6 +10,8 @@ export class RequestServiceMapper extends Mapper<RequestServiceDto, ServiceEntit
     service.value = data.value;
     service.observation = data.observation;
 
+    service.parts = data.parts;
+
     return service;
   }
 
@@ -19,6 +21,8 @@ export class RequestServiceMapper extends Mapper<RequestServiceDto, ServiceEntit
     service.name = data.name;
     service.value = data.value;
     service.observation = data.observation;
+
+    service.parts = data.parts;
 
     return service;
   }
