@@ -22,7 +22,11 @@ export class GetOneInspectionHandler implements IQueryHandler<GetOneInspectionQu
     const register = await this.repository.getById(query.id);
 
     if (!register)
-      throw new NotFoundException(messages.PART_NOT_FOUND(query.id))
+      throw new NotFoundException(messages.INSPECTION_NOT_FOUND(query.id))
+
+    if (register.isServiceOrder)
+      throw new NotFoundException(messages.INSPECTION_NOT_FOUND(query.id))
+
 
     const responseData = this.responseMapper.mapTo(register);
 
