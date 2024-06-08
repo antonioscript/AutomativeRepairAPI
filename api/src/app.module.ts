@@ -13,6 +13,7 @@ import { PartsModule } from './core/infrastructure/modules/parts.module';
 import { ServicesModule } from './core/infrastructure/modules/services.module';
 import { InspectionsModule } from './core/infrastructure/modules/inspections.module';
 import { InspectionOnServicesModule } from './core/infrastructure/modules/inspectionOnServices.module';
+import { ServiceOrdesModule } from './core/infrastructure/modules/serviceOrders.module';
 
 @Module({
   imports: [
@@ -30,7 +31,8 @@ import { InspectionOnServicesModule } from './core/infrastructure/modules/inspec
     PartsModule,
     ServicesModule,
     InspectionsModule,
-    InspectionOnServicesModule
+    InspectionOnServicesModule,
+    ServiceOrdesModule
   ],
   controllers: [AppController],
   providers: [AppService],

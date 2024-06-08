@@ -12,5 +12,6 @@ export class InspectionEntity extends BaseEntity {
     description: string
 
     value: number;
+    isServiceOrder: boolean
     services?: InspectionOnService[] 
 }

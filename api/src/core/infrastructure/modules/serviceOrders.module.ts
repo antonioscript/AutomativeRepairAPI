@@ -6,14 +6,16 @@ import { CommandInspectionHandlers, QueryInspectionHandlers } from 'src/core/app
 import { InspectionRepository } from '../Repositories/inspection/inspection.repository';
 import { InspectionPrismaRepository } from '../Repositories/inspection/inspection.prisma.repository';
 import { ServicesModule } from './services.module';
+import { ServiceOrdersController } from 'src/core/presentation/controllers/serviceOrders.controller';
+import { CommandServiceOrderHandlers } from 'src/core/application/handlers/serviceOrder.handlers';
+import { InspectionsModule } from './inspections.module';
 
 
 @Module({
-  imports: [CqrsModule, ServicesModule],
-  controllers: [InspectionsController],
+  imports: [CqrsModule, InspectionsModule],
+  controllers: [ServiceOrdersController],
   providers: [
-    ...QueryInspectionHandlers,
-    ...CommandInspectionHandlers,
+    ...CommandServiceOrderHandlers,
     PrismaService,
     {
       provide: InspectionRepository,
@@ -21,6 +23,5 @@ import { ServicesModule } from './services.module';
       inject: [PrismaService]
     }
   ],
-  exports: [InspectionRepository]
 })
-export class InspectionsModule {}
+export class ServiceOrdesModule {}
