@@ -8,6 +8,7 @@ import { ResponseAppointmentMapper } from "src/core/domain/mapping/appointment/r
 import { RequestAppointmentDto } from "src/core/application/dtos/appointment/request-appointment.dto"
 import { AppointmentRepository } from "src/core/infrastructure/Repositories/appointment/appointment.repository"
 import { ResponseAppointmentDto } from "src/core/application/dtos/appointment/response-appointment.dto"
+import { constants } from "src/core/infrastructure/Shared/constants"
 
 export class CreateAppointmentCommand {
   constructor(public readonly request: RequestAppointmentDto) {}
@@ -28,6 +29,8 @@ export class CreateAppointmentHandler implements ICommandHandler<CreateAppointme
     //TO DO - Criar a condição para não cadastrar registros iguais
 
     const entity = this.requestMapper.mapFrom(command.request);
+    entity.statusId = constants.APPOINTMENT_STATUS_DEFAULT;
+
     const responseEntity = await this.repository.create(entity);
     const responseData = this.responseMapper.mapTo(responseEntity);
     

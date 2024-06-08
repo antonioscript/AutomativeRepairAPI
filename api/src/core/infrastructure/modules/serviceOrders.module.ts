@@ -1,19 +1,19 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { CqrsModule } from '@nestjs/cqrs';
-import { InspectionsController } from 'src/core/presentation/controllers/inspections.controller';
-import { CommandInspectionHandlers, QueryInspectionHandlers } from 'src/core/application/handlers/inspection.handlers';
 import { InspectionRepository } from '../Repositories/inspection/inspection.repository';
 import { InspectionPrismaRepository } from '../Repositories/inspection/inspection.prisma.repository';
-import { ServicesModule } from './services.module';
+import { ServiceOrdersController } from 'src/core/presentation/controllers/serviceOrders.controller';
+import { CommandServiceOrderHandlers, QueryServiceOrderHandlers } from 'src/core/application/handlers/serviceOrder.handlers';
+import { InspectionsModule } from './inspections.module';
 
 
 @Module({
-  imports: [CqrsModule, ServicesModule],
-  controllers: [InspectionsController],
+  imports: [CqrsModule, InspectionsModule],
+  controllers: [ServiceOrdersController],
   providers: [
-    ...QueryInspectionHandlers,
-    ...CommandInspectionHandlers,
+    ...QueryServiceOrderHandlers,
+    ...CommandServiceOrderHandlers,
     PrismaService,
     {
       provide: InspectionRepository,
@@ -21,6 +21,5 @@ import { ServicesModule } from './services.module';
       inject: [PrismaService]
     }
   ],
-  exports: [InspectionRepository]
 })
-export class InspectionsModule {}
+export class ServiceOrdesModule {}

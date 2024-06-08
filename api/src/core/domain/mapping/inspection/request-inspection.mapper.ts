@@ -9,8 +9,8 @@ export class RequestInspectionMapper extends Mapper<RequestInspectionDto, Inspec
 
     inspection.appointmentId = data.appointmentId
     inspection.vehicleId = data.vehicleId;
-    //inspection.inspectionDate = data.inspectionDate;
-    //inspection.hasServiceOrder = data.hasServiceOrder;
+    
+    inspection.services = data.services;
 
     return inspection;
   }
@@ -20,8 +20,8 @@ export class RequestInspectionMapper extends Mapper<RequestInspectionDto, Inspec
 
     inspection.appointmentId = data.appointmentId
     inspection.vehicleId = data.vehicleId;
-    //inspection.inspectionDate = data.inspectionDate;
-    //inspection.hasServiceOrder = data.hasServiceOrder;
+    
+    inspection.services = data.services;
 
     return inspection;
   }

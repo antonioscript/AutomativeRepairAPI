@@ -4,22 +4,22 @@ import { ResponseInspectionMapper } from "src/core/domain/mapping/inspection/res
 import { InspectionRepository } from "src/core/infrastructure/Repositories/inspection/inspection.repository";
 import { Result, result } from "src/core/infrastructure/Shared/result.util";
 
-export class GetAllInspectionsQuery {
+export class GetAllServiceOrdersQuery {
 
 }
 
-@QueryHandler(GetAllInspectionsQuery)
-export class GetAllInspectionsHandler implements IQueryHandler<GetAllInspectionsQuery, Result<ResponseInspectionDto[]>> {
+@QueryHandler(GetAllServiceOrdersQuery)
+export class GetAllServiceOrdersHandler implements IQueryHandler<GetAllServiceOrdersQuery, Result<ResponseInspectionDto[]>> {
   private responseMapper: ResponseInspectionMapper
   constructor ( private readonly repository: InspectionRepository) {
     this.responseMapper = new ResponseInspectionMapper()
   }
   
   
-  async execute(query: GetAllInspectionsQuery): Promise<Result<ResponseInspectionDto[]>> {
+  async execute(query: GetAllServiceOrdersQuery): Promise<Result<ResponseInspectionDto[]>> {
     const registers = await this.repository.getAll();
 
-    const onlyRegisterInspection = registers.filter(e => !e.isServiceOrder);
+    const onlyRegisterInspection = registers.filter(e => e.isServiceOrder);
     
     const responseData = onlyRegisterInspection.map(entity => this.responseMapper.mapTo(entity));
 

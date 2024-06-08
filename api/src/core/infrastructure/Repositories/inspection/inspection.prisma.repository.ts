@@ -34,9 +34,25 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
     
       async create(data: RequestInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.create({ 
-            data 
-        })
+          data: {
+            appointmentId: data.appointmentId,
+            vehicleId: data.vehicleId,
+            description: data.description,
+            value: data.value,
+            services: {
+              create: data.services?.map(service => ({
+                service: {
+                  connect: { id: service.serviceId }
+                }
+              })) || [],
+            }
+          },
+          include: {
+            services: true, // Inclui os serviços relacionados na resposta
+          },
+        });
       }
+      
     
       async update(id: number, data: UpdateInspectionDto): Promise<InspectionEntity> {
         return await this.prisma.inspection.update({
@@ -51,7 +67,11 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
                 id 
             },
             include: {
-              services: true
+              services: {
+                include: {
+                  service: true
+                }
+              }
             }  
         })
         
@@ -60,7 +80,11 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
       async getAll(): Promise<InspectionEntity[]> {
         return await this.prisma.inspection.findMany({
           include: {
-            services: true
+            services: {
+              include: {
+                service: true
+              }
+            }
           } 
         })
       }
@@ -73,8 +97,12 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
             take: pageSize,
             skip: offset,
             include: {
-              services: true
-            } 
+              services: {
+                include: {
+                  service: true
+                }
+              }
+            }   
           }),
           this.prisma.inspection.count()
         ]);

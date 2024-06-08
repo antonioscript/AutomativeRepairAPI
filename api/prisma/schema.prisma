@@ -92,19 +92,26 @@ model AppointmentStatus {
   @@map("appointment_status")
 }
 
+
 model Inspection {
   id              Int      @default(autoincrement()) @id
 
-  appointmentId   Int
-  appointment     Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId     Int
+  appointment       Appointment @relation(fields: [appointmentId], references: [id])
 
-  vehicleId       Int
-  vehicle         Vehicle @relation(fields: [vehicleId], references: [id])
+  vehicleId         Int
+  vehicle           Vehicle @relation(fields: [vehicleId], references: [id])
 
-  inspectionDate   DateTime @default(now())
-  hasServiceOrder Boolean  @default(false)
+  description       String?  @db.VarChar(600)
+  inspectionDate    DateTime @default(now())
+  hasServiceOrder   Boolean  @default(false)
 
-  services        InspectionOnService[]
+  isServiceOrder    Boolean @default(false)
+  value             Float
+  observation       String? @db.VarChar(600)
+  isClosed          Boolean @default(false)
+  
+  services          InspectionOnService[]
   
   @@map("inspections")
 }

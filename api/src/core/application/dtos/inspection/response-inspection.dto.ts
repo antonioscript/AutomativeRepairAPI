@@ -9,6 +9,7 @@ export class ResponseInspectionDto {
 
     inspectionDate: Date;
     hasServiceOrder: boolean;
+    value: number;
 
     services?: ResponseInspectionOnServiceDto[]
   }

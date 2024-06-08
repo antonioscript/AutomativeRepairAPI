@@ -19,5 +19,6 @@ import { ServicePrismaRepository } from '../Repositories/service/service.prisma.
       inject: [PrismaService]
     }
   ],
+  exports: [ServiceRepository]
 })
 export class ServicesModule {}

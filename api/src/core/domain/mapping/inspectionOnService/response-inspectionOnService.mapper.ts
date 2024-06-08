@@ -10,6 +10,7 @@ export class ResponseInspectionOnServiceMapper extends Mapper<ResponseInspection
     inspectionOnService.id = data.id
     inspectionOnService.inspectionId = data.inspectionId
     inspectionOnService.serviceId = data.serviceId;
+    inspectionOnService.service = data.service;
 
     return inspectionOnService;
   }
@@ -21,6 +22,7 @@ export class ResponseInspectionOnServiceMapper extends Mapper<ResponseInspection
     inspectionOnService.id = data.id
     inspectionOnService.inspectionId = data.inspectionId
     inspectionOnService.serviceId = data.serviceId;
+    inspectionOnService.service = data.service;
     
     return inspectionOnService
   }

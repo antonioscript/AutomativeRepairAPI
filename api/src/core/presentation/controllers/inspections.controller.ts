@@ -13,8 +13,8 @@ import { ApiPaginatedQuery } from 'src/core/infrastructure/Shared/decorators/api
 
 
 
-@Controller('inspection')
-@ApiTags('inspection')
+@Controller('inspections')
+@ApiTags('inspections')
 export class InspectionsController {
   constructor(
     private readonly queryBus: QueryBus,

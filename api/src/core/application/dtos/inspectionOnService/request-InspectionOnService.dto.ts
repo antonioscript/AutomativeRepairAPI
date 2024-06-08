@@ -1,7 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsInt, IsOptional, IsNumber } from 'class-validator';
+import { IsInt} from 'class-validator';
+
 export class RequestInspectionOnServiceDto {
-    @ApiProperty()
+
+    id: number;
+
     @IsInt()
     inspectionId: number
 

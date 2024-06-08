@@ -5,7 +5,7 @@ import { InspectionRepository } from "src/core/infrastructure/Repositories/inspe
 import { constants } from "src/core/infrastructure/Shared/constants";
 import { Result, result } from "src/core/infrastructure/Shared/result.util";
 
-export class GetPagedInspectionsQuery {
+export class GetPagedServiceOrdersQuery {
   constructor(
     public readonly page: number,
     public readonly pageSize: number
@@ -13,14 +13,14 @@ export class GetPagedInspectionsQuery {
 }
 
 
-@QueryHandler(GetPagedInspectionsQuery)
-export class GetPagedInspectionsHandler implements IQueryHandler<GetPagedInspectionsQuery, Result<ResponseInspectionDto[]>> {
+@QueryHandler(GetPagedServiceOrdersQuery)
+export class GetPagedServiceOrdersHandler implements IQueryHandler<GetPagedServiceOrdersQuery, Result<ResponseInspectionDto[]>> {
   private responseMapper: ResponseInspectionMapper;
   constructor(private readonly repository: InspectionRepository) {
     this.responseMapper = new ResponseInspectionMapper();
   }
 
-  async execute(query: GetPagedInspectionsQuery): Promise<Result<ResponseInspectionDto[]>> {
+  async execute(query: GetPagedServiceOrdersQuery): Promise<Result<ResponseInspectionDto[]>> {
     
     let { page, pageSize } = query;
     
@@ -33,7 +33,7 @@ export class GetPagedInspectionsHandler implements IQueryHandler<GetPagedInspect
 
     const { data, total, lastPage, currentPage, perPage, prev, next } = await this.repository.getPaginated(page, pageSize);
 
-    const filteredData = data.filter(entity => !entity.isServiceOrder);
+    const filteredData = data.filter(c => c.isServiceOrder);
 
     const responseData = filteredData.map(entity => this.responseMapper.mapTo(entity));
   
