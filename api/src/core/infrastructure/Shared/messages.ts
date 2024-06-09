@@ -34,5 +34,6 @@ export const messages= {
   INSPECTION_ON_SERVICE_NOT_FOUND: (id: number) => `Relação entre Vistoria e Serviço de ID '${id}' não encontrada.`,
 
   SERVICE_ORDER_NOT_FOUND: (id: number) => `Ordem de Serviço de ID '${id}' não encontrada.`,
+  SERVICE_ORDER_NOT_CREATE: (partId: number) => `Não é possível criar uma Ordem de Serviço, pois a peça necessária de ID '${partId}' não está disponível. `,
   };
   
