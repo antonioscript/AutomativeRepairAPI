@@ -5,6 +5,8 @@ import { ResponseInspectionDto } from "src/core/application/dtos/inspection/resp
 import { ResponseInspectionMapper } from "src/core/domain/mapping/inspection/response-inspection.mapper"
 import { InspectionRepository } from "src/core/infrastructure/Repositories/inspection/inspection.repository"
 import { RequestServiceOrderDto } from "src/core/application/dtos/serviceOrder/request-serviceOrder.dto"
+import { ServiceOrderRules } from "src/core/application/rules/serviceOrder.rules"
+
 
 
 export class CreateServiceOrderCommand {
@@ -18,7 +20,7 @@ export class CreateServiceOrderHandler implements ICommandHandler<CreateServiceO
   private updateMapper: UpdateInspectionMapper
   private responseMapper: ResponseInspectionMapper
 
-  constructor(private readonly repository: InspectionRepository) {
+  constructor(private readonly repository: InspectionRepository, private readonly serviceOrderRules: ServiceOrderRules) {
     this.updateMapper = new UpdateInspectionMapper()
     this.responseMapper = new ResponseInspectionMapper()
   }
@@ -26,6 +28,9 @@ export class CreateServiceOrderHandler implements ICommandHandler<CreateServiceO
   async execute(command: CreateServiceOrderCommand): Promise<Result<ResponseInspectionDto>> {
       const id = command.request.inspectionId;
       const data = await this.repository.getById(id);
+
+      //Controle de estoque
+      await this.serviceOrderRules.checkAvailableParts(id);
 
       const entity = this.updateMapper.mapFrom(command.request);
 

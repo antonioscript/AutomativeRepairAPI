@@ -20,5 +20,6 @@ import { InspectionOnServicePrismaRepository } from '../Repositories/inpectionOn
       inject: [PrismaService]
     }
   ],
+  exports: [InspectionOnServiceRepository]
 })
 export class InspectionOnServicesModule {}

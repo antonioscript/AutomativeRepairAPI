@@ -6,10 +6,22 @@ import { InspectionPrismaRepository } from '../Repositories/inspection/inspectio
 import { ServiceOrdersController } from 'src/core/presentation/controllers/serviceOrders.controller';
 import { CommandServiceOrderHandlers, QueryServiceOrderHandlers } from 'src/core/application/handlers/serviceOrder.handlers';
 import { InspectionsModule } from './inspections.module';
+import { InspectionOnServicesModule } from './inspectionOnServices.module';
+import { ServiceOnPartsModule } from './serviceOnParts.module';
+import { ServicesModule } from './services.module';
+import { PartsModule } from './parts.module';
+import { ServiceOrderRules } from 'src/core/application/rules/serviceOrder.rules';
 
 
 @Module({
-  imports: [CqrsModule, InspectionsModule],
+  imports: [
+    CqrsModule, 
+    InspectionsModule, 
+    InspectionOnServicesModule,
+    ServiceOnPartsModule,
+    ServicesModule,
+    PartsModule
+  ],
   controllers: [ServiceOrdersController],
   providers: [
     ...QueryServiceOrderHandlers,
@@ -19,7 +31,8 @@ import { InspectionsModule } from './inspections.module';
       provide: InspectionRepository,
       useFactory: (prisma: PrismaService) => new InspectionPrismaRepository(prisma),
       inject: [PrismaService]
-    }
+    },
+    ServiceOrderRules
   ],
 })
 export class ServiceOrdesModule {}

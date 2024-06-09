@@ -133,7 +133,11 @@ export class InspectionPrismaRepository extends IGenericRepository<InspectionEnt
                 include: {
                   service: {
                     include: {
-                      parts: true
+                      parts: {
+                        include: {
+                          part: true
+                        }
+                      }
                     }
                   }
                 }

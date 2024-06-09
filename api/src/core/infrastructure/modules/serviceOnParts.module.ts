@@ -20,5 +20,6 @@ import { ServiceOnPartPrismaRepository } from '../Repositories/serviceOnPart/ser
       inject: [PrismaService]
     }
   ],
+  exports: [ServiceOnPartRepository]
 })
 export class ServiceOnPartsModule {}
