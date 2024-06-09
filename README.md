@@ -2,7 +2,9 @@
 Desenvolvimento de uma API utilizando o framework Nest.JS para simular o sistema de gestão de uma oficina mecânica. A API será responsável por gerenciar clientes, funcionários, serviços oferecidos, agendamentos, estoque de peças e ferramentas, além de proporcionar funcionalidades de autenticação e autorização para diferentes tipos de usuários.
 
 Para acompanhar as features e o andamento do projeto clique [aqui](https://github.com/users/antonioscript/projects/11?pane=info). <br>
+![Flow Chart](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/b260da1e-c2c6-4587-bd19-8897772d4fa4)
 
+![Flow Chart1](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/d1a4fa2d-320b-4251-bf7e-18a42b572f4f)
 
 </br></br><p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
