@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsInt, IsString } from 'class-validator';
+import { IsInt, IsString, Matches } from 'class-validator';
+import { constants } from 'src/core/infrastructure/Shared/constants';
+import { messages } from 'src/core/infrastructure/Shared/messages';
 export class RequestVehicleDto {
 
     id?: number
@@ -10,6 +12,7 @@ export class RequestVehicleDto {
 
     @ApiProperty()
     @IsString()
+    @Matches(constants.REGEX_PLATE, {message: messages.PLATE_TYPE})
     plate: string
 
     @ApiProperty()

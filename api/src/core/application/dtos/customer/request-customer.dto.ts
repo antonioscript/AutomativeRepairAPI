@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsInt } from 'class-validator';
+import { IsString, IsInt, Matches } from 'class-validator';
+import { constants } from 'src/core/infrastructure/Shared/constants';
+import { messages } from 'src/core/infrastructure/Shared/messages';
 export class RequestCustomerDto {
-    // @ApiProperty({ required: false })
-    // id?: number
 
     @ApiProperty()
     @IsString()
@@ -12,7 +12,8 @@ export class RequestCustomerDto {
     @IsString()
     lastName: string   
 
-    @ApiProperty({required: true})
+    @ApiProperty({ required: true })
     @IsString()
-    cpf: string  
+    @Matches(constants.REGEX_CPF, { message: messages.CPF_TYPE})
+    cpf: string 
 }
