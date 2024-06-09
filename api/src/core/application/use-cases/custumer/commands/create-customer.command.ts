@@ -24,14 +24,20 @@ export class CreateCustomerHandler implements ICommandHandler<CreateCustomerComm
 
   async execute(command: CreateCustomerCommand): Promise<Result<ResponseCustomerDto>> {
 
-    const registerExists = await this.repository.getFirstByParameters({
+    const registerNameExists = await this.repository.getFirstByParameters({
       firstName: command.request.firstName,
       lastName: command.request.lastName,
-      cpf: command.request.cpf
     });
 
-    if (registerExists)
-      throw new BadRequestException(messages.CUSTOMER_ALREADY_EXISTS(command.request.firstName,command.request.lastName,command.request.cpf));
+    if (registerNameExists)
+      throw new BadRequestException(messages.CUSTOMER_NAME_ALREADY_EXISTS(command.request.firstName,command.request.lastName));
+
+    const registerCPFExists = await this.repository.getFirstByParameters({
+      cpf: command.request.cpf,
+    });
+
+    if (registerCPFExists)
+      throw new BadRequestException(messages.CUSTOMER_CPF_ALREADY_EXISTS(command.request.cpf));
 
     const entity = this.requestMapper.mapFrom(command.request);
     const responseEntity = await this.repository.create(entity);

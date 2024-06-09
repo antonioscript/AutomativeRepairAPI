@@ -4,10 +4,14 @@ export const messages= {
   USER_UNAUTHENTICATED:`Você não está autenticado. Por gentileza, faça o login ou se cadastre.`,
   USER_UNAUTHORIZED:`E-mail e/ou senha incorretos.`,
 
+  CPF_TYPE: `CPF deve conter apenas números na seguinte forma: XXX-XXX-XXXX-XX`,
+  PLATE_TYPE: `O modelo de placa deve estar noo novo formato padrão Mercosul ABC1D23`,
+
   USER_ALREADY_EXISTS: (email: string) => `Já existe um Usuário cadastrado com o email: '${email}'.`,
   USER_NOT_FOUND: (id: number) => `Usuário de ID '${id}' não encontrado.`,
 
-  CUSTOMER_ALREADY_EXISTS: (firstName: string, lastName: string, cpf: string) => `Já existe um cliente cadastrado com os dados: ${firstName} ${lastName}, CPF: ${cpf}`,
+  CUSTOMER_NAME_ALREADY_EXISTS: (firstName: string, lastName: string) => `Já existe um cliente cadastrado com o nome: ${firstName} ${lastName}.`,
+  CUSTOMER_CPF_ALREADY_EXISTS: (cpf: string) => `Já existe um cliente cadastrado com CPF '${cpf}'.`,
   CUSTOMER_NOT_FOUND: (id: number) => `Cliente de ID '${id}' não encontrado.`,
 
   VEHICLE_TYPE_ALREADY_EXISTS: (name: string) => `Já existe um Tipo de Veículo cadastrado com o nome: '${name}'.`,
