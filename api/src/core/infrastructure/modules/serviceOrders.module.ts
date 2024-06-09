@@ -10,6 +10,7 @@ import { InspectionOnServicesModule } from './inspectionOnServices.module';
 import { ServiceOnPartsModule } from './serviceOnParts.module';
 import { ServicesModule } from './services.module';
 import { PartsModule } from './parts.module';
+import { ServiceOrderRules } from 'src/core/application/rules/serviceOrder.rules';
 
 
 @Module({
@@ -30,7 +31,8 @@ import { PartsModule } from './parts.module';
       provide: InspectionRepository,
       useFactory: (prisma: PrismaService) => new InspectionPrismaRepository(prisma),
       inject: [PrismaService]
-    }
+    },
+    ServiceOrderRules
   ],
 })
 export class ServiceOrdesModule {}
