@@ -639,11 +639,15 @@ Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a 
 No projeto em questão foi utilizado a configuração padrão que permite uma quantidade máxima de 10 solicitações em 60000 milissegundos
 
 ### JWT Token
+Para autenticação e autorização da API, foi utilizado uma padrão bastante utilizado no mercado que é o JWT (Jason Web Tokens), que define uma maneira compacta e segura de transmitir informações entre partes como um objeto JSON.
+
+No contexto deste projeto, o JWT token desempenha um papel fundamental na segurança e autenticação dos usuários. Quando um usuário realiza o login com suas credenciais, um token JWT é gerado e assinado com uma chave secreta única. Esse token é então enviado de volta ao cliente e deve ser incluído em todas as solicitações subsequentes como uma forma de autenticação.
 
 ### Hash Senha
-Para ocultar a senha no banco de dados, foi utilizado a biblioteca node chamada 'bcrypt', responsável por esconder informações sensíveis do usuário
+Para ocultar a senha no banco de dados, foi utilizado uma biblioteca node chamada 'bcrypt', que não é nativa do Nest.JS, mas é bastante utilizada pela comunidade. Ela é responsável por esconder informações sensíveis do usuário, como as senhas, por exemplo.
 
-[Imagem do Banco aqui com as senhas em formato de asterisco]
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/5587aae7-ebff-4d8a-aabc-f8a6e40cae9a)
+
 
 # Como Executar a Aplicação
 
