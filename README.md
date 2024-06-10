@@ -393,6 +393,10 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
 ## CQRS (Command Query Responsibility Segregation)
 Um outro padrão de arquitetura utilizado foi o CQRS, que consiste em separar as interações com o banco de dados em operações de leitura e escrita, os chamados 'commands' e 'queries'. 
 
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/2ca4dbbd-2887-41b1-af11-09e1ff0c7aa5)
+
+
+
 Por padrão, o Nest.JS coloca toda as invocações do banco em uma única classe, na qual recebe o nome de 'services'. Essa mesma classe além de reunir todas as operações ao banco em um único local, faz isso também de forma direta, sem nenhum meio de transporte que possa desaclopar esse acesso. 
 
 No entanto, o padão CQRS é mais recomendados em APIs robustas e de grande porte, como podemos ver na própria documentação do Nest:
