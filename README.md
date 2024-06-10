@@ -143,15 +143,16 @@ Para construir a API foi utilizada a abordagem "Code First", onde o foco princip
 Atualmente esse é o modelo do banco de dados mais recente da aplicação:
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/94da6bda-8469-4cd8-9c48-97f91afafe84)
+<sub>Data da última atualização: *10/06/2024*</sub>
 
-Data da última atualização: *10/06/2024*
+Nele podemos ver relações do tipo 'One-to-Many' e 'Many-to-many'.
 
 ## Visualização da API
 Para visualizar a API foi optado a utilização do Swagger, ferramenta que oferece uma interface intuitiva sem a necessidade de instalar ferramentas adicionais para testar e executar a aplicação. Além disso, ele simplifica o processo de documentação, gerando automaticamente a documentação a partir do código-fonte da aplicação. 
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/373ec201-4dd4-4663-b51e-8d203ca0ae59)
 
-Data da última atualização: *10/06/2024*
+<sub>Data da última atualização: *10/06/2024*</sub>
 
 ## ORM
 Para fazer a comunicação da aplicação com o banco de dados, o framework escolhido foi o Prisma. O critério de escolha se deu pelo fato do prisma ser um ORM moderno, por ter uma comunidade muito grande no Github e pela forma como ele escala rapidamente a aplicação, sem a necessidade de ajustes adicionais, utilizando o conceito de migrations. 
@@ -524,6 +525,39 @@ export class CustomersController {
 }
 ```
 <sub>*src\core\presentation\controllers\customers.controller.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/presentation/controllers/customers.controller.ts)</sub>
+
+## Centralização das Mensagens de Retorno
+Todas as mensagens de retorno da API, sejam de erros, validações ou mensagens de sucesso, se concentram em um único lugar, a fim de evitar essas escritas dentro dos casos de uso, ocasionando assim uma escrita 'hard-code'. Dessa forma conseguimos reaproveitar as mensagens e caso necessite de modificação, podemos simplismente modificar a mensagem em um único local para refletir a mudança para toda a aplicação. Além disso, a organização centralizada simplifica a manutenção do código, pois as alterações necessárias podem ser feitas de maneira global.
+
+``` Typescript
+
+export const messages= {
+  DEFAULT_UPDATE_BAD_REQUEST:  `O ID passado como parâmetro é diferente do ID passado no corpo da solicitação.`,
+
+  USER_UNAUTHENTICATED:`Você não está autenticado. Por gentileza, faça o login ou se cadastre.`,
+  USER_UNAUTHORIZED:`E-mail e/ou senha incorretos.`,
+
+  CPF_TYPE: `CPF deve conter apenas números na seguinte forma: XXX-XXX-XXXX-XX`,
+  PLATE_TYPE: `O modelo de placa deve estar noo novo formato padrão Mercosul ABC1D23`,
+
+  USER_ALREADY_EXISTS: (email: string) => `Já existe um Usuário cadastrado com o email: '${email}'.`,
+  USER_NOT_FOUND: (id: number) => `Usuário de ID '${id}' não encontrado.`,
+
+  CUSTOMER_NAME_ALREADY_EXISTS: (firstName: string, lastName: string) => `Já existe um cliente cadastrado com o nome: ${firstName} ${lastName}.`,
+  CUSTOMER_CPF_ALREADY_EXISTS: (cpf: string) => `Já existe um cliente cadastrado com CPF '${cpf}'.`,
+  CUSTOMER_NOT_FOUND: (id: number) => `Cliente de ID '${id}' não encontrado.`,
+
+  VEHICLE_TYPE_ALREADY_EXISTS: (name: string) => `Já existe um Tipo de Veículo cadastrado com o nome: '${name}'.`,
+  VEHICLE_TYPE_NOT_FOUND: (id: number) => `Tipo de Veículo de ID '${id}' não encontrado.`,
+
+  //.....
+  };
+  
+```
+<sub>*src\core\infrastructure\shared\messages.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Shared/messages.ts)</sub>
+
+
+
 
 ## Método Paginado e Corpo de Resposta
 O tipo do corpo de resposta padrão utilizado na API é o JSON, encapsulado através de uma propriedade 'data', que contém toda a resposta da solicitação, assim como duas propriedades adicionais. A primeira dela é 'failed', que pode ser true ou false dependendo da resposta e 'error' que mostra o erro caso aconteça alguma falha. Isso proporciona uma estrutura consistente para os dados retornados, facilitando o processamento por parte dos consumidores da API:
