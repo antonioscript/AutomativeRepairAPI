@@ -150,7 +150,121 @@ Antes de iniciar uma vistoria, deve-se cadastrar o veículo do clinte que fez o 
 
 
 ## Vistoria
-Após o agendamento acontece a vistoria, onde será informado o diagnóstico geral do veículo, o principal problema e os serviços que devem ser feitos, bem como o valor total do serviço. Caso o cliente esteja de acordo, então é gerado a ordem de serviço. 
+Após o agendamento acontece a vistoria, onde será informado o diagnóstico geral do veículo, o principal problema, os serviços que devem ser feitos, bem como, o valor total do serviço e peças necessárias. 
+Supondo que na Vistoria dectaram problema no motor e que os serviços necessários são: Conserto de Motor e uma Troca de Pneu:
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/601de582-d8ad-4a35-a339-b44ae41dd47a)
+
+``` JSON
+{
+  "data": {
+    "id": 16,
+    "appointmentId": 15,
+    "vehicleId": 29,
+    "vehicle": {
+      "id": 29,
+      "customerId": 103,
+      "vehicleTypeId": 1,
+      "plate": "JMN1B50",
+      "brand": "Volkswagen",
+      "model": "T-Cross",
+      "year": 2023
+    },
+    "inspectionDate": "2024-06-10T23:30:06.247Z",
+    "hasServiceOrder": false,
+    "value": 925,
+    "services": [
+      {
+        "id": 16,
+        "inspectionId": 16,
+        "serviceId": 22,
+        "service": {
+          "id": 22,
+          "name": "Troca de Peneu Aro 16",
+          "value": 435,
+          "observation": "Serviço de troca de peneu do tipo Aro 16",
+          "parts": [
+            {
+              "id": 24,
+              "serviceId": 22,
+              "partId": 31,
+              "part": {
+                "id": 31,
+                "name": "Pneu Aro 16",
+                "supplier": "Michelin",
+                "manufacturer": "Michelin",
+                "barcode": "3456782012345",
+                "observation": "Peneu Aro 16",
+                "quantity": 11,
+                "value": 435
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": 17,
+        "inspectionId": 16,
+        "serviceId": 21,
+        "service": {
+          "id": 21,
+          "name": "Conserto de Motor Elétrico CA/CC",
+          "value": 305,
+          "observation": "Conserto geral de motor elétrico",
+          "parts": [
+            {
+              "id": 21,
+              "serviceId": 21,
+              "partId": 12,
+              "part": {
+                "id": 12,
+                "name": "Radiador de Água",
+                "supplier": "Autopeças Ferreira",
+                "manufacturer": "Valeo",
+                "barcode": "2345678901234",
+                "observation": "Radiador de água de alta qualidade, com tecnologia de dissipação térmica avançada para manter a temperatura do motor estável.",
+                "quantity": 20,
+                "value": 200
+              }
+            },
+            {
+              "id": 22,
+              "serviceId": 21,
+              "partId": 7,
+              "part": {
+                "id": 7,
+                "name": "Correia Dentada",
+                "supplier": "Autopeças Costa",
+                "manufacturer": "Dayco",
+                "barcode": "7890123456789",
+                "observation": "Correia dentada de alto desempenho, resistente ao calor e à abrasão, garantindo sincronização precisa do motor.",
+                "quantity": 20,
+                "value": 80
+              }
+            },
+            {
+              "id": 23,
+              "serviceId": 21,
+              "partId": 4,
+              "part": {
+                "id": 4,
+                "name": "Vela de Ignição",
+                "supplier": "Autopeças Oliveira",
+                "manufacturer": "NGK",
+                "barcode": "4567890123456",
+                "observation": "Vela de ignição de platina para motores a gasolina, garantindo uma centelha mais eficiente.",
+                "quantity": 40,
+                "value": 25
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "failed": false,
+  "error": null
+}
+```
 Obs: Dentro de Vistoria acontece outros passos.
 
 Regra: Toda Vistoria só deve ter no máximo 7 dias para o cliente dar resposta, caso contrário, deverá ser criada outra com atualização dos novos valores. 
