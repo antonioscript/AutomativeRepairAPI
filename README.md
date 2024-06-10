@@ -154,7 +154,9 @@ Para visualizar a API foi optado a utilização do Swagger, ferramenta que ofere
 Data da última atualização: *10/06/2024*
 
 ## ORM
-Falar sobre o Prisma
+Para fazer a comunicação da aplicação com o banco de dados, o framework escolhido foi o Prisma. O critério de escolha se deu pelo fato do prisma ser um ORM moderno, por ter uma comunidade muito grande no Github e pela forma como ele escala rapidamente a aplicação, sem a necessidade de ajustes adicionais, utilizando o conceito de migrations. 
+
+O primsa também conta com uma ferramente de UI para visualização dos dados no banco, que é o Prisma Database, sem a necessidade de instalar uma ferramenta de banco, que facilita bastante o desenolvimento. 
 
 ## Arquitetura de Código
 A arquitetura de código escolhida foi a arquitetura 'Clean Architecture', que é um tipo de arquitetura bastante moderna, que foi idealizada pelo Uncle Bob. O objetivo dessa arquitetura é promover a separação de preocupações e a manutenção da independência entre as diferentes camadas da aplicação, divindido-as entre: Domínio, Aplicação, Infraestrutura e Apresentação.
