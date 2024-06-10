@@ -389,9 +389,6 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
 ```
 <sub>*src\core\infrastructure\repositories\vehicle\vehicle.prisma.repository.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Repositories/vehicle/vehicle.prisma.repository.ts)</sub>
 
-## Mapeamento de Entidades
-Mapper
-
 ## CQRS (Command Query Responsibility Segregation)
 Um outro padrão de arquitetura utilizado foi o CQRS, que consiste em separar as interações com o banco de dados em operações de leitura e escrita, os chamados 'commands' e 'queries'. 
 
@@ -528,6 +525,58 @@ export class CustomersController {
 ```
 <sub>*src\core\presentation\controllers\customers.controller.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/presentation/controllers/customers.controller.ts)</sub>
 
+## Método Paginado e Corpo de Resposta
+O tipo do corpo de resposta padrão utilizado na API é o JSON, encapsulado através de uma propriedade 'data', que contém toda a resposta da solicitação, assim como duas propriedades adicionais. A primeira dela é 'failed', que pode ser true ou false dependendo da resposta e 'error' que mostra o erro caso aconteça alguma falha. Isso proporciona uma estrutura consistente para os dados retornados, facilitando o processamento por parte dos consumidores da API:
+
+``` JSON
+{
+  "data": {
+    "id": 1,
+    "name": "Óleo Lubrificante Sintético",
+    "supplier": "Autopeças Machado",
+    "manufacturer": "Bosch",
+    "barcode": "1234567890123",
+    "observation": "Óleo lubrificante sintético de alta performance para motores à gasolina.",
+    "quantity": 20,
+    "value": 38
+  },
+  "failed": false,
+  "error": null
+}
+```
+
+Já para o método de GET da forma paginado, além das propriedades padrão, o mesmo conta também com algumas propriedades únicas encapsuladas dentro do objeto 'pagination':
+``` JSON
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Carro"
+    },
+    {
+      "id": 2,
+      "name": "Moto"
+    }
+  ],
+  "pagination": {
+    "total": 2,
+    "lastPage": 1,
+    "currentPage": 1,
+    "perPage": 10,
+    "prev": null,
+    "next": null
+  },
+  "failed": false,
+  "error": null
+}
+```
+Entre elas:
+- <b>total</b>: quantidade total de registros;
+- <b>lastPage</b>: última página;
+- <b>currentPage</b>: página atual;
+- <b>perPage</b>: quantidade de registros por página;
+- <b>prev</b>: página anterior;
+- <b>next</b>: próxima página.
 
 ## Segurança
 
