@@ -151,7 +151,7 @@ Antes de iniciar uma vistoria, deve-se cadastrar o veículo do clinte que fez o 
 
 ## Vistoria
 Após o agendamento acontece a vistoria, onde será informado o diagnóstico geral do veículo, o principal problema, os serviços que devem ser feitos, bem como, o valor total do serviço e peças necessárias. 
-Supondo que na Vistoria dectaram problema no motor e que os serviços necessários são: Conserto de Motor e uma Troca de Pneu:
+Supondo que na Vistoria dectaram problema no motor e que os serviços necessários são: <b>Conserto de Motor</b> e uma <b>Troca de Pneu</b>:
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/601de582-d8ad-4a35-a339-b44ae41dd47a)
 
 ``` JSON
@@ -265,9 +265,15 @@ Supondo que na Vistoria dectaram problema no motor e que os serviços necessári
   "error": null
 }
 ```
-Obs: Dentro de Vistoria acontece outros passos.
+Perceba que o valor total orçado na vistoria de R$ 925, 00 é a soma de todos os serviços que o cliente requisitou, mais um adiconal de 25 % de taxa de serviço (regra da mecânica). O serviço de troca de pneu custa R$ 435,00 e o conserto de motor R$ 305, somando os dois o valor dos serviços fica por R$ 740, 00. Retirando 25% do valor total dos serviços, o resultado obtido é de R$ 185, que somando tudo gera um valor total de R$ 925. Todo esse cálculo é feito na API de forma automática. 
 
-Regra: Toda Vistoria só deve ter no máximo 7 dias para o cliente dar resposta, caso contrário, deverá ser criada outra com atualização dos novos valores. 
+Além do valor, existe uma flag chamada 'hasServiceOrder', que indica se aquela vistoria criada possui um Ordem de Serviço. 
+
+Dentro da Vistoria existem alguns processos e regras:
+- Quando uma vistoria é criada, o status do agendamento é alterado para 'Concluído';
+- Toda Vistoria deve ter no máximo 7 dias para o cliente dar resposta se deseja prosseguir com o serviço, caso contrário, depois dos 7 dias a vistoria perde sua validade e deverá ser criada outra com atualização dos novos valores;
+- No momento de cadastrar a vistoria, a API irá consultar todas as peças disponíveis e verificar se existem as que são necessárias para os serviços selecionados da vistoria. Caso não exista essas peças, ainda assim pode-se gerar um pedido de ordem de serviço, mas a ordem de serviço só deve ser iniciada quando chegar o abastecimento das peças;
+- No momento que uma vistoria é criada, deve-se fazer a subtração das peças no banco de dados, bem como a quantidade disponível, controle de saldo, valor, etc. Caso uma vistoria não venha a se tornar uma ordem de serviço, as peças alocadas para a vistoria devem ficar disponíveis novamente no banco de dados.
 
 ## Ordem de Serviço 
 A ordem de serviço gerada já será pré-preenchida com os serviços definidos na Vistoria. Caso precise de algo adicional além do orçado com o cliente (e que não foi capaz de enxergar na vistoria), é preciso gerar obrigatoriamente um aditivo (com a permissão do cliente).
