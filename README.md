@@ -142,6 +142,12 @@ Quando um agendamento é criado, por default ele é preenchido com o status 'Age
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/68936320-9095-4ba2-bf7e-80362f22924b)
 <sub>POST - baseUrl/appointments</sub>
 
+## Cadastro de Veículo
+Antes de iniciar uma vistoria, deve-se cadastrar o veículo do clinte que fez o agendamento, caso o veículo ainda não tenha um cadastro no sistema:
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/a70272aa-d8c2-4501-a812-97b07e654c22)
+<sub>POST - baseUrl/vehicles</sub>
+
 
 ## Vistoria
 Após o agendamento acontece a vistoria, onde será informado o diagnóstico geral do veículo, o principal problema e os serviços que devem ser feitos, bem como o valor total do serviço. Caso o cliente esteja de acordo, então é gerado a ordem de serviço. 
