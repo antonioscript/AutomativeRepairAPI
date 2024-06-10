@@ -443,7 +443,7 @@ export class CreateCustomerHandler implements ICommandHandler<CreateCustomerComm
 <br>
 <br>
 <br>
-E logo abaixo um exemplo de uma querie, que é um consulta que retorna um cliente a partir de um ID especificado:
+E logo abaixo um exemplo de uma query, que é um consulta que retorna um cliente a partir de um ID especificado:
 
 ``` Typescript
 export class GetOneCustomerQuery {
