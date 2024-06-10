@@ -131,12 +131,25 @@ Incorporar o uso de idiomas nos serviços
 
 
 # Arquitetura 
-Descrever aqui depois a arquitetura do código, frameworks, banco, etc
+A aplicação desse projeto é uma API Rest usando o framework Nest.JS, utilizando o banco de dados MySQL e Docker.
+
+## Banco de Dados
+O banco de dados escolhido para a aplicação foi o MySQL, por ser um dos bancos mais antigos do mercado e pela sua ampla utilização na indústria de software. 
+
+## Abordagem Code First
+Para construir a API foi utilizada a abordagem "Code First", onde o foco principal está na escrita do código-fonte para definir os modelos de dados e a lógicas de negócios. A principal vantagem dessa abordagem é a agilidade no desenvolvimento, já que as alterações nos modelos e da lógica podem ser refletidas diretamente no banco através das "migrations", que são scripts SQLs gerados através das alterações no modelo por meio do código. Além disso, qualquer pessoa que tenha em mãos o projeto consegue ter exatamente a mesma estrutura do banco e tem acesso a todas as modificaçõe, pois as migrations também servem como uma espécie de histórico das alterações do banco.
+
+## Modelo do Banco de Dados
+Atualmente esse é o modelo do banco de dados mais recente da aplicação:
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/94da6bda-8469-4cd8-9c48-97f91afafe84)
+
+Última data de atualização: *10/06/2024*
 
 ## Visualização da API
 Para visualizar a API eu optei por utilizar o Swagger, ferramenta para documentar APIs
 
-## Abordagem Code First
+
 
 ## Arquitetura de Código
 A arquiterua de código escolhida foi a arquitetura Clean Architecture
