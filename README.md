@@ -614,18 +614,17 @@ Entre elas:
 
 ## Segurança
 
-### JWT Token
-
-### Hash Senha
-Para ocultar a senha no banco de dados, foi utilizado a biblioteca node chamada 'bcrypt', responsável por esconder informações sensíveis do usuário
-
-[Imagem do Banco aqui com as senhas em formato de asterisco]
 
 ### CORS (Cross-origin Resource Sharing)
-Foi utilizado o conceito de CORS para aumentar a segurança da aplicação utilizando dependências nativas do Nest.JS
+Foi utilizado o conceito de CORS para aumentar a segurança da aplicação utilizando dependências nativas do Nest.JS. Essa abordagem ajuda a proteger a aplicação contra solicitações maliciosas vindas de domínios não autorizados, garantindo assim a integridade e segurança dos dados manipulados pela aplicação. 
+
+Como projeto de teste, na API todos os domínios estão sendo autorizados. 
 
 ### Limitação de Taxa 
-Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a biblioteca 'throttler'.
+Uma boa estratégia aliada na segurança junto com o CORS é a utilização da limitação da taxa de acesso, para controlar o tráfego da rede e evitar sobrecargas no servidor, garantindo uma boa experiência aos consumidores da API. 
+
+Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a biblioteca 'throttler', que é uma biblioteca padrão do Nest.JS. 
+
 ``` typescript
 @Module({
   imports: [
@@ -635,11 +634,16 @@ Para limitar o tráfego da rede em uma possível massa de fluxo foi utilizado a 
       limit: 10,
     }]),
 ```
-
+<sub>*src\app.module.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/app.module.ts)</sub>
 
 No projeto em questão foi utilizado a configuração padrão que permite uma quantidade máxima de 10 solicitações em 60000 milissegundos
 
+### JWT Token
 
+### Hash Senha
+Para ocultar a senha no banco de dados, foi utilizado a biblioteca node chamada 'bcrypt', responsável por esconder informações sensíveis do usuário
+
+[Imagem do Banco aqui com as senhas em formato de asterisco]
 
 # Como Executar a Aplicação
 
