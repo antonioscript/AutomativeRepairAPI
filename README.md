@@ -144,23 +144,51 @@ Atualmente esse é o modelo do banco de dados mais recente da aplicação:
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/94da6bda-8469-4cd8-9c48-97f91afafe84)
 
-Última data de atualização: *10/06/2024*
+Data da última atualização: *10/06/2024*
 
 ## Visualização da API
-Para visualizar a API eu optei por utilizar o Swagger, ferramenta para documentar APIs
+Para visualizar a API foi optado a utilização do Swagger, ferramenta que oferece uma interface intuitiva sem a necessidade de instalar ferramentas adicionais para testar e executar a aplicação. Além disso, ele simplifica o processo de documentação, gerando automaticamente a documentação a partir do código-fonte da aplicação. 
 
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/373ec201-4dd4-4663-b51e-8d203ca0ae59)
 
+Data da última atualização: *10/06/2024*
+
+## ORM
+Falar sobre o Prisma
 
 ## Arquitetura de Código
-A arquiterua de código escolhida foi a arquitetura Clean Architecture
+A arquitetura de código escolhida foi a arquitetura 'Clean Architecture', que é um tipo de arquitetura bastante moderna, que foi idealizada pelo Uncle Bob. O objetivo dessa arquitetura é promover a separação de preocupações e a manutenção da independência entre as diferentes camadas da aplicação, divindido-as entre: Domínio, Aplicação, Infraestrutura e Apresentação.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/ed9be3ea-e49b-437b-af77-a6349de80ec0)
 
+No projeto a Clean Architecture foi adaptada dessa forma:
 
-## Banco de Dados
-Mysql...
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/d278f659-c3da-426c-8303-72109332fa84)
 
-## ORM
+Onde podemos visualizar as camadas de domínio, aplicação, infraestrutura e apresentação. 
+
+### Domain
+Na cama de domínio, no centro da arquitetura, estão as entidades. As entidades representam os conceitos centrais da aplicação, é a unidade básica do sistema. 
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/b5be471e-5a9d-41c5-9299-2f918185ba13)
+
+Além das entidades, também temos o mapeamento dessas entidades, que consiste na transformação da entidade em uma resposta para o cliente. Isso é discutido melhor aqui:
+
+### Infrastructure
+Como o próprio nome já diz, na infraestrutura alocamos tudo aquilo que é essencial para a estrutura do sistema, como as configurações do banco, os módulos da aplicação, os repositórios e tudo aquilo que é compartilhado para toda a API.
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/4c9e113c-5b98-40ed-874e-6030c992ec69)
+
+### Application
+Para a camada de aplicação estão as regras de negócio e tudo aquilo que é responsável para a lógica do sistema. Na cama de aplicação estão presentes os casos de uso (que são discutidos de forma mais ampla aqui), os handlers, os DTOs e  as regras de negócio chamadas de rules.
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/346dd968-7f8e-42a6-bb5e-ef2065a2dabb)
+
+### Presentation
+E para a cama de apresentação, está presente tudo aquilo que faz a ligação dos dados entre servidor e cliente, que no caso da API, são os Controllers, responsáveis por forneceer os endpoints da aplicação.
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/12de8853-48b1-42fa-9201-1a78f212eefd)
+
 
 ## Repository Pattern
 Optei por implementar o padrão Repository para separar as camadas de acesso aos dados e lógica de negócios. O padrão Repository proporciona uma abstração sobre a fonte de dados, permitindo que a lógica de negócios seja independente das outras camadas.
