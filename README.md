@@ -189,9 +189,28 @@ E para a cama de apresentação, está presente tudo aquilo que faz a ligação 
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/12de8853-48b1-42fa-9201-1a78f212eefd)
 
-
 ## Repository Pattern
-Optei por implementar o padrão Repository para separar as camadas de acesso aos dados e lógica de negócios. O padrão Repository proporciona uma abstração sobre a fonte de dados, permitindo que a lógica de negócios seja independente das outras camadas.
+Um dos Design Patterns utilizado na aplicação foi o Repository Pattern, que consiste em separar as camadas de acesso ados dados e a lógica de negócios, proporcionando uma abstração na fonte dos dados, fazendo que a camada da lógica de negócios seja independente das outras camadas.
+
+Para o projeto em questão, foi utilizado uma classe abstrata, usando os conceitos de Generics. Onde essa classe consiste em abstrair métodos genéricos que serão utilizados por todas as entidades da API. Esses métodos consistem nas aplicações básicas como Create, Read, Update e Delete. 
+``` Typescript
+import { BaseEntity } from "src/core/domain/entities/base.entity";
+
+export abstract class IGenericRepository<T extends BaseEntity> {
+
+    abstract getAll(): Promise<T[]>;
+    abstract getById(id: number): Promise<T>;
+    abstract create(data: T): Promise<T>;
+    abstract update(id: number, data: T): Promise<T>
+    abstract delete(id: number): Promise<number>
+}
+```
+*src\core\infrastructure\repositories\igeneric-repository.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Repositories/igeneric-repository.ts)
+
+
+O objetivo de se utilizar o Repository Pattern vai além do simples fato de reduzir a duplicidade de código, ele oculta os detalhes de como os dados são persistidos e recuperados, sem que a lógica de negócios conheça os detalhes da implementação, tornando assim o código mais flexível. 
+
+Para a implementação 
 
 ## Mapeamento de Entidades
 Mapper
