@@ -38,19 +38,107 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
 - [Instruções de execução](#instruções-de-execução)
 
 ## Features {#features}
+A fim de facilitar a visualização das funcionalidades da API, foi desenvolvido o fluxograma a seguir, destacando os principais pontos da aplicação que serão discutidos posteriormente.
 
+![AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/9d95b812-79cd-4ae2-8a02-9c66f59badfc)
 
+## Cadastro de Peças
+Uma das coisas fundamentais do sistema são os serviços. Todo serviço obrigatoriamente é formado por um conjunto de peças ou itens mecânicos necessários para a realização daquele serviço: 
 
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/bfa6889a-a33d-43eb-8c89-90f058566754)
+<sub>baseUrl/parts/paginated</sub>
 
+No cadastro de peças, existem alguns campos básicos como o nome da peça, fornecedor, fabricanete, código de barras e observação. Além disso existe o campo de quantidade, que é a quantidade daquela peça específica no estoque. E campo de valor, que será o valor que o cliente irá pagar por aquela peça (que será somada no final ao orçamento). 
 
-![Flow Chart1](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/d1a4fa2d-320b-4251-bf7e-18a42b572f4f)
-# Funcionalidades
+## Cadastro de Serviço
+Após o cadastro das peças, o próximo passo é o cadastro do serviço com as respectivas peças que fazem parte daquele serviço:
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/52cf4873-ad2a-4d85-89c2-287b446b26b9)
+<sub>POST - baseUrl/services</sub>
+
+<b>Resposta JSON</b>
+``` JSON
+{
+  "data": {
+    "id": 21,
+    "name": "Conserto de Motor Elétrico CA/CC",
+    "value": 305,
+    "observation": "Conserto geral de motor elétrico",
+    "parts": [
+      {
+        "id": 21,
+        "serviceId": 21,
+        "partId": 12,
+        "part": {
+          "id": 12,
+          "name": "Radiador de Água",
+          "supplier": "Autopeças Ferreira",
+          "manufacturer": "Valeo",
+          "barcode": "2345678901234",
+          "observation": "Radiador de água de alta qualidade, com tecnologia de dissipação térmica avançada para manter a temperatura do motor estável.",
+          "quantity": 20,
+          "value": 200
+        }
+      },
+      {
+        "id": 22,
+        "serviceId": 21,
+        "partId": 7,
+        "part": {
+          "id": 7,
+          "name": "Correia Dentada",
+          "supplier": "Autopeças Costa",
+          "manufacturer": "Dayco",
+          "barcode": "7890123456789",
+          "observation": "Correia dentada de alto desempenho, resistente ao calor e à abrasão, garantindo sincronização precisa do motor.",
+          "quantity": 20,
+          "value": 80
+        }
+      },
+      {
+        "id": 23,
+        "serviceId": 21,
+        "partId": 4,
+        "part": {
+          "id": 4,
+          "name": "Vela de Ignição",
+          "supplier": "Autopeças Oliveira",
+          "manufacturer": "NGK",
+          "barcode": "4567890123456",
+          "observation": "Vela de ignição de platina para motores a gasolina, garantindo uma centelha mais eficiente.",
+          "quantity": 40,
+          "value": 25
+        }
+      }
+    ]
+  },
+  "failed": false,
+  "error": null
+}
+```
+Perceba que o valor total do serviço de R$ 305, 00. É o valor somado de todas as peças que fazem parte daquele serviço (200, 80, 25) que é calculado atumaticamente pela API. 
+
+## Cadastro de Cliente
+O primeiro passo antes de qualquer agendamento, é verificar se o cliente está cadastrado. Caso contrário, é preciso criar um novo cliente, chamando o método POST de 'Customers':
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/c1363589-c09e-40c8-b914-6399b71db35c)
+<sub>baseUrl/customers</sub>
+
+A feaure também conta com algumas validações adicionais, como o formato do CPF, por exemplo:
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/5ddc3685-2427-4e82-9408-94df7dc08029)
+<sub>baseUrl/customers</sub>
+
 ## Agendamento
-O começo de todo serviço dentro da aplicação é criar primeiramente um agendamento. A Assistência Mecânica não pode iniciar qualquer tipo de atendimento sem um agendamento, que pode se encaixar am algum desses status:
+Após um cliente cadastrado, o primeiro passo de todo serviço dentro da aplicação é criar primeiramente um agendamento. A Assistência Mecânica não pode iniciar qualquer tipo de atendimento sem um agendamento prévio. Um agendamento pode ter os seguintes status:
 - Agendado
 - Confirmado
 - Cancelado
 - Concluído
+
+Quando um agendamento é criado, por default ele é preenchido com o status 'Agendado':
+
+
 
 ## Vistoria
 Após o agendamento acontece a vistoria, onde será informado o diagnóstico geral do veículo, o principal problema e os serviços que devem ser feitos, bem como o valor total do serviço. Caso o cliente esteja de acordo, então é gerado a ordem de serviço. 
