@@ -205,12 +205,87 @@ export abstract class IGenericRepository<T extends BaseEntity> {
     abstract delete(id: number): Promise<number>
 }
 ```
-*src\core\infrastructure\repositories\igeneric-repository.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Repositories/igeneric-repository.ts)
-
+<sub>*src\core\infrastructure\repositories\igeneric-repository.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Repositories/igeneric-repository.ts)</sub>
 
 O objetivo de se utilizar o Repository Pattern vai além do simples fato de reduzir a duplicidade de código, ele oculta os detalhes de como os dados são persistidos e recuperados, sem que a lógica de negócios conheça os detalhes da implementação, tornando assim o código mais flexível. 
 
-Para a implementação 
+Para a invocação do repositório, cada entidade herda as configurações da classe abstrata genérica. Que também é o lugar de criar um método específico daquela entidade em questão:
+
+``` Typescript
+import { IGenericRepository } from "../igeneric-repository";
+import { VehicleEntity } from "src/core/domain/entities/vehicle.entity";
+
+export abstract class VehicleRepository extends IGenericRepository<VehicleEntity> {}
+```
+<sub>*src\core\infrastructure\repositories\vehicle\vehicle.repository.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Repositories/vehicle/vehicle.repository.ts)</sub>
+
+
+E para a implementação, que é onde de fato ocorre a lógica de acesso ao banco de dados, foi criada uma outra classe com os detalhes dessa aplicação:
+
+``` Typescript
+
+export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
+  
+  constructor(private readonly prisma: PrismaService) {
+    super()
+  }
+  
+  async getAll(): Promise<VehicleEntity[]> {
+        return await this.prisma.vehicle.findMany({
+            include: {
+                customer: true,
+                vehicleType: true
+            }
+        });
+    }
+	
+   async getById(id: number): Promise<VehicleEntity> {
+        return await this.prisma.vehicle.findUnique({ 
+            where: { 
+                id 
+            },
+            include: {
+                customer: true,
+                vehicleType: true
+            }
+        })
+        
+    }
+    
+      async create(data: RequestVehicleDto): Promise<VehicleEntity> {
+        return await this.prisma.vehicle.create({ 
+            data,
+            include: {
+                customer: true,
+                vehicleType: true
+            }
+        }) 
+    }
+    
+      async update(id: number, data: UpdateVehicleDto): Promise<VehicleEntity> {
+        return await this.prisma.vehicle.update({
+          where: { id },
+          data,
+          include: {
+              customer: true,
+              vehicleType: true
+          }
+        })
+    }
+      
+
+      async delete(id: number): Promise<number> {
+        await this.prisma.vehicle.delete({ 
+            where: { 
+                id 
+            } 
+        });
+        return id;
+    }
+
+}
+```
+<sub>*src\core\infrastructure\repositories\vehicle\vehicle.prisma.repository.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Repositories/vehicle/vehicle.prisma.repository.ts)</sub>
 
 ## Mapeamento de Entidades
 Mapper
