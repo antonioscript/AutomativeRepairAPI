@@ -41,6 +41,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
 A fim de facilitar a visualização das funcionalidades da API, foi desenvolvido o fluxograma a seguir, destacando os principais pontos da aplicação que serão discutidos posteriormente.
 
 ![AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/9d95b812-79cd-4ae2-8a02-9c66f59badfc)
+##Intro
 
 ## Cadastro de Peças
 Uma das coisas fundamentais do sistema são os serviços. Todo serviço obrigatoriamente é formado por um conjunto de peças ou itens mecânicos necessários para a realização daquele serviço: 
@@ -119,15 +120,15 @@ Após o cadastro das peças, o próximo passo é o cadastro do serviço com as r
 Perceba que o valor total do serviço de R$ 305, 00. É o valor somado de todas as peças que fazem parte daquele serviço (200, 80, 25) que é calculado atumaticamente pela API. 
 
 ## Cadastro de Cliente
-O primeiro passo antes de qualquer agendamento, é verificar se o cliente está cadastrado. Caso contrário, é preciso criar um novo cliente, chamando o método POST de 'Customers':
+No que diz respeito ao fluxo comercial, a primeira funcionalidade é verificar se o cliente que solicita algum tipo de serviço está cadastrado no sistema. Caso contrário, é preciso criar um novo cliente chamando o método POST de 'Customers':
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/c1363589-c09e-40c8-b914-6399b71db35c)
-<sub>baseUrl/customers</sub>
+<sub>POST - baseUrl/customers</sub>
 
 A feaure também conta com algumas validações adicionais, como o formato do CPF, por exemplo:
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/5ddc3685-2427-4e82-9408-94df7dc08029)
-<sub>baseUrl/customers</sub>
+<sub>POST - baseUrl/customers</sub>
 
 ## Agendamento
 Após um cliente cadastrado, o primeiro passo de todo serviço dentro da aplicação é criar primeiramente um agendamento. A Assistência Mecânica não pode iniciar qualquer tipo de atendimento sem um agendamento prévio. Um agendamento pode ter os seguintes status:
@@ -138,6 +139,8 @@ Após um cliente cadastrado, o primeiro passo de todo serviço dentro da aplica�
 
 Quando um agendamento é criado, por default ele é preenchido com o status 'Agendado':
 
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/68936320-9095-4ba2-bf7e-80362f22924b)
+<sub>POST - baseUrl/appointments</sub>
 
 
 ## Vistoria
