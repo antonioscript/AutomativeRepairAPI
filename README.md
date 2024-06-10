@@ -174,7 +174,7 @@ Na cama de domínio, no centro da arquitetura, estão as entidades. As entidades
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/b5be471e-5a9d-41c5-9299-2f918185ba13)
 
-Além das entidades, também temos o mapeamento dessas entidades, que consiste na transformação da entidade em uma resposta para o cliente. Isso é discutido melhor aqui:
+Além das entidades, também temos o mapeamento dessas entidades, que consiste na transformação da entidade em uma resposta para o cliente. Isso é discutido melhor aqui: #link
 
 ### Infrastructure
 Como o próprio nome já diz, na infraestrutura alocamos tudo aquilo que é essencial para a estrutura do sistema, como as configurações do banco, os módulos da aplicação, os repositórios e tudo aquilo que é compartilhado para toda a API.
@@ -190,6 +190,106 @@ Para a camada de aplicação estão as regras de negócio e tudo aquilo que é r
 E para a cama de apresentação, está presente tudo aquilo que faz a ligação dos dados entre servidor e cliente, que no caso da API, são os Controllers, responsáveis por forneceer os endpoints da aplicação.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/12de8853-48b1-42fa-9201-1a78f212eefd)
+
+### Mapeamento de Entidades
+Para que os dados sensíveis da aplicação não fiquem visíveis para o cliente, utilizou-se uma técnica simples de mapeamento de entidades em associação com os DTOs, que são classes usadas para transportar dados entre processos, entre a camada de apresentação e a camada de serviço da API, encapsulando os dados e protegendo as informações confidenciais no momento da transferência dessas informações.
+
+``` Typescript
+import { Mapper } from "../mapper"
+
+export class ResponseVehicleMapper extends Mapper<ResponseVehicleDto, VehicleEntity> {
+  public mapFrom(data: ResponseVehicleDto): VehicleEntity {
+    const vehicle = new VehicleEntity()
+
+    vehicle.id = data.id
+    vehicle.plate = data.plate
+
+    vehicle.customerId = data.customerId
+    vehicle.customer = data.customer
+
+    vehicle.vehicleTypeId = data.vehicleTypeId
+    vehicle.vehicleType = data.vehicleType
+
+    vehicle.brand = data.brand
+    vehicle.model = data.model
+    vehicle.year = data.year
+
+    return vehicle
+  }
+
+  public mapTo(data: VehicleEntity): ResponseVehicleDto {
+    const vehicle = new ResponseVehicleDto()
+
+    vehicle.id = data.id
+    vehicle.plate = data.plate
+
+    vehicle.customerId = data.customerId
+    vehicle.customer = data.customer
+
+    vehicle.vehicleTypeId = data.vehicleTypeId
+    vehicle.vehicleType = data.vehicleType
+
+    vehicle.brand = data.brand
+    vehicle.model = data.model
+    vehicle.year = data.year
+    
+    return vehicle
+  }
+}
+```
+<sub>*src\core\domain\mapping\vehicle\response-vehicle.mapper.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/domain/mapping/vehicle/response-vehicle.mapper.ts)</sub>
+
+## Máscaras de Validação
+Além do mapeamento de entidades, para os DTOs do tipo 'Request', que são aqueles responsáveis por fazer a mediação das solicitações de escrita, utilizou-se uma bilbioteca nativa do Nest.JS chamada 'class-validator', responsável por facilitar a validação de dados sem a necessidade de funções adicionais.
+
+``` Typescript
+export class RequestVehicleDto {
+
+    id?: number
+
+    @ApiProperty()
+    @IsInt()
+    customerId: number
+
+    @ApiProperty()
+    @IsString()
+    @Matches(constants.REGEX_PLATE, {message: messages.PLATE_TYPE})
+    plate: string
+
+    @ApiProperty()
+    @IsInt()
+    vehicleTypeId: number;
+
+    @ApiProperty({required: false})
+    @IsString()
+    brand?: string
+
+    @ApiProperty({required: false})
+    @IsString()
+    model?: string
+
+    @ApiProperty({required: false})
+    @IsInt()
+    year?: number
+}
+```
+<sub>*src\core\application\dtos\vehicle\request-vehicle.dto.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/application/dtos/vehicle/request-vehicle.dto.ts)</sub>
+
+Além do uso nativo dessas validações em relação as propriedades, também foi utilizado o uso de Regex para validação, por exemplo, de placas de veículos no formato Mercosul e formato de CPF:
+
+``` Typescript
+export const constants = {
+  PAGE_DEFAULT:  1,
+  PAGE_SIZE_DEFAULT: 10,
+  APPOINTMENT_STATUS_DEFAULT: 1,
+  PERCENTAGE_DEFAULT_SERVICE: 0.25,
+  REGEX_CPF: /^\d{3}-\d{3}-\d{4}-\d{2}$/,
+  REGEX_PLATE: /^[A-Z]{3}-\d{4}$|^[A-Z]{3}[0-9][A-Z][0-9]{2}$/,
+  };
+```
+<sub>*src\core\infrastructure\shared\constants.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/infrastructure/Shared/constants.ts)</sub>
+
+Os detalhes dos caracteres usados na expressão regular estão dentro de uma arquivo chamado 'constants' onde reúne todas as constantes que podem ser reaproveitadas na aplicação, evitando assim duplicidade de código.
 
 ## Repository Pattern
 Um dos Design Patterns utilizado na aplicação foi o Repository Pattern, que consiste em separar as camadas de acesso ados dados e a lógica de negócios, proporcionando uma abstração na fonte dos dados, fazendo que a camada da lógica de negócios seja independente das outras camadas.
