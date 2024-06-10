@@ -290,6 +290,142 @@ export class VehiclePrismaRepository extends IGenericRepository<VehicleEntity> {
 ## Mapeamento de Entidades
 Mapper
 
+## CQRS (Command Query Responsibility Segregation)
+Um outro padrão de arquitetura utilizado foi o CQRS, que consiste em separar as interações com o banco de dados em operações de leitura e escrita, os chamados 'commands' e 'queries'. 
+
+Por padrão, o Nest.JS coloca toda as invocações do banco em uma única classe, na qual recebe o nome de 'services'. Essa mesma classe além de reunir todas as operações ao banco em um único local, faz isso também de forma direta, sem nenhum meio de transporte que possa desaclopar esse acesso. 
+
+No entanto, o padão CQRS é mais recomendados em APIs robustas e de grande porte, como podemos ver na própria documentação do Nest:
+> "Embora esse padrão geralmente seja suficiente para aplicações de pequeno e médio porte, pode não ser a melhor escolha para aplicações maiores e mais complexas. Nesses casos, o modelo CQRS (Command and Query Responsibility Segregation) pode ser mais apropriado e escalável (dependendo dos requisitos da aplicação)."
+> — *[Nest.JS Documentation](https://docs.nestjs.com/recipes/cqrs)*
+
+Por mais que o projeto em questão seja uma API de pequeno porte, a escolha em utilizar esse padrão foi simplesmente para experimentar e simular como funcionaria a arquitetura do Nest.JS em relação a grandes solicitações e acessos por parte da API. 
+
+Na aplicação, os commands e queries foram alocados na camada de aplicação, no diretório de casos de uso, que são as lógicas de negócios da API. Para operações de escrita os métodos foram organizados em commands e os métodos de leitura em queries:
+
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/42eefbda-306e-4a24-b49f-1cbce76a47c1)
+
+Todos os métodos, seja de escrita ou de leitura, devem fazer parte de uma única classe, para evitar um acoplamento desnecessário. Logo abaixo há um exemplo de um método de escrita, nesse caso um create, responsável por criar um novo cliente no banco:
+
+``` Typescript
+export class CreateCustomerCommand {
+  constructor(public readonly request: RequestCustomerDto) {}
+}
+
+@CommandHandler(CreateCustomerCommand)
+export class CreateCustomerHandler implements ICommandHandler<CreateCustomerCommand, Result<ResponseCustomerDto>> {
+  private requestMapper: RequestCustomerMapper
+  private responseMapper: ResponseCustomerMapper
+
+  constructor(private readonly repository: CustomerRepository) {
+    this.requestMapper = new RequestCustomerMapper()
+    this.responseMapper = new ResponseCustomerMapper()
+  }
+
+  async execute(command: CreateCustomerCommand): Promise<Result<ResponseCustomerDto>> {
+  
+    const registerCPFExists = await this.repository.getFirstByParameters({
+      cpf: command.request.cpf,
+    });
+
+    if (registerCPFExists)
+      throw new BadRequestException(messages.CUSTOMER_CPF_ALREADY_EXISTS(command.request.cpf));
+
+    const entity = this.requestMapper.mapFrom(command.request);
+    const responseEntity = await this.repository.create(entity);
+    const responseData = this.responseMapper.mapTo(responseEntity);
+    
+    return result(responseData).Success();
+  }
+}
+```
+<sub>*src\core\application\use-cases\custumer\commands\create-customer.command.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/application/use-cases/custumer/commands/create-customer.command.ts)</sub>
+<br>
+<br>
+<br>
+E logo abaixo um exemplo de uma querie, que é um consulta que retorna um cliente a partir de um ID especificado:
+
+``` Typescript
+export class GetOneCustomerQuery {
+  constructor(public readonly id: number) {}
+}
+
+@QueryHandler(GetOneCustomerQuery)
+export class GetOneCustomerHandler implements IQueryHandler<GetOneCustomerQuery, Result<ResponseCustomerDto>> {
+  private responseMapper: ResponseCustomerMapper
+  constructor ( private readonly repository: CustomerRepository) {
+    this.responseMapper = new ResponseCustomerMapper()
+  }
+  
+  
+  async execute(query: GetOneCustomerQuery): Promise<Result<ResponseCustomerDto>> {
+    const register = await this.repository.getById(query.id);
+
+    if (!register)
+      throw new NotFoundException(messages.CUSTOMER_NOT_FOUND(query.id))
+
+    const responseData = this.responseMapper.mapTo(register);
+
+    return result(responseData).Success();
+  }
+  
+}
+```
+<sub>*src\core\application\use-cases\custumer\queries\get-one-customer.query.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/application/use-cases/custumer/queries/get-one-customer.query.ts)</sub>
+
+Tanto os commands, quanto as queries possuem um decorator padrão (@CommandHandler e @QueryHandler) que são responsáveis por marcar aquela classe como um comando de escrita e leitura, que depois será importado em algum módulo. 
+
+Com a utilização do CQRS o Controller fica muito mais limpo e legível, sem a necessidade de quaquer linha adicional de código, uma vez que a lógica da aplicação não se encontra mais no Controller, que fica apenas responsável por ser uma meio necessário para se chegar até os comandos da aplicação. Com isso também ocultamos da camada de apresentação quais são os repositórios ou métodos responsáveis pelo acesso ao banco de dados, tornando nosso construtor limpo de qualquer refeência de repositório, tendo apenas as depedências padrão do CQRS, o CommandBus e QueryBus que chamam os métodos específicos:
+
+``` Typescript
+
+@Controller('customers')
+@ApiTags('customers')
+export class CustomersController {
+  constructor(
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus
+  ) {}
+  
+  @Get(':id')
+  async findOne(@Param('id') id: number) {
+    const numberId = Number(id);
+    return this.queryBus.execute(new GetOneCustomerQuery(numberId));
+  }
+
+  @Get()
+  async findAll() {
+    return this.queryBus.execute(new GetAllCustomersQuery());
+  }
+
+  @Post()
+  async create(@Body() request: RequestCustomerDto) {
+    return await this.commandBus.execute(new CreateCustomerCommand(request));
+  }
+
+
+  @Put(':id')
+  async update(@Param('id') id: number, @Body() request: UpdateCustomerDto) {
+    const numberId = Number(id);
+    return await this.commandBus.execute(new UpdateCustomerCommand(numberId, request));
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: number) {
+    const numberId = Number(id);
+    return await this.commandBus.execute(new DeleteCustomerCommand(numberId))
+  }
+  
+  @Get('paginated')
+  @ApiPaginatedQuery()
+  async findPaginated(@Query('page') page?: number, @Query('pageSize') pageSize?: number) {
+    return await this.queryBus.execute(new GetPagedCustomersQuery(Number(page), Number(pageSize)));
+  }
+
+}
+```
+<sub>*src\core\presentation\controllers\customers.controller.ts*. [Visualize aqui](https://github.com/antonioscript/AutomativeRepairAPI/blob/master/api/src/core/presentation/controllers/customers.controller.ts)</sub>
+
 
 ## Segurança
 
