@@ -28,7 +28,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
 </p>
 
 
-# Índice de Conteúdos
+# Índice
 - [Features](#features)
   - [Cadastro de Peças](#cadastro-de-peças)
   - [Cadastro de Serviço](#cadastro-de-serviço)
@@ -44,7 +44,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   - [Banco de dados](#banco-de-dados)
   - [Abordagem Code First](#abordagem-code-first)
   - [Modelo do Banco de Dados](#modelo-do-banco-de-dados)
-  - [Visualização da API](#visualicao-da-api)
+  - [Visualização da API](#visualização-da-api)
   - [ORM](#orm)
   - [Arquitetura de Código](#arquitetura-de-codigo)
      - [Domain](#domain)
