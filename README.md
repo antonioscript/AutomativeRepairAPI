@@ -52,7 +52,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
      - [Application](#application)
      - [Presentation](#presentation)
   - [Mapeamento de Entidades](#mapeamento-de-entidades)
-  - [Máscaras de Validação](#máscaras-de-validacão)
+  - [Máscaras de Validação](#máscaras-de-validação)
   - [Repository Pattern](#repository-pattern)
   - [CQRS (Command Query Responsibility Segregation)](#CQRS(command-query-responsibility-segregation))
   - [Centralização das Mensagens de Retorno](#centralização-das-mensagens-de-retorno)
