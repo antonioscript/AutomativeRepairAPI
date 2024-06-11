@@ -34,7 +34,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   - [Cadastro de Serviço](#cadastro-de-serviço)
   - [Cadastro de Cliente](#cadastro-de-cliente)
   - [Agendamento](#agendamento)
-  - [Cadastro de Veículo](#cadastro-de-veiculo)
+  - [Cadastro de Veículo](#Cadastro-de-Veículo)
   - [Vistoria](#vistoria)
   - [Ordem de Serviço](#ordem-de-servico)
   - [Aditivo de Serviço](#aditivo-de-servico)
