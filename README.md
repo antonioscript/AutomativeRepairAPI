@@ -36,9 +36,9 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   - [Agendamento](#agendamento)
   - [Cadastro de Veículo](#Cadastro-de-Veículo)
   - [Vistoria](#vistoria)
-  - [Ordem de Serviço](#ordem-de-servico)
-  - [Aditivo de Serviço](#aditivo-de-servico)
-  - [Módulo de Autenticação](#modulo-de-autenticao)
+  - [Ordem de Serviço](#ordem-de-serviço)
+  - [Aditivo de Serviço](#aditivo-de-serviço)
+  - [Módulo de Autenticação](#modulo-de-autentição)
  
 - [Arquitetura](#arquitetura)
   - [Banco de dados](#banco-de-dados)
