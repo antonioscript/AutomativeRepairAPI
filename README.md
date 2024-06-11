@@ -31,7 +31,14 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
 # Índice de Conteúdos
 - [Features](#features)
   - [Cadastro de Peças](#cadastro-de-peças)
-- [Cadastro de Serviço](#cadastro-de-serviço)
+  - [Cadastro de Serviço](#cadastro-de-serviço)
+  - [Cadastro de Cliente](#cadastro-de-cliente)
+  - [Agendamento](#agendamento)
+  - [Cadastro de Veículo](#cadastro-de-veiculo)
+  - [Vistoria](#vistoria)
+  - [Ordem de Serviço](#ordem-de-servico)
+  - [Aditivo de Serviço](#aditivo-de-serviço)
+  - [Módulo de Autenticação](#modulo-de-autenticao)
 
 # Features
 
