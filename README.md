@@ -54,7 +54,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   - [Mapeamento de Entidades](#mapeamento-de-entidades)
   - [Máscaras de Validação](#máscaras-de-validação)
   - [Repository Pattern](#repository-pattern)
-  - [CQRS (Command Query Responsibility Segregation)](#CQRS(command-query-responsibility-segregation))
+  - [CQRS (Command Query Responsibility Segregation)](#CQRS (Command Query Responsibility Segregation))
   - [Centralização das Mensagens de Retorno](#centralização-das-mensagens-de-retorno)
   - [Método Paginado e Corpo de Resposta](#método-paginado-e-corpo-de-resposta)
   - [Segurança](#segurança)
@@ -988,10 +988,10 @@ E acessar através do link: http://localhost:3000/api
 DATABASE_URL="mysql://root:admin@localhost:3306/automative_repair_db"
 ```
 <sub>.env</sub>
-
-
+</br>
+</br>
+</br>
 Ajuste o nome mysql para PostgreSQL, MariaDB, ou qualquer outro servidor passando as informações do host e as credenciais
-
 
 ```Typescript
 datasource db {
@@ -1000,8 +1000,9 @@ datasource db {
 }
 ```
 <sub>prisma\schema.prisma</sub>
-
-
+</br>
+</br>
+</br>
 E no campo de URL, no aquivo schema.prisma alterar o provedor
 
 
