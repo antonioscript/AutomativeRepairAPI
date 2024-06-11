@@ -54,7 +54,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   - [Mapeamento de Entidades](#mapeamento-de-entidades)
   - [Máscaras de Validação](#máscaras-de-validação)
   - [Repository Pattern](#repository-pattern)
-  - [CQRS (Command Query Responsibility Segregation)](#CQRS-(command-query-responsibility-segregation))
+  - [CQRS (Command Query Responsibility Segregation)](#cqrs-command-query-responsibility-segregation)
   - [Centralização das Mensagens de Retorno](#centralização-das-mensagens-de-retorno)
   - [Método Paginado e Corpo de Resposta](#método-paginado-e-corpo-de-resposta)
   - [Segurança](#segurança)
