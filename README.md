@@ -29,12 +29,11 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
 
 
 # Índice de Conteúdos
+- [Features](#features)
+  - [Cadastro de Peças](#cadastro-de-peças)
+- [Cadastro de Serviço](#cadastro-de-serviço)
 
 # Features
-
-1. [Features](#features)
-2. [Cadastro de Peças](#cadastro-de-peças)
-3. [Cadastro de Serviço](#cadastro-de-serviço)
 
 ![AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/9d95b812-79cd-4ae2-8a02-9c66f59badfc)
 
