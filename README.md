@@ -480,7 +480,7 @@ Na cama de domínio, no centro da arquitetura, estão as entidades. As entidades
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/b5be471e-5a9d-41c5-9299-2f918185ba13)
 
-Além das entidades, também temos o mapeamento dessas entidades, que consiste na transformação da entidade em uma resposta para o cliente. Isso é discutido melhor aqui: #link
+Além das entidades, também temos o mapeamento dessas entidades, que consiste na transformação da entidade em uma resposta para o cliente. Isso é discutido melhor [aqui](#Mapeamento-de-Entidades).
 
 ### Infrastructure
 Como o próprio nome já diz, na infraestrutura alocamos tudo aquilo que é essencial para a estrutura do sistema, como as configurações do banco, os módulos da aplicação, os repositórios e tudo aquilo que é compartilhado para toda a API.
@@ -488,7 +488,7 @@ Como o próprio nome já diz, na infraestrutura alocamos tudo aquilo que é esse
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/4c9e113c-5b98-40ed-874e-6030c992ec69)
 
 ### Application
-Para a camada de aplicação estão as regras de negócio e tudo aquilo que é responsável para a lógica do sistema. Na cama de aplicação estão presentes os casos de uso (que são discutidos de forma mais ampla aqui), os handlers, os DTOs e  as regras de negócio chamadas de rules.
+Para a camada de aplicação estão as regras de negócio e tudo aquilo que é responsável para a lógica do sistema. Na cama de aplicação estão presentes os casos de uso (que são discutidos de forma mais ampla [aqui](#CQRS (Command-Query-Responsibility-Segregation))), os handlers, os DTOs e  as regras de negócio chamadas de rules.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/346dd968-7f8e-42a6-bb5e-ef2065a2dabb)
 
