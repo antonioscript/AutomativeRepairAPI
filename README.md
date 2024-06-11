@@ -983,14 +983,13 @@ E por fim, executar o arquivo seed para popular o banco de dados:
 npx prisma db seed
 ```
 
-Depois disso basta inserir o comando para iniciar a aplicação: 
+Depois disso, basta inserir o comando para iniciar a aplicação: 
 ```Powersehl
 npm run start:dev
 ```
 E acessar através do link: http://localhost:3000/api
 
-</br>**Observação**: Caso não tenha o MySQL instalado, é possível alterar o tipo do banco de dados no arquivo .env e no Schema do Prisma:
-
+</br>**Observação**: Caso não tenha o MySQL instalado, é possível alterar o tipo do banco de dados no arquivo .env e no Schema do Prisma. Ajuste o nome mysql para PostgreSQL, MariaDB, ou qualquer outro servidor passando as informações do host e as credenciais:
 
 ```Typescript
 DATABASE_URL="mysql://root:admin@localhost:3306/automative_repair_db"
@@ -999,8 +998,9 @@ DATABASE_URL="mysql://root:admin@localhost:3306/automative_repair_db"
 </br>
 </br>
 </br>
-Ajuste o nome mysql para PostgreSQL, MariaDB, ou qualquer outro servidor passando as informações do host e as credenciais
 
+
+E no campo de URL, no aquivo schema.prisma altere o provedor:
 ```Typescript
 datasource db {
   provider = "mysql"
@@ -1008,10 +1008,8 @@ datasource db {
 }
 ```
 <sub>prisma\schema.prisma</sub>
-</br>
-</br>
-</br>
-E no campo de URL, no aquivo schema.prisma alterar o provedor
+
+
 
 
 
