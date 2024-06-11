@@ -975,3 +975,35 @@ E por fim, executar o arquivo seed para popular o banco de dados:
 npx prisma db seed
 ```
 
+**Observação**: Caso não tenha o MySQL instalado, é possível alterar o tipo do banco de dados no arquivo .env e no Schema do Prisma:
+
+
+```Typescript
+DATABASE_URL="mysql://root:admin@localhost:3306/automative_repair_db"
+```
+<sub>.env</sub>
+Ajuste o nome mysql para PostgreSQL, MariaDB, ou qualquer outro servidor passando as informações do host e as credenciais
+
+
+```Typescript
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+```
+<sub>prisma\schema.prisma</sub>
+E no campo de URL, no aquivo schema.prisma alterar o provedor
+
+
+
+
+
+
+
+
+
+
+
+
+
+
