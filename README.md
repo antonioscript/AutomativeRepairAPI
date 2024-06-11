@@ -154,6 +154,7 @@ Após o agendamento acontece a vistoria, onde será informado o diagnóstico ger
 Supondo que na Vistoria dectaram problema no motor e que os serviços necessários são: <b>Conserto de Motor</b> e uma <b>Troca de Pneu</b>:
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/601de582-d8ad-4a35-a339-b44ae41dd47a)
 
+<b>Resposta JSON</b>
 ``` JSON
 {
   "data": {
@@ -276,75 +277,135 @@ Dentro da Vistoria existem alguns processos e regras:
 - No momento que uma vistoria é criada, deve-se fazer a subtração das peças no banco de dados, bem como a quantidade disponível, controle de saldo, valor, etc. Caso uma vistoria não venha a se tornar uma ordem de serviço, as peças alocadas para a vistoria devem ficar disponíveis novamente no banco de dados.
 
 ## Ordem de Serviço 
+Caso o cliente esteja de acordo com os valor do orçamento e os serviços que serão prestados, inicia-se então uma Ordem de Serviço para iniciar os procedimentos de reparo do veículo
 A ordem de serviço gerada já será pré-preenchida com os serviços definidos na Vistoria. Caso precise de algo adicional além do orçado com o cliente (e que não foi capaz de enxergar na vistoria), é preciso gerar obrigatoriamente um aditivo (com a permissão do cliente).
 
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/deacd8f9-9bb0-4181-8e33-917a5fec91a4)
+
+<b>Resposta JSON</b>
+``` JSON
+{
+  "data": [
+    {
+      "id": 16,
+      "appointmentId": 15,
+      "vehicleId": 29,
+      "vehicle": {
+        "id": 29,
+        "customerId": 103,
+        "vehicleTypeId": 1,
+        "plate": "JMN1B50",
+        "brand": "Volkswagen",
+        "model": "T-Cross",
+        "year": 2023
+      },
+      "inspectionDate": "2024-06-10T23:30:06.247Z",
+      "hasServiceOrder": true,
+      "value": 925,
+      "services": [
+        {
+          "id": 16,
+          "inspectionId": 16,
+          "serviceId": 22,
+          "service": {
+            "id": 22,
+            "name": "Troca de Peneu Aro 16",
+            "value": 435,
+            "observation": "Serviço de troca de peneu do tipo Aro 16",
+            "parts": [
+              {
+                "id": 24,
+                "serviceId": 22,
+                "partId": 31,
+                "part": {
+                  "id": 31,
+                  "name": "Pneu Aro 16",
+                  "supplier": "Michelin",
+                  "manufacturer": "Michelin",
+                  "barcode": "3456782012345",
+                  "observation": "Peneu Aro 16",
+                  "quantity": 11,
+                  "value": 435
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 17,
+          "inspectionId": 16,
+          "serviceId": 21,
+          "service": {
+            "id": 21,
+            "name": "Conserto de Motor Elétrico CA/CC",
+            "value": 305,
+            "observation": "Conserto geral de motor elétrico",
+            "parts": [
+              {
+                "id": 21,
+                "serviceId": 21,
+                "partId": 12,
+                "part": {
+                  "id": 12,
+                  "name": "Radiador de Água",
+                  "supplier": "Autopeças Ferreira",
+                  "manufacturer": "Valeo",
+                  "barcode": "2345678901234",
+                  "observation": "Radiador de água de alta qualidade, com tecnologia de dissipação térmica avançada para manter a temperatura do motor estável.",
+                  "quantity": 20,
+                  "value": 200
+                }
+              },
+              {
+                "id": 22,
+                "serviceId": 21,
+                "partId": 7,
+                "part": {
+                  "id": 7,
+                  "name": "Correia Dentada",
+                  "supplier": "Autopeças Costa",
+                  "manufacturer": "Dayco",
+                  "barcode": "7890123456789",
+                  "observation": "Correia dentada de alto desempenho, resistente ao calor e à abrasão, garantindo sincronização precisa do motor.",
+                  "quantity": 20,
+                  "value": 80
+                }
+              },
+              {
+                "id": 23,
+                "serviceId": 21,
+                "partId": 4,
+                "part": {
+                  "id": 4,
+                  "name": "Vela de Ignição",
+                  "supplier": "Autopeças Oliveira",
+                  "manufacturer": "NGK",
+                  "barcode": "4567890123456",
+                  "observation": "Vela de ignição de platina para motores a gasolina, garantindo uma centelha mais eficiente.",
+                  "quantity": 40,
+                  "value": 25
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "failed": false,
+  "error": null
+}
+```
+
 ## Aditivo de Serviço 
-O Atitivo será apenas a inclusão de mais serviços, além do previsto junto com o cliente
+Uma regra adicional da mecânica é que para qualquer serviço adiconal não previsto na vistoria, deve-se criar um adtivo de serviço. Atualmente essa funcionalidade ainda está em desenvvolvimento. 
 
-## Sub-processos dentro de Vistoria
+## Módulo de Autenticação
+O módulo de autenticação consiste em um token que é gerado através de um login ou registro e com esse token o usuário consegue acessar os endpoints. 
 
-### Tipos de Serviços
-A mecânica só realizará serviços que estão cadastrados de acordo com a capacidade da mecânica: Troca de Óleo, balanceamento, conserto de motor, troca de pneu etc. E na maioria dos serviços existe peças que serão utilizadas para esses tipos de serviços. Conserto de motor, por exemplo, precisa de bomba de água, correia dentada, vela de ingnição, etc.
-Então para isso, existe também um cadastro de Tipo de Peças.
+![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/ea2bf162-7237-4b99-80e7-d4a1e1dc52c0)
 
-### Tipo de Peças
-O cadastro de peças é simples, contendo informações do nome da peça, modelo, código do fornecedor,  e valor de cada peça para o cliente, etc. Para essa tabela, existe outra tabela que conterá a quantidade de peças para cada tipo de peças, entre outras informações.
-Nesse cadastro o funcionário atualiza os valores das peças que serão cobradas pelo cliente
-
-Regra: Se uma peça foi cobrada no momento do orçamento por 100 reais para um cliente específico e depois ela foi atualizada para um valor de 140 reais, por exemplo, o cliente deve pagar o valor que foi estabelecido no momento da vistoria e não o valor da peça atualizada. 
-
-Regra: Para cada valor atualizado, deve-se criar uma tabela com as alterações, que seria o histórico de valores cadastrados e o tempo que esse valor foi utilizado. 
-
-### Peças
-Supondo que exista um tipo de peça que foi cadastrado como "Pneu Aro 15". Então na tabela de Peças deverá conter a quantidade de Peças com o tipo de Pneu Aro 15. Onde pode existir, por exemplo, 20 itens do tipo "Penu Aro 15" e cada item será cadastrado com as iformações de código de barras, código do fornecedor, etc. 
-
-### Regra Vistoria
-Tendo esse conceito, no momento de cadatrar a vistoria, irá puxar todas as peças disponíveis e verificar se existem essas peças. Caso não exista essas peças, ainda assim pode-se gerar um pedido de ordem de serviço, mas a ordem de serviço só deve ser iniciada quando chegar o abastecimento das peças. 
-
-No momento que uma vistoria é criada, deve-se fazer a subtração das peças no banco de dados, bem como a quantidade disponível, controle de saldo, valor, etc. Caso uma vistoria não venha a se tornar uma ordem de serviço, as peças alocadas para a vistoria devem ficar disponíveis novamente no banco. 
-
-# Outros Cadastros
-
-### Veículos (Tabela de Veículos)
-Serão todos os veículos que o cliente levou para oficina fazer um serviço. Um cliente pode ter vários veículos
-
-### Clientes Cadastrados (Tabela de Clientes)
-Para cada veículo cadastrado é obrgitatório ter um cliente que deve ser cadastrado na base de dados. E cada cliente deve ter veículos cadastrados em seu nome
-
-### Mecânico Responsável pelo serviço (Tabela de Mecânicos)
-Cada serviço terá também o ID do Mecânico
-<br>Obs: Verificar se faz sentido ter uma lista no serviço para mais de um mecânico ou se apenas um mecânico basta
-<br>Obs2: Verificar se faz sentido colocar uma especialização para o Mecânico (moto ou carro) e uma regra ao tentar cadastrar mecânicos em serviços que são de Carro, mas o mecânico tem apenas a especialização para carro. (Acho que não faz sentido agora)
-
-### Histórico de Serviços (possivelmente um Método)
-Método que irá filtrar todos os serviços por cliente ou por veículo. Ou pelos dois
-
-### Atualização dos valores das peças (método)
-Como no final de tudo terá um PDF que irá exportar o total do serviço, deve-se também ter um método para atulizar o valor das peças utilizas em serviço. 
-Mas tem que ficar atento a regra, o cliente apenas pagará o valor na hora do contrato.
-
-### Histórico de Atualização dos valores 
-Criar uma tabela com o histórico de mudança dos valores
-
-### Diagnóstico do Veículo
-Obs: Verificar se faz sentido para essa primeira versão
-
-Criar um PDF ou um método que passa o Id do serviço e taga todos os detalhes
-
-### Valor total do Serviço (Exportar em PDF)
-Exportar em PDF os detalhes do serviço, discriminando as peças que foram utilizadas e o valor total do serviço
-
-### Enviar email para o cliente quando o serviço for finalizado (método)
-Criar um agendamento de email para enviar para o cliente quando o serviço estiver finalizado
-
-## Para outra versão do sistema
-Acreedito que não dá tempo de fazer o que está logo abaixo, mas fica muito interessante para uma próxima versão da API
-
-### Processo de Pagamentos (Microserviço)
-Criar uma processamento de pagamentos em microservico e consequentemente mudar toda a arquitetura da aplicação para microserviço
-
-### Culture para Tipo de Serviços
-Incorporar o uso de idiomas nos serviços
+Atualmente todos os endpoints estão livres de autenticação por conta de testes, mas a medida que novos módulos como cadastro de funcionários, mecãnicos, ele será totalmente implementado com o uso de regras de acesso.
 
 
 # Arquitetura 
