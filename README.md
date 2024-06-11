@@ -63,7 +63,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
      - [JWT Token](#jwt-token)
      - [Hash Senha](#hash-senha)
 
--[Como Executar a Aplicação](#como-executar-a-aplicacao)
+- [Como Executar a Aplicação](#como-executar-a-aplicacao)
     
 
 # Features
