@@ -959,6 +959,22 @@ Para ocultar a senha no banco de dados, foi utilizado uma biblioteca node chamad
 
 
 # Como Executar a Aplicação
+Para executar a aplicação, primeiramente é preciso instalar as dependências do Nest:
+
+```Powersehl
+npm install @nestjs/common
+```
+Após isso, executar uma migração do Prisma para criar as tabelas do modelo:
+
+```Powersehl
+npx prisma migrate dev --name nameMigration
+```
+E por fim, executar o arquivo seed para popular o banco de dados:
+npx prisma db seed
+
+```Powersehl
+npx prisma db seed
+```
 
 ## Prisma
 No diretório do prisma, execute o seguinte código no terminal:
