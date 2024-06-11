@@ -58,7 +58,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   - [Centralização das Mensagens de Retorno](#centralização-das-mensagens-de-retorno)
   - [Método Paginado e Corpo de Resposta](#método-paginado-e-corpo-de-resposta)
   - [Segurança](#segurança)
-     - [CORS](#CORS(cross-origin-resource-sharing))
+     - [CORS (Cross-Origin Resource Sharing)](#cors-cross-origin-resource-sharing)
      - [Limitação de Taxa](#limitação-de-taxa)
      - [JWT Token](#jwt-token)
      - [Hash Senha](#hash-senha)
