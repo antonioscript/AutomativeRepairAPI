@@ -975,6 +975,12 @@ E por fim, executar o arquivo seed para popular o banco de dados:
 npx prisma db seed
 ```
 
+Depois disso basta inserir o comando para iniciar a aplicação: 
+```Powersehl
+npm run start:dev
+```
+E acessar através do link: http://localhost:3000/api
+
 **Observação**: Caso não tenha o MySQL instalado, é possível alterar o tipo do banco de dados no arquivo .env e no Schema do Prisma:
 
 
@@ -993,11 +999,6 @@ datasource db {
 ```
 <sub>prisma\schema.prisma</sub>
 E no campo de URL, no aquivo schema.prisma alterar o provedor
-
-
-
-
-
 
 
 
