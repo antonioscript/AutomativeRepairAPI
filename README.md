@@ -67,8 +67,10 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
     
 
 # Features
+A fim de facilitar o entendimento da aplicação, foi criado um diagrama mostrando o principal fluxo da API que será discutido posteriormente: 
 
-![AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/9d95b812-79cd-4ae2-8a02-9c66f59badfc)
+
+</br>![AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/9d95b812-79cd-4ae2-8a02-9c66f59badfc)
 
 ## Cadastro de Peças
 Uma das coisas fundamentais do sistema são os serviços. Todo serviço obrigatoriamente é formado por um conjunto de peças ou itens mecânicos necessários para a realização daquele serviço: 
