@@ -27,21 +27,12 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
 
-# Sumário
 
 # Índice de Conteúdos
-- [Features](#features)
-- [Arquitetura](#arquitetura)
-  - [Intro](#subtópico-1)
-  - [Banco de Dados]()
-  - [Estrutura do Banco de Dados]()
-- [Instruções de execução](#instruções-de-execução)
 
-## Features {#features}
-A fim de facilitar a visualização das funcionalidades da API, foi desenvolvido o fluxograma a seguir, destacando os principais pontos da aplicação que serão discutidos posteriormente.
+# Features
 
 ![AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/9d95b812-79cd-4ae2-8a02-9c66f59badfc)
-##Intro
 
 ## Cadastro de Peças
 Uma das coisas fundamentais do sistema são os serviços. Todo serviço obrigatoriamente é formado por um conjunto de peças ou itens mecânicos necessários para a realização daquele serviço: 
