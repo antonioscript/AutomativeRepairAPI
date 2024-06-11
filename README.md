@@ -40,8 +40,31 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
   - [Aditivo de Serviço](#aditivo-de-servico)
   - [Módulo de Autenticação](#modulo-de-autenticao)
  
--[Arquitetura](#arquitetura)
- -[]
+- [Arquitetura](#arquitetura)
+  - [Banco de dados](#banco-de-dados)
+  - [Abordagem Code First](#abordagem-code-first)
+  - [Modelo do Banco de Dados](#modelo-do-banco-de-dados)
+  - [Visualização da API](#visualicao-da-api)
+  - [ORM](#orm)
+  - [Arquitetura de Código](#arquitetura-de-codigo)
+     - [Domain](#domain)
+     - [Infrastructure](#infrastructure)
+     - [Application](#application)
+     - [Presentation](#presentation)
+  - [Mapeamento de Entidades](#mapeamento-de-entidades)
+  - [Máscaras de Validação](#mascaras-de-validacao)
+  - [Repository Pattern](#repository-pattern)
+  - [CQRS (Command Query Responsibility Segregation)](#CQRS(command-query-responsibility-segregation))
+  - [Centralização das Mensagens de Retorno](#centralização-das-mensagens-de-retorno)
+  - [Método Paginado e Corpo de Resposta](#metodo-paginado-e-corpo-de-resposta)
+  - [Segurança](#seguranca)
+     - [CORS](#CORS(cross-origin-resource-sharing))
+     - [Limitação de Taxa](#limitacao-de-taxa)
+     - [JWT Token](#jwt-token)
+     - [Hash Senha](#hash-senha)
+
+-[Como Executar a Aplicação](#como-executar-a-aplicacao)
+    
 
 # Features
 
