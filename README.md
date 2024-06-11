@@ -73,12 +73,12 @@ A fim de facilitar o entendimento da aplicação, foi criado um diagrama mostran
 </br>![AutomativeRepairAPI](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/9d95b812-79cd-4ae2-8a02-9c66f59badfc)
 
 ## Cadastro de Peças
-Uma das coisas fundamentais do sistema são os serviços. Todo serviço obrigatoriamente é formado por um conjunto de peças ou itens mecânicos necessários para a realização daquele serviço: 
+Uma das elementos fundamentais do sistema são os serviços. Todo serviço obrigatoriamente é formado por um conjunto de peças ou itens mecânicos necessários para a realização daquele serviço: 
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/bfa6889a-a33d-43eb-8c89-90f058566754)
-<sub>baseUrl/parts/paginated</sub>
+<sub>GET - baseUrl/parts/paginated</sub>
 
-No cadastro de peças, existem alguns campos básicos como o nome da peça, fornecedor, fabricanete, código de barras e observação. Além disso existe o campo de quantidade, que é a quantidade daquela peça específica no estoque. E campo de valor, que será o valor que o cliente irá pagar por aquela peça (que será somada no final ao orçamento). 
+No processo de cadastro de peças, são incluídos diversos campos essenciais, tais como o nome da peça, fornecedor, fabricante, código de barras e observações pertinentes. Além destes, há o campo de quantidade, indicando a disponibilidade da peça em estoque, e o campo de valor, representando o custo que será adicionado ao orçamento final do cliente.
 
 ## Cadastro de Serviço
 Após o cadastro das peças, o próximo passo é o cadastro do serviço com as respectivas peças que fazem parte daquele serviço:
@@ -146,41 +146,43 @@ Após o cadastro das peças, o próximo passo é o cadastro do serviço com as r
   "error": null
 }
 ```
-Perceba que o valor total do serviço de R$ 305, 00. É o valor somado de todas as peças que fazem parte daquele serviço (200, 80, 25) que é calculado atumaticamente pela API. 
+Observe que o valor total do serviço é de R$ 305,00, resultante da soma dos custos individuais de todas as peças associadas a esse serviço (200, 80, 25), calculados automaticamente pela API.
 
 ## Cadastro de Cliente
-No que diz respeito ao fluxo comercial, a primeira funcionalidade é verificar se o cliente que solicita algum tipo de serviço está cadastrado no sistema. Caso contrário, é preciso criar um novo cliente chamando o método POST de 'Customers':
+No que diz respeito ao fluxo comercial,a primeira etapa é verificar se o cliente que requisita algum serviço está registrado no sistema. Se não estiver, é necessário criar um novo cliente utilizando o método POST de 'Customers':
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/c1363589-c09e-40c8-b914-6399b71db35c)
 <sub>POST - baseUrl/customers</sub>
 
-A feaure também conta com algumas validações adicionais, como o formato do CPF, por exemplo:
+A feature também conta com algumas validações adicionais, como o formato do CPF, por exemplo.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/5ddc3685-2427-4e82-9408-94df7dc08029)
 <sub>POST - baseUrl/customers</sub>
 
 ## Agendamento
-Após um cliente cadastrado, o primeiro passo de todo serviço dentro da aplicação é criar primeiramente um agendamento. A Assistência Mecânica não pode iniciar qualquer tipo de atendimento sem um agendamento prévio. Um agendamento pode ter os seguintes status:
-- Agendado
-- Confirmado
-- Cancelado
-- Concluído
+Após o cadastro de um cliente, o primeiro procedimento para qualquer serviço dentro da aplicação é a criação de um agendamento. A Assistência Mecânica não pode iniciar nenhum tipo de atendimento sem um agendamento prévio. Um agendamento pode apresentar os seguintes status:
 
-Quando um agendamento é criado, por default ele é preenchido com o status 'Agendado':
+Agendado
+Confirmado
+Cancelado
+Concluído
+Por padrão, ao ser criado, um agendamento é automaticamente atribuído ao status 'Agendado'.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/68936320-9095-4ba2-bf7e-80362f22924b)
 <sub>POST - baseUrl/appointments</sub>
 
 ## Cadastro de Veículo
-Antes de iniciar uma vistoria, deve-se cadastrar o veículo do clinte que fez o agendamento, caso o veículo ainda não tenha um cadastro no sistema:
+Antes de iniciar uma vistoria, é necessário cadastrar o veículo do cliente que agendou o serviço, caso o veículo ainda não esteja registrado no sistema.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/a70272aa-d8c2-4501-a812-97b07e654c22)
 <sub>POST - baseUrl/vehicles</sub>
 
 
 ## Vistoria
-Após o agendamento acontece a vistoria, onde será informado o diagnóstico geral do veículo, o principal problema, os serviços que devem ser feitos, bem como, o valor total do serviço e peças necessárias. 
-Supondo que na Vistoria dectaram problema no motor e que os serviços necessários são: <b>Conserto de Motor</b> e uma <b>Troca de Pneu</b>:
+Após o agendamento, ocorre a vistoria, na qual será fornecido um diagnóstico geral do veículo, identificando o problema principal, os serviços a serem realizados, assim como o valor total do serviço e das peças necessárias.
+
+Por exemplo, suponha que na vistoria seja detectado um problema no motor, exigindo os seguintes serviços: <b>Conserto de Motor</b> e <b>Troca de Pneu</b>:
+
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/601de582-d8ad-4a35-a339-b44ae41dd47a)
 
 <b>Resposta JSON</b>
@@ -295,19 +297,21 @@ Supondo que na Vistoria dectaram problema no motor e que os serviços necessári
   "error": null
 }
 ```
-Perceba que o valor total orçado na vistoria de R$ 925, 00 é a soma de todos os serviços que o cliente requisitou, mais um adiconal de 25 % de taxa de serviço (regra da mecânica). O serviço de troca de pneu custa R$ 435,00 e o conserto de motor R$ 305, somando os dois o valor dos serviços fica por R$ 740, 00. Retirando 25% do valor total dos serviços, o resultado obtido é de R$ 185, que somando tudo gera um valor total de R$ 925. Todo esse cálculo é feito na API de forma automática. 
+Perceba que o valor total estimado na vistoria, R$ 925,00, é a soma de todos os serviços solicitados pelo cliente, acrescido de um adicional de 25% de taxa de serviço, conforme a regra da mecânica. O serviço de troca de pneu custa R$ 435,00, e o conserto do motor R$ 305,00, totalizando R$ 740,00. Ao subtrair 25% do valor total dos serviços, resulta em R$ 185,00, que, somado ao valor dos serviços, totaliza R$ 925,00. Todo esse cálculo é realizado automaticamente pela API.
 
-Além do valor, existe uma flag chamada 'hasServiceOrder', que indica se aquela vistoria criada possui um Ordem de Serviço. 
+Além do valor, existe uma flag denominada 'hasServiceOrder', indicando se a vistoria criada possui uma Ordem de Serviço.
 
-Dentro da Vistoria existem alguns processos e regras:
-- Quando uma vistoria é criada, o status do agendamento é alterado para 'Concluído';
-- Toda Vistoria deve ter no máximo 7 dias para o cliente dar resposta se deseja prosseguir com o serviço, caso contrário, depois dos 7 dias a vistoria perde sua validade e deverá ser criada outra com atualização dos novos valores;
-- No momento de cadastrar a vistoria, a API irá consultar todas as peças disponíveis e verificar se existem as que são necessárias para os serviços selecionados da vistoria. Caso não exista essas peças, ainda assim pode-se gerar um pedido de ordem de serviço, mas a ordem de serviço só deve ser iniciada quando chegar o abastecimento das peças;
-- No momento que uma vistoria é criada, deve-se fazer a subtração das peças no banco de dados, bem como a quantidade disponível, controle de saldo, valor, etc. Caso uma vistoria não venha a se tornar uma ordem de serviço, as peças alocadas para a vistoria devem ficar disponíveis novamente no banco de dados.
+Dentro do processo de vistoria, há alguns procedimentos e regras a serem seguidos:
 
-## Ordem de Serviço 
-Caso o cliente esteja de acordo com os valor do orçamento e os serviços que serão prestados, inicia-se então uma Ordem de Serviço para iniciar os procedimentos de reparo do veículo
-A ordem de serviço gerada já será pré-preenchida com os serviços definidos na Vistoria. Caso precise de algo adicional além do orçado com o cliente (e que não foi capaz de enxergar na vistoria), é preciso gerar obrigatoriamente um aditivo (com a permissão do cliente).
+- Ao criar uma vistoria, o status do agendamento é alterado para 'Concluído';
+- Toda vistoria deve ter um prazo máximo de 7 dias para que o cliente responda se deseja prosseguir com o serviço. Após esse período, a vistoria perde sua validade, e uma nova deve ser criada com a atualização dos valores;
+- No momento do cadastro da vistoria, a API consulta todas as peças disponíveis e verifica se há aquelas necessárias para os serviços selecionados. Se não houver, mesmo assim é possível gerar uma Ordem de Serviço, porém esta só deve ser iniciada quando as peças estiverem disponíveis;
+- Ao criar uma vistoria, as peças necessárias são subtraídas do banco de dados, incluindo a atualização da quantidade disponível, controle de saldo e valor. Caso uma vistoria não se torne uma Ordem de Serviço, as peças alocadas para ela devem ser disponibilizadas novamente no banco de dados.
+
+## Ordem de Serviço
+Se o cliente estiver de acordo com os valores do orçamento e os serviços a serem prestados, é iniciada uma Ordem de Serviço para dar início aos procedimentos de reparo do veículo.
+
+A ordem de serviço gerada já estará pré-preenchida com os serviços definidos na vistoria. Caso seja necessário qualquer serviço adicional além do orçado com o cliente (e que não tenha sido identificado durante a vistoria), é obrigatório gerar um aditivo (com a permissão do cliente).
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/deacd8f9-9bb0-4181-8e33-917a5fec91a4)
 
@@ -427,7 +431,7 @@ A ordem de serviço gerada já será pré-preenchida com os serviços definidos 
 ```
 
 ## Aditivo de Serviço 
-Uma regra adicional da mecânica é que para qualquer serviço adiconal não previsto na vistoria, deve-se criar um adtivo de serviço. Atualmente essa funcionalidade ainda está em desenvvolvimento. 
+Uma regra adicional da mecânica estipula que para qualquer serviço adicional não previsto na vistoria, é necessário criar um aditivo de serviço. Atualmente, essa funcionalidade ainda está em desenvolvimento.
 
 ## Módulo de Autenticação
 O módulo de autenticação consiste em um token que é gerado através de um login ou registro e com esse token o usuário consegue acessar os endpoints. 
@@ -438,13 +442,15 @@ Atualmente todos os endpoints estão livres de autenticação por conta de teste
 
 
 # Arquitetura 
-A aplicação desse projeto é uma API Rest usando o framework Nest.JS, utilizando o banco de dados MySQL e Docker.
+A arquitetura deste projeto consiste em uma API Rest desenvolvida com o framework Nest.JS, utilizando o banco de dados MySQL e Docker para facilitar a implantação e o gerenciamento de contêineres.
 
 ## Banco de Dados
 O banco de dados escolhido para a aplicação foi o MySQL, por ser um dos bancos mais antigos do mercado e pela sua ampla utilização na indústria de software. 
 
 ## Abordagem Code First
-Para construir a API foi utilizada a abordagem "Code First", onde o foco principal está na escrita do código-fonte para definir os modelos de dados e a lógicas de negócios. A principal vantagem dessa abordagem é a agilidade no desenvolvimento, já que as alterações nos modelos e da lógica podem ser refletidas diretamente no banco através das "migrations", que são scripts SQLs gerados através das alterações no modelo por meio do código. Além disso, qualquer pessoa que tenha em mãos o projeto consegue ter exatamente a mesma estrutura do banco e tem acesso a todas as modificaçõe, pois as migrations também servem como uma espécie de histórico das alterações do banco.
+Para desenvolver a API, foi adotada a abordagem "Code First", que se concentra na escrita do código-fonte para definir os modelos de dados e a lógica de negócios. A principal vantagem dessa abordagem é a agilidade no desenvolvimento, pois as alterações nos modelos e na lógica podem ser refletidas diretamente no banco de dados por meio das "migrations", que são scripts SQL gerados a partir das alterações no modelo via código.
+
+Além disso, qualquer pessoa que tenha acesso ao projeto pode reproduzir exatamente a mesma estrutura do banco de dados e ter acesso a todas as modificações, pois as migrations também servem como um histórico das alterações no banco.
 
 ## Modelo do Banco de Dados
 Atualmente esse é o modelo do banco de dados mais recente da aplicação:
@@ -455,7 +461,7 @@ Atualmente esse é o modelo do banco de dados mais recente da aplicação:
 Nele podemos ver relações do tipo 'One-to-Many' e 'Many-to-many'.
 
 ## Visualização da API
-Para visualizar a API foi optado a utilização do Swagger, ferramenta que oferece uma interface intuitiva sem a necessidade de instalar ferramentas adicionais para testar e executar a aplicação. Além disso, ele simplifica o processo de documentação, gerando automaticamente a documentação a partir do código-fonte da aplicação. 
+Para visualizar a API, foi escolhida a utilização do Swagger, uma ferramenta que oferece uma interface intuitiva sem a necessidade de instalar ferramentas adicionais para testar e executar a aplicação. Além disso, o Swagger simplifica o processo de documentação, gerando automaticamente a documentação a partir do código-fonte da aplicação.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/373ec201-4dd4-4663-b51e-8d203ca0ae59)
 
@@ -464,7 +470,7 @@ Para visualizar a API foi optado a utilização do Swagger, ferramenta que ofere
 ## ORM
 Para fazer a comunicação da aplicação com o banco de dados, o framework escolhido foi o Prisma. O critério de escolha se deu pelo fato do prisma ser um ORM moderno, por ter uma comunidade muito grande no Github e pela forma como ele escala rapidamente a aplicação, sem a necessidade de ajustes adicionais, utilizando o conceito de migrations. 
 
-O primsa também conta com uma ferramente de UI para visualização dos dados no banco, que é o Prisma Database, sem a necessidade de instalar uma ferramenta de banco, que facilita bastante o desenolvimento. 
+Além disso, o Prisma oferece uma ferramenta de UI chamada Prisma Database, que permite visualizar os dados no banco de dados sem a necessidade de instalar uma ferramenta adicional.
 
 ## Arquitetura de Código
 A arquitetura de código escolhida foi a arquitetura 'Clean Architecture', que é um tipo de arquitetura bastante moderna, que foi idealizada pelo Uncle Bob. O objetivo dessa arquitetura é promover a separação de preocupações e a manutenção da independência entre as diferentes camadas da aplicação, divindido-as entre: Domínio, Aplicação, Infraestrutura e Apresentação.
