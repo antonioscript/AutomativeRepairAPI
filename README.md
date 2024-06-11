@@ -63,7 +63,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
      - [JWT Token](#jwt-token)
      - [Hash Senha](#hash-senha)
 
-- [Como Executar a Aplicação](#como-executar-a-aplicacao)
+- [Como Executar a Aplicação](#Como-Executar-a-Aplicação)
     
 
 # Features
@@ -959,26 +959,19 @@ Para ocultar a senha no banco de dados, foi utilizado uma biblioteca node chamad
 
 
 # Como Executar a Aplicação
-Para executar a aplicação, primeiramente é preciso instalar as dependências do Nest:
+Para executar a aplicação, primeiramente é preciso instalar as dependências do Nest.JS:
 
 ```Powersehl
 npm install @nestjs/common
 ```
-Após isso, executar uma migração do Prisma para criar as tabelas do modelo:
+Após isso, executar o comando de migração para criar as tabelas do modelo no banco de dados:
 
 ```Powersehl
 npx prisma migrate dev --name nameMigration
 ```
 E por fim, executar o arquivo seed para popular o banco de dados:
-npx prisma db seed
 
 ```Powersehl
 npx prisma db seed
 ```
-
-## Prisma
-No diretório do prisma, execute o seguinte código no terminal:
-
-```bash
-$ AutomativeRepairAPI\api\src\core\infrastructure\prisma> npx prisma generate
 
