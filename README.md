@@ -4,6 +4,8 @@ Desenvolvimento de uma API utilizando o framework Nest.JS para simular um sistem
 Para acompanhar as features e o andamento do projeto clique <a href="https://github.com/users/antonioscript/projects/11?pane=info" target="_blank">aqui</a>. <br>
 
 Acesse a aplicação clicando <a href="https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api" target="_blank">aqui</a>.
+<a href="https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api" target="_blank">Acesse a aplicação clicando aqui</a>.
+
 
 
 </br></br><p align="center">
