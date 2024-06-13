@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { CqrsModule } from '@nestjs/cqrs';
 import { QueryServiceOnPartHandlers, CommandServiceOnPartHandlers } from 'src/core/application/handlers/serviceOnPart.handlers';
-import { ServiceOnPartsController } from 'src/core/presentation/controllers/serviceOnparts.controller';
 import { ServiceOnPartRepository } from '../Repositories/serviceOnPart/serviceOnPart.repository';
 import { ServiceOnPartPrismaRepository } from '../Repositories/serviceOnPart/serviceOnPart.prisma.repository';
 

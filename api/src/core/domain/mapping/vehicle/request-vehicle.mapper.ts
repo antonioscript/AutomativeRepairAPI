@@ -1,4 +1,4 @@
-import { VehicleEntity } from "src/core/domain/entities/Vehicle.entity"
+import { VehicleEntity } from "../../entities/vehicle.entity"
 import { Mapper } from "../mapper"
 import { RequestVehicleDto } from "src/core/application/dtos/vehicle/request-vehicle.dto"
 

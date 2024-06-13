@@ -1,6 +1,6 @@
 import { InspectionOnService } from "@prisma/client";
 import { BaseEntity } from "./base.entity"
-import { VehicleEntity } from "./Vehicle.entity";
+import { VehicleEntity } from "./vehicle.entity";
 
 export class InspectionEntity extends BaseEntity {
     appointmentId: number
