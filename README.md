@@ -972,7 +972,7 @@ Para ocultar a senha no banco de dados, foi utilizado uma biblioteca node chamad
 # Como Executar a Aplicação
 
 ## Acesse a API via URL
-Caso deseje acessar a api via URL [link](#https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api). A mesma está rodando em um container Azure e utilizando uma instância RDS no AWS.
+Caso deseje acessar a api via URL, basta acessar esse [link](https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api). A mesma está rodando em um container Azure e utilizando uma instância RDS no AWS.
 
 ## Inicie um Container Docker
 Com o Docker instalado, execute o seguinte comando para fazer o download da imagem da aplicação:
