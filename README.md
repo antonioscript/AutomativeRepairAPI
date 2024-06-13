@@ -1,9 +1,9 @@
 # AutomativeRepairAPI
 Desenvolvimento de uma API utilizando o framework Nest.JS para simular um sistema de gestão de uma oficina mecânica. A API será responsável por gerenciar clientes, funcionários, serviços oferecidos, agendamentos, estoque de peças e ferramentas, além de proporcionar funcionalidades de autenticação e autorização para diferentes tipos de usuários.
 
-Para acompanhar as features e o andamento do projeto clique [aqui](https://github.com/users/antonioscript/projects/11?pane=info). <br>
+Para acompanhar as features e o andamento do projeto clique <a href="https://github.com/users/antonioscript/projects/11?pane=info" target="_blank">aqui</a>. [aqui](). <br>
 
-Acesse a aplicação clicando [aqui](https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api).
+Acesse a aplicação clicando <a href="https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api" target="_blank">aqui</a>.
 
 
 </br></br><p align="center">
@@ -65,9 +65,9 @@ Acesse a aplicação clicando [aqui](https://antonio-rocha-automative-api.calmba
      - [Hash Senha](#hash-senha)
 
 - [Como Executar a Aplicação](#Como-Executar-a-Aplicação)
-  - [Acesse a aplicação via URL]
-  - [Execute a aplicação no Docker]
-  - [Execute localmente]    
+  - [Acesse a API via URL](#Execute-a-API-Localmente)
+  - [Inicie um Container Docker](#Inicie-um-Container-Docker)
+  - [Execute a API Localmente](#Execute-a-API-Localmente)    
 
 # Features
 A fim de facilitar o entendimento da aplicação, foi criado um diagrama mostrando o principal fluxo da API que será discutido posteriormente: 
@@ -974,7 +974,7 @@ Para ocultar a senha no banco de dados, foi utilizado uma biblioteca node chamad
 ## Acesse a API via URL
 Caso deseje acessar a api via URL [link](#https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api). A mesma está rodando em um container Azure e utilizando uma instância RDS no AWS.
 
-## Inicie um Container
+## Inicie um Container Docker
 Com o Docker instalado, execute o seguinte comando para fazer o download da imagem da aplicação:
 
 ```Powersehl
@@ -986,7 +986,7 @@ Em seguida, basta executar a aplicação:
 docker run -p 3000:3000 antonioscript/automative-repair-api:16
 ```
 
-## Executar a API Localmente
+## Execute a API Localmente
 Para executar a aplicação, primeiramente é preciso instalar as dependências do Nest.JS:
 
 ```Powersehl
