@@ -36,7 +36,6 @@ import { ServiceOnPartsModule } from './core/infrastructure/modules/serviceOnPar
     ServiceOrdesModule,
     ServiceOnPartsModule
   ],
-  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
