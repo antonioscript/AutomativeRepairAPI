@@ -65,7 +65,7 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
      - [Hash Senha](#hash-senha)
 
 - [Como Executar a Aplicação](#Como-Executar-a-Aplicação)
-  - [Acesse a API via URL](#Execute-a-API-Localmente)
+  - [Acesse a API via URL](#Acesse-a-API-via-URL)
   - [Inicie um Container Docker](#Inicie-um-Container-Docker)
   - [Execute a API Localmente](#Execute-a-API-Localmente)    
 
