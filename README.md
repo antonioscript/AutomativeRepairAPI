@@ -6,7 +6,6 @@ Acesse a aplicação clicando [aqui](https://antonio-rocha-automative-api.calmba
 Para acompanhar as features e o andamento do projeto clique [aqui](https://github.com/users/antonioscript/projects/11?pane=info){:target="_blank"}.
 
 
-
 </br></br><p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
