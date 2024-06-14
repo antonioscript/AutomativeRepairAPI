@@ -29,7 +29,7 @@ export class CreateServiceOrderHandler implements ICommandHandler<CreateServiceO
       const id = command.request.inspectionId;
       const data = await this.repository.getById(id);
 
-      //Controle de estoque
+      //Checa quantidade de peças di
       await this.serviceOrderRules.checkAvailableParts(id);
 
       const entity = this.updateMapper.mapFrom(command.request);
@@ -42,6 +42,9 @@ export class CreateServiceOrderHandler implements ICommandHandler<CreateServiceO
       entity.isServiceOrder = true;
 
       const responseInspection = await this.repository.update(id, entity)
+
+      //Remove a quantidade no banco
+
       const responseData =  this.responseMapper.mapTo(responseInspection)
 
       return result(responseData).Success();

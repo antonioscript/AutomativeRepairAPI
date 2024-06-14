@@ -22,11 +22,21 @@ export class ServiceOrderRules {
               serviceId: serviceId
           });
     
-            for (const partId of partArray.map(p => p.partId)) {
-              const partQuantity = (await this.partRepository.getById(partId)).quantity;
+            for (const partOnService of partArray) {
+              const part = (await this.partRepository.getById(partOnService.id));
               
-              if (partQuantity < 1)
-                throw new BadRequestException(messages.SERVICE_ORDER_NOT_CREATE(partId));
+              if (part.quantity < 1) {
+                throw new BadRequestException(messages.SERVICE_ORDER_NOT_CREATE(part.id));
+              }
+              else
+              {
+                part.quantity = part.quantity -1;
+
+                //Update
+                await this.partRepository.update(part.id, part);
+
+              }
+                
             }
           }   
     }
