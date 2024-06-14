@@ -609,7 +609,7 @@ export const constants = {
 Os detalhes dos caracteres usados na expressão regular estão dentro de uma arquivo chamado 'constants' onde reúne todas as constantes que podem ser reaproveitadas na aplicação, evitando assim duplicidade de código.
 
 ## Repository Pattern
-Um dos Design Patterns utilizado na aplicação foi o Repository Pattern, que consiste em separar as camadas de acesso ados dados e a lógica de negócios, proporcionando uma abstração na fonte dos dados, fazendo que a camada da lógica de negócios seja independente das outras camadas.
+Um dos Design Patterns utilizado na aplicação foi o Repository Pattern, que consiste em separar as camadas de acesso dos dados e a lógica de negócios, proporcionando uma abstração na fonte dos dados, fazendo que a camada da lógica de negócios seja independente das outras camadas.
 
 Para o projeto em questão, foi utilizado uma classe abstrata, usando os conceitos de Generics. Onde essa classe consiste em abstrair métodos genéricos que serão utilizados por todas as entidades da API. Esses métodos consistem nas aplicações básicas como Create, Read, Update e Delete. 
 ``` Typescript
