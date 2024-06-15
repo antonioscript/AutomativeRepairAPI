@@ -628,7 +628,7 @@ export abstract class IGenericRepository<T extends BaseEntity> {
 
 O objetivo de se utilizar o Repository Pattern vai além do simples fato de reduzir a duplicidade de código, ele oculta os detalhes de como os dados são persistidos e recuperados, sem que a lógica de negócios conheça os detalhes da implementação, tornando assim o código mais flexível. 
 
-Para a invocação do repositório, cada entidade herda as configurações da classe abstrata genérica. Que também é o lugar de criar um método específico daquela entidade em questão:
+Para a invocação do repositório, cada entidade herda as configurações da classe abstrata genérica, que também é o lugar de criar algum método específico daquela entidade em questão:
 
 ``` Typescript
 import { IGenericRepository } from "../igeneric-repository";
@@ -715,8 +715,8 @@ Um outro padrão de arquitetura utilizado foi o CQRS, que consiste em separar as
 
 Por padrão, o Nest.JS coloca toda as invocações do banco em uma única classe, na qual recebe o nome de 'services'. Essa mesma classe além de reunir todas as operações ao banco em um único local, faz isso também de forma direta, sem nenhum meio de transporte que possa desaclopar esse acesso. 
 
-No entanto, o padão CQRS é mais recomendados em APIs robustas e de grande porte, como podemos ver na própria documentação do Nest:
-> "Embora esse padrão geralmente seja suficiente para aplicações de pequeno e médio porte, pode não ser a melhor escolha para aplicações maiores e mais complexas. Nesses casos, o modelo CQRS (Command and Query Responsibility Segregation) pode ser mais apropriado e escalável (dependendo dos requisitos da aplicação)."
+No entanto, o padão CQRS é mais recomendado em APIs robustas e de grande porte, como podemos ver na própria documentação do Nest:
+> "Embora esse padrão geralmente seja suficiente para aplicações de pequeno e médio porte (modelo tradicional), pode não ser a melhor escolha para aplicações maiores e mais complexas. Nesses casos, o modelo CQRS (Command and Query Responsibility Segregation) pode ser mais apropriado e escalável (dependendo dos requisitos da aplicação)."
 > — *[Nest.JS Documentation](https://docs.nestjs.com/recipes/cqrs)*
 
 Por mais que o projeto em questão seja uma API de pequeno porte, a escolha em utilizar esse padrão foi simplesmente para experimentar e simular como funcionaria a arquitetura do Nest.JS em relação a grandes solicitações e acessos por parte da API. 
