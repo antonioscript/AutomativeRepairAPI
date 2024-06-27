@@ -165,10 +165,10 @@ A feature também conta com algumas validações adicionais, como o formato do C
 ## Agendamento
 Após o cadastro de um cliente, o primeiro procedimento para qualquer serviço dentro da aplicação é a criação de um agendamento. A Assistência Mecânica não pode iniciar nenhum tipo de atendimento sem um agendamento prévio. Um agendamento pode apresentar os seguintes status:
 
-Agendado
-Confirmado
-Cancelado
-Concluído
+- Agendado
+- Confirmado
+- Cancelado
+- Concluído
 Por padrão, ao ser criado, um agendamento é automaticamente atribuído ao status 'Agendado'.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/68936320-9095-4ba2-bf7e-80362f22924b)
