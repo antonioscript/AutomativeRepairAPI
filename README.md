@@ -169,7 +169,8 @@ Após o cadastro de um cliente, o primeiro procedimento para qualquer serviço d
 - Confirmado
 - Cancelado
 - Concluído
-Por padrão, ao ser criado, um agendamento é automaticamente atribuído ao status 'Agendado'.
+
+</br>Por padrão, ao ser criado, um agendamento é automaticamente atribuído ao status 'Agendado'.
 
 ![image](https://github.com/antonioscript/AutomativeRepairAPI/assets/10932478/68936320-9095-4ba2-bf7e-80362f22924b)
 <sub>POST - baseUrl/appointments</sub>
