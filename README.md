@@ -1,8 +1,6 @@
 # AutomativeRepairAPI
 Desenvolvimento de uma API utilizando o framework Nest.JS para simular um sistema de gestão de uma oficina mecânica. A API será responsável por gerenciar clientes, funcionários, serviços oferecidos, agendamentos, estoque de peças e ferramentas, além de proporcionar funcionalidades de autenticação e autorização para diferentes tipos de usuários.
 
-Acesse a aplicação clicando [aqui](https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api).
-
 Para acompanhar as features e o andamento do projeto clique [aqui](https://github.com/users/antonioscript/projects/11?pane=info).
 
 
@@ -65,7 +63,6 @@ Para acompanhar as features e o andamento do projeto clique [aqui](https://githu
      - [Hash Senha](#hash-senha)
 
 - [Como Executar a Aplicação](#Como-Executar-a-Aplicação)
-  - [Acesse a API via URL](#Acesse-a-API-via-URL)
   - [Inicie um Container Docker](#Inicie-um-Container-Docker)
   - [Execute a API Localmente](#Execute-a-API-Localmente)    
 
@@ -971,9 +968,6 @@ Para ocultar a senha no banco de dados, foi utilizado uma biblioteca node chamad
 
 
 # Como Executar a Aplicação
-
-## Acesse a API via URL
-Caso deseje acessar a api via URL, basta acessar esse [link](https://antonio-rocha-automative-api.calmbay-9783cb9a.eastus.azurecontainerapps.io/api). A mesma está rodando em um container Azure e utilizando uma instância RDS no AWS.
 
 ## Inicie um Container Docker
 Com o Docker instalado, execute o seguinte comando para fazer o download da imagem da aplicação:
